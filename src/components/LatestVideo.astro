@@ -3,6 +3,9 @@ import { YOUTUBE } from "../config";
 
 // Build-time fetch του τελευταίου βίντεο μέσω YouTube RSS.
 // Ανανεώνεται σε κάθε build/deploy (βλ. README: Vercel deploy hook / cron για auto-update).
+// Fallback: latest known video (updated on each deploy via vidIQ)
+const FALLBACK_VIDEO = { id: "uD4Ds5cte3A", title: "SpaceX Μπαίνει στο Χρηματιστήριο | Η Μεγαλύτερη Παγίδα του 2026?!" };
+
 let video: { id: string; title: string } | null = null;
 
 if (YOUTUBE.channelId && !YOUTUBE.channelId.startsWith("TODO")) {
@@ -25,6 +28,9 @@ if (YOUTUBE.channelId && !YOUTUBE.channelId.startsWith("TODO")) {
     console.warn("YouTube RSS fetch failed:", e);
   }
 }
+
+// Always show something — use fallback if RSS failed
+if (!video) video = FALLBACK_VIDEO;
 ---
 <section class="px-5 py-14 max-w-3xl mx-auto">
   <h2 class="text-2xl sm:text-3xl text-center mb-8">Τελευταίο βίντεο</h2>
