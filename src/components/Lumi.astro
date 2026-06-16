@@ -1,0 +1,45 @@
+---
+import { LUMI } from "../config";
+const bullets = [
+  ["📊", "Budget & έξοδα ανά κατηγορία με οπτικά γραφήματα"],
+  ["📈", "Επενδύσεις με chart & ROI tracking"],
+  ["🔁", "Πάγια έξοδα & συνδρομές — αυτόματη καταχώριση"],
+  ["📍", "Έξυπνα κουπόνια όταν πλησιάζεις κατάστημα με προσφορά"],
+];
+---
+<section id="lumi" class="px-5 py-16">
+  <div class="max-w-3xl mx-auto rounded-3xl border border-navy-700 bg-navy-900/60 p-7 sm:p-10">
+    <p class="text-gold-500 tracking-widest text-xs uppercase mb-3">Έρχεται · Η εφαρμογή</p>
+    <h2 class="text-2xl sm:text-3xl">Lumi — το επόμενο βήμα</h2>
+    <p class="mt-3 text-ink-300 leading-relaxed">
+      Το <span class="text-ink-100">Money OS Pro</span> είναι το σύστημα που στήνεις μόνος σου.
+      Η <span class="text-ink-100">Lumi</span> είναι η μελλοντική εφαρμογή που θα το αυτοματοποιήσει —
+      budget, επενδύσεις, πάγια έξοδα και έξυπνα κουπόνια, όλα σε ένα μέρος.
+    </p>
+
+    <ul class="mt-7 grid sm:grid-cols-2 gap-3">
+      {bullets.map(([icon, text]) => (
+        <li class="flex gap-3 rounded-2xl bg-navy-800/60 p-4">
+          <span aria-hidden="true">{icon}</span>
+          <span class="text-ink-300 text-sm leading-relaxed">{text}</span>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-7">
+      {LUMI.mode === "waitlist" ? (
+        <a href={LUMI.waitlistUrl} data-cta="lumi-waitlist"
+           class="inline-flex rounded-full border border-gold-600 hover:bg-gold-500 hover:text-navy-950 transition-colors px-6 py-3 font-medium">
+          Μπες στη λίστα αναμονής
+        </a>
+      ) : (
+        <div class="flex flex-wrap gap-3">
+          <a href={LUMI.appStoreUrl} target="_blank" rel="noopener" data-cta="lumi-appstore"
+             class="rounded-xl border border-navy-600 px-5 py-3 hover:border-gold-600 transition-colors"> App Store</a>
+          <a href={LUMI.playStoreUrl} target="_blank" rel="noopener" data-cta="lumi-playstore"
+             class="rounded-xl border border-navy-600 px-5 py-3 hover:border-gold-600 transition-colors">▶ Google Play</a>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

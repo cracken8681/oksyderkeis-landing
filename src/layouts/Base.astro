@@ -1,0 +1,102 @@
+---
+import "../styles/global.css";
+import { SITE, ANALYTICS, MAILERLITE } from "../config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+const {
+  title = "Oksyderkeis — Δες τα χρήματά σου πιο καθαρά",
+  description = "Οικονομική παιδεία χωρίς θόρυβο, χωρίς υπερβολές. Επενδύσεις, προσωπικά οικονομικά και χρήσιμα δωρεάν εργαλεία — σε απλά ελληνικά.",
+  ogImage = SITE.defaultOgImage,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+const ogImageAbs = new URL(ogImage, SITE.url).toString();
+---
+
+<!doctype html>
+<html lang="el">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph (preview σε Telegram / social) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <!-- Fonts: Alegreya + Alegreya Sans (Greek) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;600;700&family=Alegreya+Sans:wght@400;500;700&display=swap&subset=greek,latin"
+      rel="stylesheet"
+    />
+
+    <!-- Analytics: Plausible (cookieless, χωρίς GDPR banner) -->
+    {ANALYTICS.plausibleDomain && (
+      <script
+        defer
+        data-domain={ANALYTICS.plausibleDomain}
+        src="https://plausible.io/js/script.outbound-links.js"
+      ></script>
+    )}
+    <!-- GA4 (μόνο αν συμπληρώσεις ga4Id — απαιτεί consent banner) -->
+    {ANALYTICS.ga4Id && (
+      <>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${ANALYTICS.ga4Id}`}
+        ></script>
+        <script is:inline define:vars={{ id: ANALYTICS.ga4Id }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag("js", new Date());
+          gtag("config", id);
+        </script>
+      </>
+    )}
+
+    <!-- MailerLite Universal Script -->
+    <script is:inline define:vars={{ accountId: MAILERLITE.accountId }}>
+      (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src='https://assets.mailerlite.com/js/universal.js',n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+      (window,document,'script','','ml'),ml('account',accountId);
+    </script>
+  </head>
+  <body>
+    <slot />
+    <script is:inline>
+      // Ελαφρύ scroll-reveal — χωρίς βιβλιοθήκες. Αν το JS αποτύχει, όλα φαίνονται.
+      (function () {
+        var m = window.matchMedia("(prefers-reduced-motion: reduce)");
+        if (m.matches) return;
+        document.documentElement.classList.add("reveal-ready");
+        var els = document.querySelectorAll("section, footer");
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+        els.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
+  </body>
+</html>

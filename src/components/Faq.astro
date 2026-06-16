@@ -1,0 +1,42 @@
+---
+const faqs = [
+  [
+    "Είναι επενδυτική συμβουλή;",
+    "Όχι. Το περιεχόμενο και τα εργαλεία είναι εκπαιδευτικά και σε βοηθούν να οργανώσεις τα οικονομικά σου. Δεν δίνουν σήματα αγοράς/πώλησης, προβλέψεις ή προτάσεις για συγκεκριμένες επενδύσεις.",
+  ],
+  [
+    "Χρειάζομαι εμπειρία ή γνώσεις;",
+    "Όχι. Είναι φτιαγμένα για αρχάριους, σε απλά ελληνικά. Αν ξέρεις να γράφεις έσοδα και έξοδα, είσαι έτοιμος να ξεκινήσεις.",
+  ],
+  [
+    "Πρέπει να πληρώσω για να ξεκινήσω;",
+    "Όχι. Ο AI βοηθός και τα βασικά εργαλεία είναι δωρεάν. Το Money OS Pro είναι προαιρετικό, για όποιον θέλει το πλήρες σύστημα.",
+  ],
+  [
+    "Είναι ασφαλές να βάλω τα δεδομένα μου στο AI;",
+    "Μη βάζεις ποτέ τραπεζικά στοιχεία, κωδικούς ή ευαίσθητα προσωπικά δεδομένα στους AI βοηθούς. Δούλεψε με απλές συνόψεις (π.χ. «έσοδα 1.500, ενοίκιο 400») — αυτό αρκεί.",
+  ],
+  [
+    "Τι ακριβώς παίρνω με το Money OS Pro;",
+    "Ένα Google Sheets dashboard, pack από AI prompts, PDF workbook, 7ήμερο πλάνο setup, investing readiness checklist και σύντομα video walkthroughs — όλα για να στήσεις το σύστημα μόνος σου.",
+  ],
+  [
+    "Δουλεύει σε κινητό;",
+    "Ναι. Όλα είναι φτιαγμένα mobile-first και δουλεύουν από το κινητό σου.",
+  ],
+];
+---
+<section id="faq" class="px-5 py-14 max-w-3xl mx-auto">
+  <h2 class="text-2xl sm:text-3xl text-center mb-8">Συχνές ερωτήσεις</h2>
+  <div class="grid gap-3">
+    {faqs.map(([q, a]) => (
+      <details class="group rounded-2xl border border-navy-800 bg-navy-900/50 overflow-hidden">
+        <summary class="cursor-pointer list-none p-5 flex items-center justify-between gap-4">
+          <span class="font-semibold text-ink-100">{q}</span>
+          <span class="text-gold-500 text-xl transition-transform group-open:rotate-45 shrink-0" aria-hidden="true">+</span>
+        </summary>
+        <p class="px-5 pb-5 text-ink-300 leading-relaxed">{a}</p>
+      </details>
+    ))}
+  </div>
+</section>

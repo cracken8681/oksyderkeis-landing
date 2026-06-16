@@ -1,0 +1,24 @@
+---
+import { AGENTS, SOCIAL, LEGAL, SITE } from "../config";
+const year = new Date().getFullYear();
+---
+<footer class="px-5 pt-12 pb-28 sm:pb-12 border-t border-navy-800 bg-navy-900/40">
+  <div class="max-w-3xl mx-auto">
+    <p class="font-display text-xl text-gold-400">Oksyderkeis</p>
+
+    <p class="mt-4 text-sm text-ink-500 leading-relaxed max-w-2xl">
+      Το Oksyderkeis είναι εκπαιδευτικό κανάλι. Δεν αποτελεί επενδυτική ή νομική συμβουλή,
+      ούτε σήματα αγοράς/πώλησης. Κάθε επένδυση εμπεριέχει ρίσκο. Κάνε πάντα τη δική σου έρευνα.
+      Μη βάζεις τραπεζικά στοιχεία, κωδικούς ή ευαίσθητα δεδομένα στους AI βοηθούς.
+    </p>
+
+    <nav class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+      <a href={AGENTS.mini} target="_blank" rel="noopener" class="text-ink-300 hover:text-gold-400">Δωρεάν βοηθός</a>
+      <a href={SOCIAL.youtube} target="_blank" rel="noopener" class="text-ink-300 hover:text-gold-400">YouTube</a>
+      <a href={SOCIAL.telegram} target="_blank" rel="noopener" class="text-ink-300 hover:text-gold-400">Telegram</a>
+      <a href={LEGAL.privacyUrl} class="text-ink-300 hover:text-gold-400">Πολιτική απορρήτου</a>
+    </nav>
+
+    <p class="mt-8 text-xs text-ink-500">© {year} {SITE.name}. Με επιφύλαξη παντός δικαιώματος.</p>
+  </div>
+</footer>

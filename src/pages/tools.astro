@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import { AGENTS, SOCIAL } from "../config";
+---
+<Base title="Τα εργαλεία σου — Oksyderkeis" description="Πρόσβαση στους AI βοηθούς του Oksyderkeis.">
+  <main class="px-5 py-20 max-w-2xl mx-auto text-center min-h-[70vh]">
+    <p class="text-gold-500 tracking-widest text-xs uppercase mb-4">Έτοιμα τα εργαλεία σου</p>
+    <h1 class="text-3xl sm:text-4xl">Καλώς ήρθες — ξεκλειδώθηκαν τα εργαλεία</h1>
+    <p class="mt-4 text-ink-300 leading-relaxed">
+      Σου στείλαμε & email με τα ίδια links. Ξεκίνα από εδώ:
+    </p>
+
+    <div class="mt-8 grid gap-4 text-left">
+      <a href={AGENTS.full} target="_blank" rel="noopener" data-cta="tools-full"
+         class="rounded-2xl border border-gold-600/50 bg-navy-900/60 p-5 hover:border-gold-500 transition-colors">
+        <span class="font-semibold text-ink-100">🧮 Πλήρης Οικονομικός Οργανωτής</span>
+        <span class="block mt-1 text-sm text-ink-300">Οργάνωσε έσοδα, έξοδα και στόχους σε βάθος.</span>
+      </a>
+      <a href={AGENTS.motivator} target="_blank" rel="noopener" data-cta="tools-motivator"
+         class="rounded-2xl border border-gold-600/50 bg-navy-900/60 p-5 hover:border-gold-500 transition-colors">
+        <span class="font-semibold text-ink-100">🔥 Motivator</span>
+        <span class="block mt-1 text-sm text-ink-300">Πειθαρχία και συνέπεια στους οικονομικούς σου στόχους.</span>
+      </a>
+    </div>
+
+    <p class="mt-8 text-sm text-ink-500">
+      ⚠ Μη βάζεις τραπεζικά στοιχεία ή ευαίσθητα δεδομένα στους βοηθούς.
+    </p>
+
+    <div class="mt-10 flex flex-wrap gap-3 justify-center">
+      <a href={SOCIAL.telegram} target="_blank" rel="noopener"
+         class="rounded-full border border-navy-600 px-6 py-3 hover:border-gold-600 transition-colors">Μπες στο Telegram</a>
+      <a href="/" class="rounded-full border border-navy-600 px-6 py-3 hover:border-gold-600 transition-colors">← Αρχική</a>
+    </div>
+  </main>
+</Base>

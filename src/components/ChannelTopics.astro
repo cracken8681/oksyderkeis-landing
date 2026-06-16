@@ -1,0 +1,20 @@
+---
+const cards = [
+  "Επενδύσεις με απλά λόγια",
+  "Προσωπικά οικονομικά",
+  "Λάθη αρχάριων επενδυτών",
+  "Ψυχολογία χρήματος",
+  "Ανάλυση χωρίς πανικό και hype",
+];
+---
+<section class="px-5 py-14 max-w-3xl mx-auto">
+  <h2 class="text-2xl sm:text-3xl text-center mb-8">Τι θα βρεις στο κανάλι</h2>
+  <div class="grid sm:grid-cols-2 gap-3">
+    {cards.map((c, i) => (
+      <div class={`rounded-2xl border border-navy-800 bg-navy-900/50 p-5 ${i === 4 ? "sm:col-span-2" : ""}`}>
+        <span class="text-gold-500 font-display text-lg">{String(i + 1).padStart(2, "0")}</span>
+        <p class="mt-1 text-ink-100">{c}</p>
+      </div>
+    ))}
+  </div>
+</section>

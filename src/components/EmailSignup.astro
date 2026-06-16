@@ -1,0 +1,46 @@
+---
+import { MAILERLITE, LEGAL } from "../config";
+---
+<section id="email" class="relative px-5 py-16 scroll-mt-16">
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="relative max-w-2xl mx-auto rounded-3xl border border-gold-600/50 bg-gradient-to-b from-navy-800 to-navy-900 p-7 sm:p-10 shadow-2xl shadow-black/40">
+    <p class="text-gold-500 tracking-widest text-xs uppercase text-center mb-3">Δωρεάν · με email</p>
+    <h2 class="text-2xl sm:text-3xl text-center">Ξεκλείδωσε τα πλήρη εργαλεία — δωρεάν</h2>
+    <p class="mt-4 text-center text-ink-300 leading-relaxed">
+      Άσε το email σου και απόκτησε άμεση πρόσβαση σε δύο προηγμένους AI βοηθούς: τον
+      πλήρη Οικονομικό Οργανωτή και τον Motivator για πειθαρχία και συνέπεια. Συν το
+      newsletter — πρακτικές σκέψεις για το χρήμα, κάθε εβδομάδα.
+    </p>
+
+    <ol class="mt-7 flex items-center justify-center gap-3 sm:gap-4 text-sm" aria-label="Πώς λειτουργεί">
+      <li class="flex items-center gap-2">
+        <span class="flex items-center justify-center w-7 h-7 rounded-full bg-gold-500 text-navy-950 font-display font-semibold shrink-0">1</span>
+        <span class="text-ink-300">Άσε το email & επιβεβαίωσέ το</span>
+      </li>
+      <li class="hidden sm:block w-8 h-px bg-navy-600" aria-hidden="true"></li>
+      <li class="flex items-center gap-2">
+        <span class="flex items-center justify-center w-7 h-7 rounded-full border border-gold-600 text-gold-400 font-display font-semibold shrink-0">2</span>
+        <span class="text-ink-300">Ξεκλείδωσε τους 2 AI βοηθούς 🔓</span>
+      </li>
+    </ol>
+
+    <!--
+      MailerLite embedded form — handle-άρεται από το universal script.
+      Το automation (welcome email με agent links) έχει ήδη ορίσει στο MailerLite.
+    -->
+    <div
+      class="ml-embedded mt-6"
+      data-form={MAILERLITE.formId}
+      data-cta="email-form"
+    ></div>
+
+    <p class="mt-4 text-center text-xs text-ink-500 leading-relaxed">
+      Θα λάβεις email επιβεβαίωσης σε λίγα δευτερόλεπτα. Αν δεν το δεις, τσέκαρε τα spam / promotions.
+    </p>
+    <p class="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-ink-500">
+      <span>✓ Δωρεάν</span><span aria-hidden="true">·</span>
+      <span>✓ Χωρίς κάρτα</span><span aria-hidden="true">·</span>
+      <span>✓ Διαγραφή όποτε θες</span>
+    </p>
+  </div>
+</section>

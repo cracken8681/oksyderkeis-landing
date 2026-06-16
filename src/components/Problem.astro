@@ -1,0 +1,30 @@
+---
+const pains = [
+  ["📉", "Πού πάνε τα λεφτά;", "Μπαίνει ο μισθός, φεύγει — και δεν ξέρεις ακριβώς πώς."],
+  ["🔁", "Συνδρομές-φαντάσματα", "Πληρώνεις πράγματα που έχεις ξεχάσει ότι πληρώνεις."],
+  ["🏦", "«Θα ξεκινήσω τον άλλο μήνα»", "Η αποταμίευση που αναβάλλεται… κάθε μήνα."],
+  ["🎯", "Θες να επενδύσεις, αλλά", "Δεν ξέρεις αν είσαι έτοιμος ή από πού ν' αρχίσεις."],
+];
+---
+<section id="problem" class="px-5 py-14 max-w-3xl mx-auto">
+  <h2 class="text-2xl sm:text-3xl text-center">Στο τέλος του μήνα… πού πήγαν;</h2>
+  <p class="mt-3 text-center text-ink-300 leading-relaxed max-w-xl mx-auto">
+    Το πρόβλημα σπάνια είναι ότι βγάζεις λίγα. Είναι ότι δεν έχεις καθαρή εικόνα — ούτε σύστημα.
+  </p>
+
+  <ul class="mt-8 grid sm:grid-cols-2 gap-3">
+    {pains.map(([icon, title, desc]) => (
+      <li class="rounded-2xl border border-navy-800 bg-navy-900/50 p-5">
+        <p class="flex items-center gap-2 font-semibold text-ink-100">
+          <span aria-hidden="true">{icon}</span>{title}
+        </p>
+        <p class="mt-1 text-sm text-ink-300 leading-relaxed">{desc}</p>
+      </li>
+    ))}
+  </ul>
+
+  <p class="mt-8 text-center text-ink-100 text-lg leading-relaxed max-w-xl mx-auto">
+    Δεν χρειάζεσαι περισσότερα λεφτά για να ξεκινήσεις.
+    <span class="text-gold-400">Χρειάζεσαι ένα σύστημα που κρατάει την εικόνα καθαρή.</span>
+  </p>
+</section>

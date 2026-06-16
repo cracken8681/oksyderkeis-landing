@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+/* ---- Design tokens: editorial finance, dark navy + gold ---- */
+/* Fonts: Alegreya (serif display) + Alegreya Sans (body) — πλήρης ελληνική υποστήριξη. */
+@theme {
+  --font-display: "Alegreya", Georgia, serif;
+  --font-sans: "Alegreya Sans", system-ui, sans-serif;
+
+  --color-navy-950: #0b1220;
+  --color-navy-900: #0e1626;
+  --color-navy-800: #131d33;
+  --color-navy-700: #1b2742;
+  --color-navy-600: #27365a;
+
+  --color-gold-400: #e8c879;
+  --color-gold-500: #d4af57;
+  --color-gold-600: #b8923f;
+
+  --color-ink-100: #f4f1e9; /* warm off-white για κείμενο */
+  --color-ink-300: #c9cdd6;
+  --color-ink-500: #8b93a4;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-navy-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  /* λεπτή ατμόσφαιρα: μόνο navy depth — το χρυσό glow το δίνει ΜΟΝΟ η λάμπα στο hero */
+  background-image:
+    radial-gradient(55rem 45rem at 50% 110%, rgba(39, 54, 90, 0.45), transparent 60%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* hairline gold divider */
+.rule-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-600), transparent);
+}
+
+/* page-load reveal */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* focus visibility (a11y) */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--color-gold-400);
+  outline-offset: 2px;
+}
+
+/* ── Lamp glow (gold, tasteful) ── inspired by aceternity lamp, native CSS ── */
+.lamp {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(52rem, 98vw);
+  height: 24rem;
+  pointer-events: none;
+  z-index: -1;
+}
+.lamp::before {
+  /* the beam */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 180deg at 50% 0%,
+    transparent 62deg,
+    rgba(212, 175, 87, 0.30) 86deg,
+    rgba(232, 200, 121, 0.70) 180deg,
+    rgba(212, 175, 87, 0.30) 274deg,
+    transparent 298deg
+  );
+  filter: blur(38px);
+  opacity: 0;
+  animation: lamp-in 1s ease-out 0.15s forwards;
+}
+.lamp::after {
+  /* hot line at the top */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-400), transparent);
+  box-shadow: 0 0 36px 6px rgba(232, 200, 121, 0.65);
+  animation: lamp-line 1s ease-out 0.15s forwards;
+}
+@keyframes lamp-in { to { opacity: 1; } }
+@keyframes lamp-line { to { width: min(38rem, 84vw); } }
+
+/* ── Spotlight (radial glow behind a card) ── */
+.spotlight {
+  position: absolute;
+  inset: -20% 0 auto;
+  height: 26rem;
+  margin: auto;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(40rem 18rem at 50% 0%, rgba(212, 175, 87, 0.14), transparent 70%);
+  filter: blur(8px);
+}
+
+/* ── Scroll reveal (no JS dependency for content visibility) ── */
+.reveal-ready section,
+.reveal-ready footer {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal-ready section.in,
+.reveal-ready footer.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lamp::before, .lamp::after { animation: none; opacity: 1; }
+  .lamp::after { width: min(34rem, 80vw); }
+  .reveal-ready section,
+  .reveal-ready footer { opacity: 1; transform: none; transition: none; }
+}

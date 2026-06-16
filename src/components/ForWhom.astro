@@ -1,0 +1,19 @@
+---
+const points = [
+  "Θέλεις να αρχίσεις να καταλαβαίνεις τις επενδύσεις, αλλά μπερδεύεσαι από τις πολλές πληροφορίες.",
+  "Βαρέθηκες το hype και τις «σίγουρες ευκαιρίες».",
+  "Θέλεις πειθαρχία και σύστημα — όχι εύκολο χρήμα.",
+  "Ψάχνεις οικονομικές έννοιες εξηγημένες σε απλά ελληνικά.",
+];
+---
+<section class="px-5 py-14 max-w-3xl mx-auto">
+  <h2 class="text-2xl sm:text-3xl text-center mb-8">Για ποιον είναι</h2>
+  <ul class="grid gap-3 sm:gap-4">
+    {points.map((p) => (
+      <li class="flex gap-3 rounded-2xl border border-navy-800 bg-navy-900/50 p-4">
+        <span class="text-gold-500 mt-0.5 shrink-0" aria-hidden="true">◆</span>
+        <span class="text-ink-300 leading-relaxed">{p}</span>
+      </li>
+    ))}
+  </ul>
+</section>
