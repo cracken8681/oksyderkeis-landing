@@ -1,0 +1,145 @@
+---
+import { MAILERLITE } from "../config";
+
+const newsletterReady =
+  MAILERLITE.newsletterFormId &&
+  !MAILERLITE.newsletterFormId.startsWith("TODO");
+---
+<section id="newsletter" class="relative px-5 py-16 scroll-mt-16">
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="relative max-w-2xl mx-auto rounded-3xl border border-gold-600/60 bg-gradient-to-b from-navy-800 to-navy-900 p-7 sm:p-10 shadow-2xl shadow-black/40">
+
+    <!-- Badge -->
+    <p class="text-gold-500 tracking-widest text-xs uppercase text-center mb-4">Πρακτικές ενημερώσεις · δωρεάν</p>
+
+    <!-- Headline -->
+    <h2 class="text-2xl sm:text-3xl text-center leading-snug">
+      Θες εργαλεία και<br class="hidden sm:inline" />
+      <span class="text-gold-400">καθαρούς οδηγούς κάθε εβδομάδα;</span>
+    </h2>
+
+    <!-- Sub -->
+    <p class="mt-4 text-center text-ink-300 leading-relaxed max-w-lg mx-auto">
+      Κάθε εβδομάδα: ένα εργαλείο, μια έννοια ή ένα πρακτικό βήμα που μπορείς να εφαρμόσεις αμέσως στα οικονομικά σου.
+    </p>
+
+    <div class="mt-7 grid gap-3 sm:grid-cols-3 text-sm" aria-label="Τι παίρνεις">
+      <div class="rounded-2xl border border-navy-700 bg-navy-800/60 p-4 text-center">
+        <p class="text-xl mb-1" aria-hidden="true">📊</p>
+        <p class="font-semibold text-ink-100">Οδηγοί</p>
+        <p class="mt-1 text-ink-300 text-xs leading-relaxed">Finance topics εξηγημένα απλά και καθαρά</p>
+      </div>
+      <div class="rounded-2xl border border-navy-700 bg-navy-800/60 p-4 text-center">
+        <p class="text-xl mb-1" aria-hidden="true">🤖</p>
+        <p class="font-semibold text-ink-100">AI Εργαλεία</p>
+        <p class="mt-1 text-ink-300 text-xs leading-relaxed">Νέα εργαλεία και prompts όταν αξίζουν</p>
+      </div>
+      <div class="rounded-2xl border border-navy-700 bg-navy-800/60 p-4 text-center">
+        <p class="text-xl mb-1" aria-hidden="true">🎯</p>
+        <p class="font-semibold text-ink-100">Πειθαρχία</p>
+        <p class="mt-1 text-ink-300 text-xs leading-relaxed">Συνήθειες που φτιάχνουν οικονομικά αποθεματικά</p>
+      </div>
+    </div>
+
+    {newsletterReady ? (
+      <div class="newsletter-embed-wrap mt-7">
+        <div
+          class="ml-embedded newsletter-embed"
+          data-form={MAILERLITE.newsletterFormId}
+          data-cta="newsletter-form"
+        ></div>
+      </div>
+    ) : (
+      <div class="mt-7 rounded-2xl border border-dashed border-navy-600 bg-navy-900/40 p-5 text-center text-sm text-ink-300">
+      Newsletter form pending. Μόλις μπουν τα νέα MailerLite IDs, εδώ θα ενεργοποιηθεί το ξεχωριστό πρακτικών ενημερώσεων flow.
+      </div>
+    )}
+
+    <!-- Social proof + trust -->
+    <p class="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-ink-500">
+      <span>✓ Δωρεάν</span><span aria-hidden="true">·</span>
+      <span>✓ Χωρίς κάρτα</span><span aria-hidden="true">·</span>
+      <span>✓ Διαγραφή όποτε θες</span>
+    </p>
+    <p class="mt-2 text-center text-xs text-ink-500">
+      Νέα πρακτική ενημέρωση κάθε εβδομάδα — χωρίς θόρυβο, χωρίς υπερβολές.
+    </p>
+  </div>
+</section>
+
+<style>
+  .newsletter-embed-wrap {
+    border: 1px solid rgba(42, 68, 120, 0.9);
+    border-radius: 28px;
+    padding: 14px;
+    background:
+      linear-gradient(180deg, rgba(12, 26, 58, 0.96), rgba(15, 32, 68, 0.98));
+    box-shadow:
+      0 26px 70px rgba(0, 0, 0, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  /*
+   * MailerLite injects its own markup, so we override the whole tree.
+   * The wrapper stays ours; the default white skin gets flattened away.
+   */
+  :global(.newsletter-embed),
+  :global(.newsletter-embed *),
+  :global(.newsletter-embed .ml-form-embedContainer),
+  :global(.newsletter-embed .ml-form-embedBody),
+  :global(.newsletter-embed .ml-form-embedBodyDefault),
+  :global(.newsletter-embed .ml-form-embedBodyHorizontal),
+  :global(.newsletter-embed .ml-form-formContent),
+  :global(.newsletter-embed .ml-form-embedWrapper),
+  :global(.newsletter-embed form),
+  :global(.newsletter-embed [style*="background"]),
+  :global(.newsletter-embed [style*="background-color"]) {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--color-ink-100) !important;
+  }
+
+  :global(.newsletter-embed h1),
+  :global(.newsletter-embed h2),
+  :global(.newsletter-embed h3),
+  :global(.newsletter-embed label),
+  :global(.newsletter-embed p),
+  :global(.newsletter-embed span) {
+    color: var(--color-ink-100) !important;
+  }
+
+  :global(.newsletter-embed input[type="email"]),
+  :global(.newsletter-embed input[type="text"]),
+  :global(.newsletter-embed input[type="tel"]),
+  :global(.newsletter-embed select) {
+    background: rgba(7, 16, 39, 0.95) !important;
+    color: var(--color-ink-100) !important;
+    border: 1px solid rgba(232, 200, 121, 0.25) !important;
+    border-radius: 16px !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  :global(.newsletter-embed input::placeholder) {
+    color: rgba(201, 205, 214, 0.7) !important;
+  }
+
+  :global(.newsletter-embed button),
+  :global(.newsletter-embed input[type="submit"]) {
+    background: linear-gradient(180deg, #e8c879, #d4af57) !important;
+    color: #0c1a3a !important;
+    border: 0 !important;
+    border-radius: 16px !important;
+    font-weight: 800 !important;
+    box-shadow: 0 16px 28px rgba(212, 175, 87, 0.24) !important;
+  }
+
+  :global(.newsletter-embed a) {
+    color: var(--color-gold-400) !important;
+  }
+
+  :global(.newsletter-embed .ml-form-successBody),
+  :global(.newsletter-embed .ml-form-successBody h4) {
+    background: transparent !important;
+    color: var(--color-ink-100) !important;
+  }
+</style>

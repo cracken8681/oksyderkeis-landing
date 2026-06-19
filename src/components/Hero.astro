@@ -1,34 +1,106 @@
 ---
-import { YOUTUBE } from "../config";
 ---
-<header class="relative px-5 pt-16 pb-14 sm:pt-24 sm:pb-20 max-w-3xl mx-auto text-center">
+<header class="relative px-5 pt-10 pb-10 sm:pt-16 sm:pb-14">
   <div class="lamp" aria-hidden="true"></div>
-  <p class="reveal text-gold-500 tracking-[0.25em] text-xs uppercase mb-5">Oksyderkeis</p>
-  <h1 class="reveal text-4xl sm:text-6xl leading-[1.05] text-ink-100" style="animation-delay:.05s">
-    Βάλε τάξη στα οικονομικά σου<br /><span class="text-gold-400">με AI.</span>
-  </h1>
-  <p class="reveal mt-4 text-base sm:text-lg text-ink-500" style="animation-delay:.1s">
-    Χωρίς hype. Χωρίς επενδυτικές συμβουλές.
-  </p>
-  <p class="reveal mt-6 text-lg sm:text-xl text-ink-300 leading-relaxed max-w-xl mx-auto" style="animation-delay:.16s">
-    Ξεκίνα δωρεάν με τον AI Οικονομικό Οργανωτή και, όταν είσαι έτοιμος, χτίσε το δικό σου
-    Money OS για έσοδα, έξοδα, στόχους και οικονομική πειθαρχία.
-  </p>
+  <div class="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
+    <div class="relative">
+      <p class="reveal eyebrow mb-5">Oksyderkeis</p>
+      <h1 class="reveal section-title max-w-3xl" style="animation-delay:.05s">
+        Βάλε τάξη στα οικονομικά σου
+        <span class="block text-gold-400">με AI που δουλεύει πρακτικά.</span>
+      </h1>
+      <p class="reveal mt-5 max-w-2xl text-lg sm:text-xl text-ink-300 leading-relaxed" style="animation-delay:.1s">
+        Χωρίς hype. Χωρίς φασαρία. Μόνο καθαρά εργαλεία για να βλέπεις έσοδα, έξοδα, στόχους
+        και τις αποφάσεις σου με περισσότερη πειθαρχία.
+      </p>
 
-  <div class="reveal mt-9 flex flex-col sm:flex-row gap-3 justify-center" style="animation-delay:.22s">
-    <a
-      href="#mini-agent"
-      data-cta="hero-primary"
-      class="inline-flex items-center justify-center rounded-full bg-gold-500 hover:bg-gold-400 transition-colors px-7 py-3.5 font-semibold text-navy-950"
-    >
-      Άνοιξε τον δωρεάν βοηθό
-    </a>
-    <a
-      href="#money-os"
-      data-cta="hero-secondary"
-      class="inline-flex items-center justify-center rounded-full border border-navy-600 hover:border-gold-600 transition-colors px-7 py-3.5 font-medium text-ink-100"
-    >
-      Δες το Money OS Pro
-    </a>
+      <div class="reveal mt-7 flex flex-wrap gap-2.5" style="animation-delay:.14s">
+        <span class="rounded-full border border-gold-500/30 bg-gold-500/10 px-4 py-2 text-sm font-semibold text-gold-300">Δωρεάν AI οργανωτής</span>
+        <span class="rounded-full border border-navy-600 bg-navy-900/60 px-4 py-2 text-sm font-semibold text-ink-100">Money OS Pro</span>
+        <span class="rounded-full border border-navy-600 bg-navy-900/60 px-4 py-2 text-sm font-semibold text-ink-100">Επενδυτικός οδηγός</span>
+      </div>
+
+      <div class="reveal mt-8 flex flex-col gap-3 sm:flex-row" style="animation-delay:.2s">
+        <a
+          href="#mini-agent"
+          data-cta="hero-primary"
+          class="inline-flex items-center justify-center rounded-full bg-gold-500 px-7 py-3.5 font-semibold text-navy-950 transition-transform transition-colors hover:bg-gold-400 hover:-translate-y-0.5"
+        >
+          Ξεκίνα με τον δωρεάν AI βοηθό
+        </a>
+        <a
+          href="#money-os"
+          data-cta="hero-secondary"
+          class="inline-flex items-center justify-center rounded-full border border-navy-600 bg-navy-900/60 px-7 py-3.5 font-semibold text-ink-100 transition-colors hover:border-gold-500 hover:bg-navy-800"
+        >
+          Δες το Money OS Pro
+        </a>
+      </div>
+
+      <div class="reveal mt-5 flex flex-col gap-3 sm:flex-row" style="animation-delay:.25s">
+        <a
+          href="/odigos-ependiseon"
+          data-cta="hero-guide-link"
+          class="inline-flex items-center justify-center rounded-full border border-gold-500/30 bg-gold-500/10 px-5 py-3 text-sm font-semibold text-gold-300 transition-colors hover:border-gold-400 hover:bg-gold-500/18"
+        >
+          Βήμα-βήμα επενδυτικός οδηγός
+        </a>
+        <a
+          href="#email"
+          data-cta="hero-updates-link"
+          class="inline-flex items-center justify-center rounded-full border border-navy-600 bg-navy-900/60 px-5 py-3 text-sm font-semibold text-ink-100 transition-colors hover:border-gold-500 hover:bg-navy-800"
+        >
+          Πρακτικές ενημερώσεις
+        </a>
+      </div>
+
+      <p class="reveal mt-5 max-w-xl text-sm text-ink-500 leading-relaxed" style="animation-delay:.3s">
+        Από εδώ ξεκινάς αν θες να έχεις ένα καθαρό σύστημα, όχι απλώς άλλο ένα ακόμη link.
+      </p>
+    </div>
+
+    <div class="reveal relative" style="animation-delay:.12s">
+      <div class="spotlight" aria-hidden="true"></div>
+      <div class="relative overflow-hidden rounded-[2rem] border border-gold-600/30 bg-gradient-to-b from-navy-800 to-navy-900 p-6 sm:p-8 shadow-[0_30px_120px_rgba(0,0,0,0.42)]">
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-400/80 to-transparent"></div>
+        <p class="text-gold-400 text-xs uppercase tracking-[0.28em]">Τι θα βρεις εδώ</p>
+        <div class="mt-5 grid gap-3">
+          <div class="metric-card p-4">
+            <p class="text-sm font-semibold text-ink-100">1. Καθημερινή καθαρότητα</p>
+            <p class="mt-1 text-sm text-ink-300 leading-relaxed">Απλά εργαλεία για έσοδα, έξοδα και στόχους χωρίς να μπερδεύεσαι.</p>
+          </div>
+          <div class="metric-card p-4">
+            <p class="text-sm font-semibold text-ink-100">2. Σύστημα και όχι θεωρία</p>
+            <p class="mt-1 text-sm text-ink-300 leading-relaxed">Το Money OS Pro είναι φτιαγμένο για να εφαρμόζεται, όχι για να μένει σε bookmark.</p>
+          </div>
+          <div class="metric-card p-4">
+            <p class="text-sm font-semibold text-ink-100">3. Επενδυτική παιδεία</p>
+            <p class="mt-1 text-sm text-ink-300 leading-relaxed">Εξηγήσεις σε απλά ελληνικά, με έμφαση στη σκέψη και στη διαδικασία.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-[1.4rem] border border-gold-500/20 bg-gold-500/8 p-4">
+          <p class="text-xs uppercase tracking-[0.24em] text-gold-300">Editorial note</p>
+          <p class="mt-2 text-sm text-ink-100 leading-relaxed">
+            Αυτό το site δεν πουλάει φασαρία. Δείχνει τα πράγματα καθαρά, με δομή, ρυθμό και χώρο για να διαβάζεται άνετα.
+          </p>
+        </div>
+
+        <div class="mt-6 grid gap-3 sm:grid-cols-3">
+          <div class="metric-card p-3">
+            <p class="text-[11px] uppercase tracking-[0.22em] text-ink-500">Format</p>
+            <p class="mt-1 text-sm text-ink-100">Καθαρό, editorial</p>
+          </div>
+          <div class="metric-card p-3">
+            <p class="text-[11px] uppercase tracking-[0.22em] text-ink-500">Tone</p>
+            <p class="mt-1 text-sm text-ink-100">Ήρεμο και πρακτικό</p>
+          </div>
+          <div class="metric-card p-3">
+            <p class="text-[11px] uppercase tracking-[0.22em] text-ink-500">Goal</p>
+            <p class="mt-1 text-sm text-ink-100">Να σε βάλει σε δράση</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </header>

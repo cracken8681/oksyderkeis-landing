@@ -6,25 +6,32 @@ const pains = [
   ["🎯", "Θες να επενδύσεις, αλλά", "Δεν ξέρεις αν είσαι έτοιμος ή από πού ν' αρχίσεις."],
 ];
 ---
-<section id="problem" class="px-5 py-14 max-w-3xl mx-auto">
-  <h2 class="text-2xl sm:text-3xl text-center">Στο τέλος του μήνα… πού πήγαν;</h2>
-  <p class="mt-3 text-center text-ink-300 leading-relaxed max-w-xl mx-auto">
-    Το πρόβλημα σπάνια είναι ότι βγάζεις λίγα. Είναι ότι δεν έχεις καθαρή εικόνα — ούτε σύστημα.
-  </p>
+<section id="problem" class="section-shell">
+  <div class="max-w-4xl mx-auto">
+    <p class="eyebrow justify-center w-full">Το πρόβλημα</p>
+    <h2 class="mt-4 text-center section-title">Στο τέλος του μήνα, πού πήγαν;</h2>
+    <p class="mt-4 text-center section-copy max-w-2xl mx-auto">
+      Το πρόβλημα σπάνια είναι ότι βγάζεις λίγα. Συνήθως είναι ότι δεν έχεις καθαρή εικόνα, ούτε ένα σύστημα που να σε βοηθά να αποφασίζεις ήρεμα.
+    </p>
 
-  <ul class="mt-8 grid sm:grid-cols-2 gap-3">
-    {pains.map(([icon, title, desc]) => (
-      <li class="rounded-2xl border border-navy-800 bg-navy-900/50 p-5">
-        <p class="flex items-center gap-2 font-semibold text-ink-100">
-          <span aria-hidden="true">{icon}</span>{title}
-        </p>
-        <p class="mt-1 text-sm text-ink-300 leading-relaxed">{desc}</p>
-      </li>
-    ))}
-  </ul>
+    <ul class="mt-10 grid gap-3 sm:grid-cols-2">
+      {pains.map(([icon, title, desc]) => (
+        <li class="surface-card p-5 sm:p-6">
+          <p class="flex items-center gap-3 font-semibold text-ink-100">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold-500/20 bg-gold-500/10 text-lg" aria-hidden="true">{icon}</span>
+            <span>{title}</span>
+          </p>
+          <p class="mt-2 text-sm text-ink-300 leading-relaxed">{desc}</p>
+        </li>
+      ))}
+    </ul>
 
-  <p class="mt-8 text-center text-ink-100 text-lg leading-relaxed max-w-xl mx-auto">
-    Δεν χρειάζεσαι περισσότερα λεφτά για να ξεκινήσεις.
-    <span class="text-gold-400">Χρειάζεσαι ένα σύστημα που κρατάει την εικόνα καθαρή.</span>
-  </p>
+    <div class="mt-8 rounded-[1.75rem] border border-gold-500/20 bg-gold-500/8 px-6 py-6 text-center">
+      <p class="text-sm uppercase tracking-[0.24em] text-gold-300">Η απάντηση</p>
+      <p class="mt-2 text-lg sm:text-xl leading-relaxed text-ink-100">
+        Δεν χρειάζεσαι περισσότερα λεφτά για να ξεκινήσεις.
+        <span class="text-gold-400">Χρειάζεσαι ένα σύστημα που κρατάει την εικόνα καθαρή.</span>
+      </p>
+    </div>
+  </div>
 </section>

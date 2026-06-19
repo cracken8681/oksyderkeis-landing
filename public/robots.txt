@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oksyderkeis.vercel.app/sitemap.xml

@@ -1,25 +1,37 @@
 ---
 import { AGENTS } from "../config";
 ---
-<section id="mini-agent" class="px-5 py-14 max-w-2xl mx-auto">
-  <div class="rounded-3xl border border-navy-700 bg-navy-900/60 p-7 sm:p-9">
-    <p class="text-gold-500 tracking-widest text-xs uppercase mb-3">Δωρεάν · χωρίς email</p>
-    <h2 class="text-2xl sm:text-3xl mb-3">Δοκίμασέ το τώρα — δωρεάν</h2>
-    <p class="text-ink-300 leading-relaxed mb-6">
-      Έφτιαξα έναν AI βοηθό που σε βοηθά να οργανώσεις έσοδα, έξοδα και στόχους — απλά
-      και πρακτικά. Χωρίς προβλέψεις, χωρίς «μαγικές» λύσεις.
-    </p>
-    <a
-      href={AGENTS.mini}
-      target="_blank" rel="noopener"
-      data-cta="mini-agent"
-      class="inline-flex items-center justify-center rounded-full border border-gold-600 hover:bg-gold-500 hover:text-navy-950 transition-colors px-6 py-3 font-medium text-ink-100"
-    >
-      Άνοιξε τον δωρεάν βοηθό
-    </a>
-    <p class="mt-5 flex gap-2 text-sm text-ink-500">
-      <span aria-hidden="true">⚠</span>
-      Μη βάζεις τραπεζικά στοιχεία ή ευαίσθητα δεδομένα — μόνο απλή σύνοψη.
-    </p>
+<section id="mini-agent" class="section-shell">
+  <div class="max-w-4xl mx-auto surface-card overflow-hidden">
+    <div class="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="p-7 sm:p-10">
+        <p class="eyebrow">Δωρεάν · χωρίς email</p>
+        <h2 class="mt-4 section-title text-[clamp(1.8rem,4vw,3rem)]">Δοκίμασέ το τώρα, χωρίς τριβή.</h2>
+        <p class="mt-4 section-copy max-w-xl">
+          Έφτιαξα έναν AI βοηθό που σε βοηθά να οργανώσεις έσοδα, έξοδα και στόχους — απλά και πρακτικά. Χωρίς προβλέψεις, χωρίς «μαγικές» λύσεις.
+        </p>
+        <a
+          href={AGENTS.mini}
+          target="_blank" rel="noopener"
+          data-cta="mini-agent"
+          class="mt-7 inline-flex items-center justify-center rounded-full bg-gold-500 px-6 py-3.5 font-semibold text-navy-950 transition-transform transition-colors hover:bg-gold-400 hover:-translate-y-0.5"
+        >
+          Άνοιξε τον δωρεάν βοηθό
+        </a>
+      </div>
+
+      <div class="border-t border-navy-800/80 bg-navy-950/35 p-7 sm:p-10 lg:border-t-0 lg:border-l">
+        <p class="text-xs uppercase tracking-[0.24em] text-gold-300">Χρήσιμο όταν</p>
+        <ul class="mt-4 grid gap-3 text-sm text-ink-300 leading-relaxed">
+          <li class="rounded-2xl border border-navy-700 bg-navy-900/50 p-4">Θες να δεις καθαρά τι μπαίνει, τι βγαίνει και πού χάνεται ο ρυθμός.</li>
+          <li class="rounded-2xl border border-navy-700 bg-navy-900/50 p-4">Θες να βάλεις στόχους χωρίς να χαθείς σε θεωρία ή υπερβολή.</li>
+          <li class="rounded-2xl border border-navy-700 bg-navy-900/50 p-4">Θες ένα γρήγορο σημείο εκκίνησης πριν περάσεις στο Money OS Pro.</li>
+        </ul>
+        <p class="mt-5 flex gap-2 text-sm text-ink-500">
+          <span aria-hidden="true">⚠</span>
+          Μη βάζεις τραπεζικά στοιχεία ή ευαίσθητα δεδομένα. Δούλεψε με απλές συνόψεις μόνο.
+        </p>
+      </div>
+    </div>
   </div>
 </section>

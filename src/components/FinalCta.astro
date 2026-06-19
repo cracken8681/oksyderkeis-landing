@@ -1,29 +1,35 @@
 ---
 import { YOUTUBE } from "../config";
 ---
-<section id="final-cta" class="relative px-5 py-16 scroll-mt-16">
+<section id="final-cta" class="section-shell scroll-mt-16">
   <div class="spotlight" aria-hidden="true"></div>
-  <div class="relative max-w-2xl mx-auto text-center">
-    <h2 class="text-2xl sm:text-4xl text-ink-100">
-      Ξεκίνα να βλέπεις <span class="text-gold-400">καθαρά</span> τα οικονομικά σου.
+  <div class="relative mx-auto max-w-4xl overflow-hidden rounded-[2rem] border border-gold-600/35 bg-gradient-to-b from-navy-800 to-navy-900 px-7 py-8 sm:px-10 sm:py-10 text-center shadow-[0_30px_120px_rgba(0,0,0,0.42)]">
+    <p class="eyebrow justify-center w-full">Τελικό βήμα</p>
+    <h2 class="mt-4 section-title">
+      Τα εργαλεία είναι έτοιμα.
+      <span class="block text-gold-400">Ξεκίνα από εκεί που σε βολεύει.</span>
     </h2>
-    <p class="mt-4 text-ink-300 leading-relaxed max-w-xl mx-auto">
-      Δωρεάν εργαλεία, χωρίς δέσμευση. Άσε το email σου και ξεκλείδωσε τους AI βοηθούς —
-      κράτα τον έλεγχο από σήμερα.
+    <p class="mt-4 section-copy max-w-2xl mx-auto">
+      Ο AI Οικονομικός Οργανωτής, το Money OS Pro και ο επενδυτικός οδηγός είναι εδώ για να τα δεις και να τα χρησιμοποιήσεις άμεσα, χωρίς hype και χωρίς spam.
     </p>
-    <div class="mt-8">
-      <a href="#email" data-cta="final-primary"
-         class="inline-flex items-center justify-center rounded-full bg-gold-500 hover:bg-gold-400 transition-colors px-8 py-4 font-semibold text-navy-950">
-        Ξεκλείδωσε τα δωρεάν εργαλεία
+    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+      <a href="#mini-agent" data-cta="final-primary"
+         class="inline-flex items-center justify-center rounded-full bg-gold-500 px-8 py-4 font-semibold text-navy-950 transition-transform transition-colors hover:bg-gold-400 hover:-translate-y-0.5">
+        Δοκίμασε τον δωρεάν AI βοηθό
+      </a>
+      <a href="#money-os" data-cta="final-secondary"
+         class="inline-flex items-center justify-center rounded-full border border-gold-500/40 bg-gold-500/10 px-8 py-4 font-semibold text-gold-300 transition-colors hover:border-gold-400 hover:bg-gold-500/14">
+        Money OS Pro →
       </a>
     </div>
     <p class="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-ink-500">
-      <span>✓ Δωρεάν</span><span aria-hidden="true">·</span>
+      <span>✓ Δωρεάν εργαλεία</span><span aria-hidden="true">·</span>
       <span>✓ Χωρίς κάρτα</span><span aria-hidden="true">·</span>
-      <span>✓ Διαγραφή όποτε θες</span>
+      <span>✓ Άμεση πρόσβαση</span>
     </p>
     <p class="mt-5 text-sm text-ink-500">
-      Προτιμάς να δεις πρώτα; <a href={YOUTUBE.channelUrl} target="_blank" rel="noopener" class="text-ink-300 hover:text-gold-400 underline underline-offset-2">Δες το κανάλι στο YouTube</a>
+      Θες να δεις πρώτα περιεχόμενο;
+      <a href={YOUTUBE.channelUrl} target="_blank" rel="noopener" class="text-ink-300 hover:text-gold-400 underline underline-offset-2">Δες το κανάλι στο YouTube</a>
     </p>
   </div>
 </section>

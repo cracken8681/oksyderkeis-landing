@@ -1,70 +1,182 @@
 ---
 import { MONEY_OS } from "../config";
+import { MAILERLITE } from "../config";
 const { mode, checkoutUrl, launchPrice, futurePrice, features } = MONEY_OS;
+const waitlistReady =
+  MAILERLITE.waitlistFormId &&
+  !MAILERLITE.waitlistFormId.startsWith("TODO");
 ---
-<section id="money-os" class="relative px-5 py-16 scroll-mt-16">
+<section id="money-os" class="section-shell scroll-mt-16">
   <div class="spotlight" aria-hidden="true"></div>
-  <div class="relative max-w-3xl mx-auto rounded-3xl border border-gold-600/50 bg-gradient-to-b from-navy-800 to-navy-900 p-7 sm:p-10 shadow-2xl shadow-black/40">
-    <p class="text-gold-500 tracking-widest text-xs uppercase mb-3">Pro · Το πλήρες σύστημα</p>
-    <h2 class="text-2xl sm:text-3xl">Oksyderkeis Money OS Pro</h2>
-    <p class="mt-3 text-ink-300 leading-relaxed">
-      Το πλήρες σύστημα για να βλέπεις καθαρά τα χρήματά σου κάθε μήνα — έσοδα, έξοδα,
-      αποταμίευση, στόχους και οικονομική πειθαρχία. Δεν είναι επενδυτική συμβουλή· είναι
-      ένα σύστημα οργάνωσης που στήνεις σε ένα απόγευμα.
-    </p>
-
-    <ul class="mt-7 grid sm:grid-cols-2 gap-3">
-      {features.map(([icon, title, desc]) => (
-        <li class="rounded-2xl border border-navy-700 bg-navy-800/50 p-4">
-          <p class="flex items-center gap-2 font-semibold text-ink-100">
-            <span aria-hidden="true">{icon}</span>{title}
-          </p>
-          <p class="mt-1 text-sm text-ink-300 leading-relaxed">{desc}</p>
-        </li>
-      ))}
-    </ul>
-
-    <div class="mt-8 rounded-2xl border border-navy-700 bg-navy-900/40 p-5">
-      <p class="text-gold-500 tracking-widest text-xs uppercase mb-4">Πώς δουλεύει</p>
-      <ol class="grid sm:grid-cols-3 gap-4">
-        <li class="flex gap-3">
-          <span class="font-display text-gold-400 text-lg shrink-0" aria-hidden="true">1</span>
-          <span class="text-sm text-ink-300 leading-relaxed">Πάρε το σύστημα — Sheets, prompts & workbook.</span>
-        </li>
-        <li class="flex gap-3">
-          <span class="font-display text-gold-400 text-lg shrink-0" aria-hidden="true">2</span>
-          <span class="text-sm text-ink-300 leading-relaxed">Στήσ' το σε ένα απόγευμα με το 7ήμερο πλάνο.</span>
-        </li>
-        <li class="flex gap-3">
-          <span class="font-display text-gold-400 text-lg shrink-0" aria-hidden="true">3</span>
-          <span class="text-sm text-ink-300 leading-relaxed">Δες καθαρά πού πάνε τα χρήματά σου κάθε μήνα.</span>
-        </li>
-      </ol>
-    </div>
-
-    <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-7">
-      <div>
-        <p class="font-display text-3xl text-gold-400">
-          {launchPrice}
-          <span class="text-base text-ink-500 line-through ml-2">{futurePrice}</span>
+  <div class="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-gold-600/45 bg-gradient-to-b from-navy-800 to-navy-900 shadow-[0_30px_120px_rgba(0,0,0,0.42)]">
+    <div class="grid gap-0 lg:grid-cols-[0.96fr_1.04fr]">
+      <div class="p-7 sm:p-10">
+        <p class="eyebrow">Pro · Το πλήρες σύστημα</p>
+        <h2 class="mt-4 section-title text-[clamp(1.8rem,4vw,3rem)]">Oksyderkeis Money OS Pro</h2>
+        <p class="mt-4 section-copy">
+          Το πλήρες σύστημα για να βλέπεις καθαρά τα χρήματά σου κάθε μήνα — έσοδα, έξοδα, αποταμίευση, στόχους και οικονομική πειθαρχία. Δεν είναι επενδυτική συμβουλή· είναι ένα σύστημα οργάνωσης που στήνεις σε ένα απόγευμα.
         </p>
-        <p class="text-sm text-ink-500 mt-1">Τιμή launch · μετά {futurePrice}</p>
+
+        <div class="mt-7 rounded-[1.4rem] border border-navy-700 bg-navy-950/35 p-5">
+          <p class="text-xs uppercase tracking-[0.24em] text-gold-300">Πώς δουλεύει</p>
+          <ol class="mt-4 grid gap-4 sm:grid-cols-3">
+            <li class="flex gap-3">
+              <span class="font-display text-gold-400 text-lg shrink-0" aria-hidden="true">1</span>
+              <span class="text-sm text-ink-300 leading-relaxed">Πάρε το σύστημα — Sheets, prompts & workbook.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="font-display text-gold-400 text-lg shrink-0" aria-hidden="true">2</span>
+              <span class="text-sm text-ink-300 leading-relaxed">Στήσ' το σε ένα απόγευμα με το 7ήμερο πλάνο.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="font-display text-gold-400 text-lg shrink-0" aria-hidden="true">3</span>
+              <span class="text-sm text-ink-300 leading-relaxed">Δες καθαρά πού πάνε τα χρήματά σου κάθε μήνα.</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <div>
+            <p class="font-display text-3xl text-gold-400">
+              {launchPrice}
+              <span class="text-base text-ink-500 line-through ml-2">{futurePrice}</span>
+            </p>
+            <p class="text-sm text-ink-500 mt-1">Τιμή launch · μετά {futurePrice}</p>
+          </div>
+
+          {mode === "live" ? (
+            <a href={checkoutUrl} target="_blank" rel="noopener" data-cta="money-os-buy"
+               class="inline-flex items-center justify-center rounded-full bg-gold-500 px-7 py-3.5 font-semibold text-navy-950 transition-transform transition-colors hover:bg-gold-400 hover:-translate-y-0.5">
+              Θέλω το Money OS Pro
+            </a>
+          ) : (
+            <a href="#money-os-waitlist" data-cta="money-os-waitlist"
+               class="inline-flex items-center justify-center rounded-full bg-gold-500 px-7 py-3.5 font-semibold text-navy-950 transition-transform transition-colors hover:bg-gold-400 hover:-translate-y-0.5">
+              Μπες στη waitlist — early access
+            </a>
+          )}
+        </div>
       </div>
 
-      {mode === "live" ? (
-        <a href={checkoutUrl} target="_blank" rel="noopener" data-cta="money-os-buy"
-           class="inline-flex items-center justify-center rounded-full bg-gold-500 hover:bg-gold-400 transition-colors px-7 py-3.5 font-semibold text-navy-950">
-          Θέλω το Money OS Pro
-        </a>
-      ) : (
-        <div>
-          <a href="#email" data-cta="money-os-waitlist"
-             class="inline-flex items-center justify-center rounded-full bg-gold-500 hover:bg-gold-400 transition-colors px-7 py-3.5 font-semibold text-navy-950">
-            Μπες στη waitlist — early access
-          </a>
-          <p class="mt-2 text-xs text-ink-500">Έρχεται σύντομα · οι εγγεγραμμένοι παίρνουν την τιμή launch.</p>
-        </div>
-      )}
+      <div class="border-t border-navy-800/80 bg-navy-950/35 p-6 sm:p-8 lg:border-t-0 lg:border-l">
+        {mode === "live" ? (
+          <>
+            <div class="grid gap-3 sm:grid-cols-2">
+              {features.map(([icon, title, desc]) => (
+                <div class="surface-card p-4">
+                  <p class="flex items-center gap-2 font-semibold text-ink-100">
+                    <span aria-hidden="true">{icon}</span>{title}
+                  </p>
+                  <p class="mt-1 text-sm text-ink-300 leading-relaxed">{desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div class="mt-5 rounded-[1.4rem] border border-gold-500/20 bg-gold-500/8 p-4">
+              <p class="text-xs uppercase tracking-[0.24em] text-gold-300">Τι κερδίζει ο χρήστης</p>
+              <p class="mt-2 text-sm text-ink-100 leading-relaxed">
+                Λιγότερη σύγχυση, πιο καθαρή εικόνα και ένα σύστημα που σε βοηθά να ξέρεις τι κάνεις με τα λεφτά σου κάθε μήνα.
+              </p>
+            </div>
+          </>
+        ) : (
+          <div id="money-os-waitlist" class="space-y-4">
+            <div class="rounded-[1.4rem] border border-gold-500/20 bg-gold-500/8 p-4">
+              <p class="text-xs uppercase tracking-[0.24em] text-gold-300">Early access</p>
+              <p class="mt-2 text-sm text-ink-100 leading-relaxed">
+                Μπες στη waitlist για να πάρεις πρώτος launch price, updates και πρόσβαση όταν ανοίξει το Money OS Pro.
+              </p>
+            </div>
+
+            {waitlistReady ? (
+              <div class="money-os-embed-wrap">
+                <div
+                  class="ml-embedded money-os-embed"
+                  data-form={MAILERLITE.waitlistFormId}
+                  data-cta="money-os-waitlist-form"
+                ></div>
+              </div>
+            ) : (
+              <div class="rounded-2xl border border-dashed border-navy-600 bg-navy-900/40 p-5 text-center text-sm text-ink-300">
+                Money OS waitlist form pending. Μόλις μπουν τα MailerLite IDs, εδώ θα εμφανιστεί το product waitlist form.
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .money-os-embed-wrap {
+    border: 1px solid rgba(42, 68, 120, 0.9);
+    border-radius: 28px;
+    padding: 14px;
+    background:
+      linear-gradient(180deg, rgba(12, 26, 58, 0.96), rgba(15, 32, 68, 0.98));
+    box-shadow:
+      0 26px 70px rgba(0, 0, 0, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  :global(.money-os-embed),
+  :global(.money-os-embed *),
+  :global(.money-os-embed .ml-form-embedContainer),
+  :global(.money-os-embed .ml-form-embedBody),
+  :global(.money-os-embed .ml-form-embedBodyDefault),
+  :global(.money-os-embed .ml-form-embedBodyHorizontal),
+  :global(.money-os-embed .ml-form-formContent),
+  :global(.money-os-embed .ml-form-embedWrapper),
+  :global(.money-os-embed form),
+  :global(.money-os-embed [style*="background"]),
+  :global(.money-os-embed [style*="background-color"]) {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--color-ink-100) !important;
+  }
+
+  :global(.money-os-embed h1),
+  :global(.money-os-embed h2),
+  :global(.money-os-embed h3),
+  :global(.money-os-embed label),
+  :global(.money-os-embed p),
+  :global(.money-os-embed span) {
+    color: var(--color-ink-100) !important;
+  }
+
+  :global(.money-os-embed input[type="email"]),
+  :global(.money-os-embed input[type="text"]),
+  :global(.money-os-embed input[type="tel"]),
+  :global(.money-os-embed select) {
+    background: rgba(7, 16, 39, 0.95) !important;
+    color: var(--color-ink-100) !important;
+    border: 1px solid rgba(232, 200, 121, 0.25) !important;
+    border-radius: 16px !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  :global(.money-os-embed input::placeholder) {
+    color: rgba(201, 205, 214, 0.7) !important;
+  }
+
+  :global(.money-os-embed button),
+  :global(.money-os-embed input[type="submit"]) {
+    background: linear-gradient(180deg, #e8c879, #d4af57) !important;
+    color: #0c1a3a !important;
+    border: 0 !important;
+    border-radius: 16px !important;
+    font-weight: 800 !important;
+    box-shadow: 0 16px 28px rgba(212, 175, 87, 0.24) !important;
+  }
+
+  :global(.money-os-embed a) {
+    color: var(--color-gold-400) !important;
+  }
+
+  :global(.money-os-embed .ml-form-successBody),
+  :global(.money-os-embed .ml-form-successBody h4) {
+    background: transparent !important;
+    color: var(--color-ink-100) !important;
+  }
+</style>

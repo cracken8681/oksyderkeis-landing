@@ -1,8 +1,38 @@
 ---
 ---
-<div class="sm:hidden fixed bottom-0 inset-x-0 z-50 p-3 bg-navy-950/90 backdrop-blur border-t border-navy-800">
-  <a href="#email" data-cta="sticky-mobile"
-     class="block text-center rounded-full bg-gold-500 hover:bg-gold-400 transition-colors px-6 py-3.5 font-semibold text-navy-950">
-    Δωρεάν εργαλεία
+<!-- Mobile: sticky bottom bar -->
+<div class="sm:hidden fixed bottom-0 inset-x-0 z-50 p-3 bg-navy-950/88 backdrop-blur-xl border-t border-navy-800">
+  <a href="#mini-agent" data-cta="sticky-mobile"
+     class="block text-center rounded-full bg-gold-500 px-6 py-3.5 font-semibold text-navy-950 transition-transform transition-colors hover:bg-gold-400 hover:-translate-y-0.5">
+    Δοκίμασε τα δωρεάν εργαλεία →
   </a>
 </div>
+
+<!-- Desktop: sticky top banner (appears after scroll) -->
+<div id="desktop-sticky"
+     class="hidden sm:flex fixed top-0 inset-x-0 z-50 items-center justify-between gap-4 px-6 py-3
+            bg-navy-950/95 backdrop-blur border-b border-navy-800 shadow-lg shadow-black/30
+            translate-y-[-100%] transition-transform duration-300">
+  <p class="text-sm text-ink-300">
+    <span class="text-ink-100 font-semibold">Oksyderkeis</span> — οικονομική πειθαρχία και πρακτικά εργαλεία, χωρίς hype.
+  </p>
+  <a href="#mini-agent" data-cta="sticky-desktop"
+     class="shrink-0 rounded-full bg-gold-500 px-5 py-2 text-sm font-semibold text-navy-950 transition-transform transition-colors hover:bg-gold-400 hover:-translate-y-0.5">
+    Δες τα δωρεάν εργαλεία →
+  </a>
+</div>
+
+<script is:inline>
+  (function () {
+    var bar = document.getElementById("desktop-sticky");
+    if (!bar) return;
+    var shown = false;
+    window.addEventListener("scroll", function () {
+      var past = window.scrollY > 320;
+      if (past !== shown) {
+        shown = past;
+        bar.style.transform = shown ? "translateY(0)" : "translateY(-100%)";
+      }
+    }, { passive: true });
+  })();
+</script>

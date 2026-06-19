@@ -15,6 +15,58 @@ const {
 
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
 const ogImageAbs = new URL(ogImage, SITE.url).toString();
+const isHome = Astro.url.pathname === "/";
+const jsonLd = isHome
+  ? [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: SITE.name,
+        url: SITE.url,
+        description,
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: SITE.name,
+        url: SITE.url,
+        logo: ogImageAbs,
+        sameAs: [
+          "https://www.youtube.com/@oksyderkeis",
+          "https://t.me/Oksyderkeis",
+          "https://instagram.com/oksyderkeis",
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Oksyderkeis",
+        url: SITE.url,
+        sameAs: [
+          "https://www.youtube.com/@oksyderkeis",
+          "https://t.me/Oksyderkeis",
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: "AI Οικονομικός Οργανωτής",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web",
+        url: SITE.url,
+        description: "Δωρεάν AI βοηθός για οργάνωση εσόδων, εξόδων και οικονομικών στόχων.",
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: "Oksyderkeis Money OS Pro",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web",
+        url: `${SITE.url}/#money-os`,
+        description: "Πλήρες σύστημα οργάνωσης προσωπικών οικονομικών με dashboard, prompts και workbook.",
+      },
+    ]
+  : [];
 ---
 
 <!doctype html>
@@ -26,6 +78,11 @@ const ogImageAbs = new URL(ogImage, SITE.url).toString();
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {jsonLd.length > 0 && (
+      <script type="application/ld+json" is:inline>
+        {JSON.stringify(jsonLd)}
+      </script>
+    )}
 
     <!-- Open Graph (preview σε Telegram / social) -->
     <meta property="og:type" content="website" />
@@ -48,7 +105,10 @@ const ogImageAbs = new URL(ogImage, SITE.url).toString();
       rel="stylesheet"
     />
 
-    <!-- Analytics: Plausible (cookieless, χωρίς GDPR banner) -->
+    <!-- Analytics: Plausible (cookieless, χωρίς GDPR banner)
+         Ενεργοποίηση: plausible.io → New Site → domain: oksyderkeis.vercel.app
+         Μετά βάλε στο config.ts: plausibleDomain: "oksyderkeis.vercel.app"
+    -->
     {ANALYTICS.plausibleDomain && (
       <script
         defer

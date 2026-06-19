@@ -5,7 +5,7 @@
 
 export const SITE = {
   name: "Oksyderkeis",
-  domain: process.env.SITE_DOMAIN || "TODO_DOMAIN",
+  domain: process.env.SITE_DOMAIN || "oksyderkeis.vercel.app",
   url: process.env.SITE_URL || "https://oksyderkeis.vercel.app",
   defaultOgImage: "/og-image.png", // TODO: ανέβασε 1200x630 στο /public
   locale: "el_GR",
@@ -56,7 +56,12 @@ export const MONEY_OS = {
 /** MailerLite — ✓ CONFIGURED */
 export const MAILERLITE = {
   accountId: "2393657", // ✓ DONE
-  formId: "vmdwDz", // ✓ DONE
+  waitlistFormId: "vmdwDz", // ✓ DONE
+  newsletterFormId: "9wJj68", // ξεχωριστό form για το newsletter
+  waitlistGroupId: "188976667270579857",
+  newsletterGroupId: "190415310059209948",
+  waitlistAutomationId: "189188257217513263",
+  newsletterAutomationId: "190443484157576615",
   // Universal script handle-άρει τα πάντα (δεν χρειάζεται explicit actionUrl)
 };
 

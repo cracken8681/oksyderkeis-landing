@@ -1,8 +1,12 @@
-# MailerLite Automation Setup — Welcome Email με Agent Links
+# MailerLite Automation Setup — aligned with the landing
 
 ## Σκοπός
-Όταν κάποιος εγγράφεται με το form και πατάει "Θέλω πρόσβαση", MailerLite στέλνει αυτόματα 
-welcome email με τα 2 agent links (full + motivator).
+Θέλουμε 2 ξεχωριστά flows που μιλάνε την ίδια γλώσσα με το landing:
+
+1. **Newsletter** για πρακτικές ενημερώσεις, guides και εργαλεία
+2. **Money OS Pro waitlist** για early access, launch price και product updates
+
+Έτσι δεν ανακατεύονται οι εγγραφές και το email path παραμένει tools-first, calm, editorial.
 
 ---
 
@@ -10,8 +14,8 @@ welcome email με τα 2 agent links (full + motivator).
 
 1. MailerLite Dashboard → Αριστερό μενού → **Automations** (ή "Workflows").
 2. Κάνε κλικ **"Create automation"** ή **"New workflow"**.
-3. **Trigger**: Επίλεξε **"Subscriber joins a group"** ή **"Form subscription"**.
-4. Επίλεξε τη group: **"Oksyderkeis Tools"**.
+3. **Trigger**: Επίλεξε **"Subscriber joins a group"**.
+4. Επίλεξε τη group: **Money OS Pro Waitlist** (`188976667270579857`).
 5. Κάνε κλικ **"Next"** ή **"Create"**.
 
 ---
@@ -19,34 +23,25 @@ welcome email με τα 2 agent links (full + motivator).
 ## ΒΗΜΑ 2: Δημιουργία Welcome Email
 
 1. Στο automation editor, κάνε κλικ **"Add action"** → **"Send email"**.
-2. **Θέμα email**: 
+2. **Θέμα email**:
    ```
-   Καλώς ήρθες — τα εργαλεία σου περιμένουν 🔓
+   Μπήκες στη waitlist του Money OS Pro — εδώ θα στήνουμε το σύστημα μαζί
    ```
 
 3. **Σώμα email** (κείμενο / HTML):
    ```
-   Γεια σας,
+   Γεια σου,
 
-   Ευχαριστώ που εγγραφήκατε! Ξεκλειδώσατε πρόσβαση στα 2 πλήρη εργαλεία:
+   Μπήκες στη waitlist του Money OS Pro.
 
-   ✓ Πλήρης Οικονομικός Οργανωτής
-   Οργανώστε έσοδα, έξοδα και στόχους σε βάθος.
-   👉 https://chatgpt.com/g/g-6a02313df92c819186e9adb804bd87db-ai-oikonomikos-organotes-full
+   Αυτό σημαίνει ότι θα παίρνεις πρώτος:
+   - early access όταν ανοίξει
+   - launch price πριν ανέβει
+   - σύντομα product notes και πρακτικά updates
 
-   ✓ Motivator (No Excuses Coach)
-   Πειθαρχία και συνέπεια για τους οικονομικούς σας στόχους.
-   👉 https://chatgpt.com/g/g-6a0238c7b21c81919aa0ce4ba257bf7f-no-excuses-coach-truth-mode
-
-   ⚠️ Αποφύγετε να εισάγετε ευαίσθητα δεδομένα (τραπεζικές πληροφορίες).
-
-   Καθημερινές σκέψεις και ενημερώσεις σε:
-   📲 Telegram: https://t.me/Oksyderkeis
-   📺 YouTube: https://www.youtube.com/@oksyderkeis
-
-   Με τιμή,
-   David Τσούνης
-   Oksyderkeis
+   Το Money OS Pro είναι για να βλέπεις καθαρά έσοδα, έξοδα, στόχους και πειθαρχία.
+   Αν θες να δεις πρώτα το hub, το landing είναι εδώ:
+   https://oksyderkeis.vercel.app
    ```
 
 4. Κάνε κλικ **"Save email"** ή **"Next"**.
@@ -55,7 +50,7 @@ welcome email με τα 2 agent links (full + motivator).
 
 ## ΒΗΜΑ 3: Timing (Προαιρετικό)
 
-1. **Πότε να στείλει**: Επίλεξε **"Send immediately"** (ή χρονοποίηση αν προτιμάς).
+1. **Πότε να στείλει**: Επίλεξε **"Send immediately"**.
 2. Κάνε κλικ **"Save"** ή **"Activate automation"**.
 
 ---
@@ -63,16 +58,35 @@ welcome email με τα 2 agent links (full + motivator).
 ## ΒΗΜΑ 4: Ενεργοποίηση
 
 1. Κάνε κλικ **"Publish"** ή **"Activate"** (πράσινο κουμπί).
-2. Η automation είναι ζωντανή. Από εδώ κι εμπρός, κάθε νέος subscriber → welcome email αυτόματα.
+2. Η automation είναι ζωντανή. Από εδώ κι εμπρός, κάθε νέος subscriber του waitlist → welcome email αυτόματα.
 
 ---
 
 ## ✓ DONE
 
-Τώρα όταν κάποιος εγγραφεί στο form:
+Τώρα όταν κάποιος εγγραφεί στο waitlist form:
 1. Ανακατευθύνεται σε `/tools` (success page).
-2. Παίρνει welcome email με τα 2 agent links.
+2. Παίρνει welcome email με το σωστό προϊόν/updates flow.
 3. Μπορεί να κάνει κλικ και να χρησιμοποιήσει τους βοηθούς αμέσως.
+
+---
+
+## Newsletter automation
+
+1. Φτιάξε group: **Oksyderkeis Newsletter** (`190415310059209948`).
+2. Φτιάξε ξεχωριστό embedded form μόνο για editorial signup.
+3. Trigger automation: όταν subscriber μπαίνει στο newsletter group.
+4. **Email #1 - Welcome / editorial orientation**
+   - Θέμα: `Καλώς ήρθες — εδώ θα βρίσκεις εργαλεία, όχι θόρυβο`
+   - Κύριο μήνυμα: το site είναι hub για πρακτικά εργαλεία, AI helpers και money systems
+   - Σύνδεσμος: landing page + tool page
+5. **Email #2 - Start here**
+   - Θέμα: `Ξεκίνα από εδώ: ο AI οικονομικός οργανωτής`
+   - Κύριο μήνυμα: 1 CTA προς τον δωρεάν βοηθό και 1 CTA προς το Money OS Pro
+6. **Email #3 - Weekly editorial**
+   - Περιεχόμενο: 1 εργαλείο, 1 ιδέα, 1 πρακτικό action item
+   - Tone: calm, concise, specific
+7. Αν θέλεις να προωθήσεις το Money OS Pro και στους newsletter subscribers, πρόσθεσε ένα soft pitch email 3-5 μέρες μετά την εγγραφή.
 
 ---
 

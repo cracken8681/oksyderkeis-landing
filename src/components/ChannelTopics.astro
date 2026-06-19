@@ -7,14 +7,17 @@ const cards = [
   "Ανάλυση χωρίς πανικό και hype",
 ];
 ---
-<section class="px-5 py-14 max-w-3xl mx-auto">
-  <h2 class="text-2xl sm:text-3xl text-center mb-8">Τι θα βρεις στο κανάλι</h2>
-  <div class="grid sm:grid-cols-2 gap-3">
-    {cards.map((c, i) => (
-      <div class={`rounded-2xl border border-navy-800 bg-navy-900/50 p-5 ${i === 4 ? "sm:col-span-2" : ""}`}>
-        <span class="text-gold-500 font-display text-lg">{String(i + 1).padStart(2, "0")}</span>
-        <p class="mt-1 text-ink-100">{c}</p>
-      </div>
-    ))}
+<section class="section-shell">
+  <div class="max-w-4xl mx-auto">
+    <p class="eyebrow justify-center w-full">Τι θα βρεις</p>
+    <h2 class="mt-4 text-center section-title">Το κανάλι σαν βιβλιοθήκη, όχι σαν feed.</h2>
+    <div class="mt-10 grid gap-3 sm:grid-cols-2">
+      {cards.map((c, i) => (
+        <div class={`surface-card p-5 sm:p-6 ${i === 4 ? "sm:col-span-2" : ""}`}>
+          <span class="text-gold-500 font-display text-lg">{String(i + 1).padStart(2, "0")}</span>
+          <p class="mt-1 text-ink-100">{c}</p>
+        </div>
+      ))}
+    </div>
   </div>
 </section>

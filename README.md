@@ -32,7 +32,7 @@ npm run build && npm run preview
 4. **affiliate links** — eToro, Scramble, Wealthyhood, Trading 212, Bybit, Revolut (+ προσφορές).
    Freedom24 είναι ήδη συμπληρωμένη ως προς το copy· λείπει μόνο το link.
 5. **YouTube channelId** — δες παρακάτω.
-6. **MailerLite** — `accountId / formId` για το embedded form.
+6. **MailerLite** — `accountId / waitlistFormId / newsletterFormId` για τα δύο ξεχωριστά embedded forms.
 7. **Telegram / socials** — `SOCIAL.*`.
 8. **og-image.png** (1200×630) στο `/public`.
 9. **privacy policy** — φτιάξε σελίδα `/privacy` (GDPR).
@@ -41,11 +41,14 @@ npm run build && npm run preview
 youtube.com → κανάλι → δεξί κλικ «Προβολή πηγαίου κώδικα» → ψάξε `channel_id` ή `externalId`
 (μορφή `UCxxxxxxxxxxxxxxxxxxxxxx`). Βάλ' το στο `YOUTUBE.channelId`.
 
-## MailerLite (email signup → agents + welcome)
-1. MailerLite → δημιούργησε **embedded form** με ΜΟΝΟ πεδίο email + consent checkbox.
-2. Form settings → **Success action: Redirect** → `https://<domain>/tools`.
-3. **Automation**: trigger «when subscriber joins group» → welcome email με τα ίδια agent links
-   (full + motivator). Έτσι ο χρήστης τα έχει & στη σελίδα & στο inbox.
+## MailerLite (δύο καθαρά flows)
+1. **Waitlist form** → embedded form με ΜΟΝΟ πεδίο email + consent checkbox.
+   - Success action: Redirect → `https://<domain>/tools`.
+   - Trigger automation: «when subscriber joins group» → welcome email για Money OS Pro / product updates.
+2. **Newsletter form** → ξεχωριστό embedded form για editorial email / guides.
+   - Success action: Redirect → σε ευχαριστήριο page ή πίσω στο guide.
+   - Trigger automation: «when subscriber joins group» → newsletter welcome + weekly follow-up sequence.
+3. Μην βάζεις τα δύο forms στο ίδιο group αν θέλεις καθαρή μέτρηση intent.
 
 ## YouTube auto-update (χωρίς χειροκίνητη αλλαγή)
 Το τελευταίο βίντεο φορτώνεται **build-time** από το RSS. Για να ανανεώνεται μόνο του:

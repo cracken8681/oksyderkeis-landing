@@ -1,0 +1,640 @@
+---
+import Base from "../layouts/Base.astro";
+import { AFFILIATES } from "../config";
+import NewsletterSignup from "../components/NewsletterSignup.astro";
+
+const freedom24 = AFFILIATES.find(a => a.name === "Freedom24")!;
+
+const title = "Οδηγός Επενδύσεων για Αρχάριους | Oksyderkeis";
+const description =
+  "Πλήρης οδηγός επενδύσεων στα ελληνικά. Από το μηδέν μέχρι την πρώτη σου αγορά ETF — απλά, καθαρά, χωρίς υπερβολές.";
+---
+
+<Base title={title} description={description}>
+  <!-- Sticky Freedom24 CTA (desktop: right side, mobile: bottom bar) -->
+  <div
+    id="sticky-f24"
+    class="hidden"
+    aria-label="Άνοιξε λογαριασμό Freedom24"
+  >
+    <!-- Desktop: floating pill on right -->
+    <a
+      href={freedom24.url}
+      target="_blank"
+      rel="noopener sponsored"
+      data-cta="guide-sticky-desktop"
+      class="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-center gap-1 rounded-2xl border border-gold-600 bg-navy-900/95 backdrop-blur px-4 py-5 shadow-xl hover:border-gold-400 transition-colors text-center max-w-[120px]"
+    >
+      <span class="text-xl">🎁</span>
+      <span class="text-xs font-semibold text-gold-400 leading-tight">Άνοιξε λογαριασμό</span>
+      <span class="text-[10px] text-ink-300 leading-tight">Έως 20 δωρεάν μετοχές</span>
+    </a>
+    <!-- Mobile: bottom bar -->
+    <a
+      href={freedom24.url}
+      target="_blank"
+      rel="noopener sponsored"
+      data-cta="guide-sticky-mobile"
+      class="fixed bottom-0 inset-x-0 z-50 flex lg:hidden items-center justify-center gap-2 bg-gold-500 text-navy-950 font-semibold py-3.5 shadow-lg"
+    >
+      🎁 Κάνε εγγραφή & πάρε μπόνους μετοχές
+    </a>
+  </div>
+
+  <!-- ───── HERO ───── -->
+  <header class="relative px-5 pt-20 pb-16 max-w-3xl mx-auto text-center">
+    <div class="lamp" aria-hidden="true"></div>
+    <span class="inline-block rounded-full border border-gold-600/60 bg-gold-500/10 px-4 py-1.5 text-xs tracking-widest uppercase text-gold-400 mb-6">
+      Δωρεάν Οδηγός
+    </span>
+    <h1 class="text-4xl sm:text-5xl leading-tight reveal">
+      Οδηγός Επενδύσεων<br />για Αρχάριους
+    </h1>
+    <p class="mt-6 text-lg text-ink-300 leading-relaxed max-w-2xl mx-auto">
+      Πώς λειτουργεί η επένδυση, τι είναι τα ETFs και πώς ανοίγεις τον πρώτο σου λογαριασμό —
+      σε απλά ελληνικά, χωρίς χρηματοοικονομική ορολογία.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a href="#tic"
+         class="rounded-full bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold px-7 py-3.5 transition-colors">
+        Ξεκίνα να διαβάζεις
+      </a>
+      <a href={freedom24.url} target="_blank" rel="noopener sponsored"
+         data-cta="guide-hero-cta"
+         class="rounded-full border border-gold-600 hover:border-gold-400 hover:text-gold-400 px-7 py-3.5 transition-colors text-ink-300">
+        Άνοιξε λογαριασμό Freedom24 🎁
+      </a>
+    </div>
+  </header>
+
+  <div class="rule-gold mx-auto max-w-2xl"></div>
+
+  <!-- ───── ΠΙΝΑΚΑΣ ΠΕΡΙΕΧΟΜΕΝΩΝ ───── -->
+  <nav id="tic" class="px-5 py-10 max-w-2xl mx-auto scroll-mt-10" aria-label="Πίνακας περιεχομένων">
+    <p class="text-gold-500 tracking-widest text-xs uppercase mb-4">Περιεχόμενα</p>
+    <ol class="space-y-2 text-ink-300">
+      <li><a href="#kef1" class="hover:text-gold-400 transition-colors">1. Τι είναι επένδυση (και γιατί αφορά όλους)</a></li>
+      <li><a href="#kef2" class="hover:text-gold-400 transition-colors">2. Τι πρέπει να κάνεις ΠΡΙΝ επενδύσεις</a></li>
+      <li><a href="#kef3" class="hover:text-gold-400 transition-colors">3. Τι είναι τα ETFs και γιατί είναι ιδανικά για αρχάριους</a></li>
+      <li><a href="#kef4" class="hover:text-gold-400 transition-colors">4. Πώς διαλέγεις broker — και γιατί χρησιμοποιώ την Freedom24</a></li>
+      <li><a href="#kef5" class="hover:text-gold-400 transition-colors">5. Η πρώτη σου αγορά ETF — βήμα βήμα</a></li>
+      <li><a href="#kef6" class="hover:text-gold-400 transition-colors">6. Συχνές ερωτήσεις</a></li>
+    </ol>
+  </nav>
+
+  <div class="rule-gold mx-auto max-w-2xl"></div>
+
+  <!-- ───── ΚΕΦΑΛΑΙΟ 1 ───── -->
+  <article class="px-5 py-14 max-w-2xl mx-auto prose-guide" id="kef1">
+    <p class="chapter-label">Κεφάλαιο 1</p>
+    <h2>Τι είναι επένδυση (και γιατί αφορά όλους)</h2>
+
+    <p>
+      Το χρήμα που κρατάς στο σωρό χάνει αξία κάθε χρόνο. Ο πληθωρισμός τρώει αθόρυβα αγοραστική δύναμη —
+      σήμερα 3-4%, τα τελευταία 2 χρόνια ακόμα παραπάνω.
+    </p>
+    <p>
+      <strong>Επένδυση</strong> σημαίνει να βάζεις τα χρήματά σου να «δουλεύουν» αντί να τα αφήνεις ακίνητα.
+      Αγοράζεις ένα κομμάτι μιας επιχείρησης (μετοχή), ενός καλαθιού μετοχών (ETF), ή κάτι άλλο που αποφέρει
+      αξία με τον χρόνο.
+    </p>
+
+    <div class="callout-box">
+      <p class="text-gold-400 font-semibold">Η δύναμη του ανατοκισμού</p>
+      <p class="mt-2 text-ink-300">
+        €5.000 σε ένα ETF με ιστορική απόδοση ~10%/χρόνο → σε 20 χρόνια: <strong class="text-ink-100">~€33.600</strong>
+        χωρίς να βάλεις ούτε ένα ευρώ παραπάνω. Και αν βάζεις €100/μήνα παράλληλα;
+        Φτάνεις <strong class="text-ink-100">~€105.500</strong>.
+      </p>
+    </div>
+
+    <h3>Δύο τρόποι να κερδίζεις χρήμα</h3>
+    <ul>
+      <li><strong>Ενεργό εισόδημα</strong> — δουλεύεις και πληρώνεσαι. Σταματάς να δουλεύεις, σταματά και το εισόδημα.</li>
+      <li><strong>Παθητικό εισόδημα</strong> — τα assets σου δουλεύουν για σένα. Κοιμάσαι, αυτά αποδίδουν.</li>
+    </ul>
+    <p>
+      Η επένδυση είναι ο τρόπος να χτίσεις παθητικό εισόδημα — ακόμα και με μικρά ποσά από τώρα.
+    </p>
+
+    <p class="back-to-top"><a href="#tic">↑ Πίσω στα περιεχόμενα</a></p>
+  </article>
+
+  <div class="rule-gold mx-auto max-w-2xl"></div>
+
+  <!-- ───── ΚΕΦΑΛΑΙΟ 2 ───── -->
+  <article class="px-5 py-14 max-w-2xl mx-auto prose-guide" id="kef2">
+    <p class="chapter-label">Κεφάλαιο 2</p>
+    <h2>Τι πρέπει να κάνεις ΠΡΙΝ επενδύσεις</h2>
+
+    <p>
+      Το συνηθέστερο λάθος: ανοίγει κάποιος λογαριασμό σε broker, αγοράζει μετοχές, και έναν μήνα μετά
+      χρειάζεται τα χρήματα για κάποιο έκτακτο. Τα πουλάει σε ζημία.
+    </p>
+    <p>Πριν βάλεις €1 σε επένδυση, κάνε αυτές τις τρεις κινήσεις:</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">1</span>
+        <h4>Εξόφλησε χρέη υψηλού επιτοκίου</h4>
+        <p>Κάρτα με 18% επιτόκιο «τρώει» περισσότερα από ό,τι κερδίζεις επενδύοντας. Πρώτα η κάρτα, μετά η επένδυση.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">2</span>
+        <h4>Χτίσε ταμείο έκτακτης ανάγκης</h4>
+        <p>3 μήνες βασικών εξόδων σε savings account ή απλή κατάθεση. Αυτά δεν τα αγγίζεις ποτέ για επένδυση.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">3</span>
+        <h4>Όρισε ποσό που μπορείς να «ξεχάσεις»</h4>
+        <p>Επένδυε μόνο χρήματα που δεν θα χρειαστείς για τουλάχιστον 3-5 χρόνια. Ακόμα και €50/μήνα είναι εξαιρετική αρχή.</p>
+      </div>
+    </div>
+
+    <div class="callout-box callout-warning">
+      <p class="text-ink-100 font-semibold">Κανόνας 50/30/20</p>
+      <p class="mt-2 text-ink-300">
+        50% εισοδήματος για ανάγκες · 30% για επιθυμίες · 20% για αποταμίευση/επένδυση.
+        Αν δυσκολεύεσαι να βρεις το 20%, ξεκίνα από 5% και ανέβαζε σταδιακά.
+      </p>
+    </div>
+
+    <p class="back-to-top"><a href="#tic">↑ Πίσω στα περιεχόμενα</a></p>
+  </article>
+
+  <div class="rule-gold mx-auto max-w-2xl"></div>
+
+  <!-- ───── ΚΕΦΑΛΑΙΟ 3 ───── -->
+  <article class="px-5 py-14 max-w-2xl mx-auto prose-guide" id="kef3">
+    <p class="chapter-label">Κεφάλαιο 3</p>
+    <h2>Τι είναι τα ETFs — και γιατί είναι ιδανικά για αρχάριους</h2>
+
+    <p>
+      Αντί να επιλέξεις μία μετοχή (και να διακινδυνεύσεις αν αποτύχει η εταιρεία),
+      ένα <strong>ETF</strong> (Exchange-Traded Fund) αγοράζεις ένα καλάθι από εκατοντάδες ή χιλιάδες μετοχές ταυτόχρονα.
+    </p>
+
+    <div class="highlight-box">
+      <p class="text-gold-400 font-semibold text-lg">Παράδειγμα: VUAA για τον S&amp;P 500</p>
+      <p class="mt-3 text-ink-300">
+        Αγοράζοντας ένα μερίδιο του VUAA (~€80-€100, ανάλογα την αγορά) παίρνεις έκθεση στον
+        <strong class="text-ink-100">S&amp;P 500</strong> - δηλαδή στις 500 μεγαλύτερες αμερικανικές εταιρείες.
+        Είναι το πρακτικό ETF παράδειγμα που κρατάμε εδώ όταν μιλάμε για S&amp;P 500 και όχι για θεωρία.
+      </p>
+    </div>
+
+    <h3>Γιατί τα ETFs είναι η καλύτερη επιλογή για αρχάριους</h3>
+    <ul>
+      <li><strong>Διαφοροποίηση αυτόματα</strong> — δεν «στοιχηματίζεις» σε μια εταιρεία</li>
+      <li><strong>Χαμηλό κόστος</strong> — οι ετήσιες χρεώσεις (TER) συχνά κάτω από 0,20%</li>
+      <li><strong>Διαφάνεια</strong> — βλέπεις τι περιέχει το ETF ανά πάσα στιγμή</li>
+      <li><strong>Ρευστότητα</strong> — πουλάς όποτε θες, σε δευτερόλεπτα</li>
+      <li><strong>Χωρίς ειδικές γνώσεις</strong> — δεν χρειάζεται να αναλύεις τριμηνιαίες εκθέσεις</li>
+    </ul>
+
+    <h3>Τα 3 ETF παραδείγματα που κρατάμε</h3>
+    <div class="etf-table">
+      <div class="etf-row header">
+        <span>ETF</span><span>Τι περιέχει</span><span>TER</span><span>Σχόλιο</span>
+      </div>
+      <div class="etf-row">
+        <span class="font-semibold text-gold-400">VUAA</span>
+        <span>S&amp;P 500 - 500 μεγαλύτερες αμερικανικές εταιρείες</span>
+        <span>0,07%</span>
+        <span>Το χρησιμοποιώ εγώ για DCA</span>
+      </div>
+      <div class="etf-row">
+        <span class="font-semibold text-gold-400">MSCI World</span>
+        <span>Μετοχές ανεπτυγμένων αγορών παγκοσμίως</span>
+        <span>0,20%</span>
+        <span>Πιο ευρύ από το S&amp;P 500</span>
+      </div>
+      <div class="etf-row">
+        <span class="font-semibold text-gold-400">All World</span>
+        <span>Developed + emerging markets σε ένα ETF</span>
+        <span>0,19%</span>
+        <span>Πολύ broad λύση</span>
+      </div>
+    </div>
+
+    <p class="mt-4 text-sm text-ink-400">
+      Αυτό δεν είναι προτροπή ή επενδυτική συμβουλή.
+      Είναι τα 3 παραδείγματα που κρατάμε εδώ για να εξηγούμε τη διαφορά ανάμεσα σε πιο στενά και πιο ευρεία ETF.
+      Εγώ προσωπικά εφαρμόζω DCA στο VUAA.
+    </p>
+
+    <p class="back-to-top"><a href="#tic">↑ Πίσω στα περιεχόμενα</a></p>
+  </article>
+
+  <div class="rule-gold mx-auto max-w-2xl"></div>
+
+  <!-- ───── ΚΕΦΑΛΑΙΟ 4 — Freedom24 integration ───── -->
+  <article class="px-5 py-14 max-w-2xl mx-auto prose-guide" id="kef4">
+    <p class="chapter-label">Κεφάλαιο 4</p>
+    <h2>Πώς διαλέγεις broker — και γιατί χρησιμοποιώ την Freedom24</h2>
+
+    <p>
+      Για να αγοράσεις ETF χρειάζεσαι έναν <strong>broker</strong> — μια πλατφόρμα που συνδέεται με τα χρηματιστήρια
+      και εκτελεί τις αγοραπωλησίες σου. Υπάρχουν αρκετές επιλογές στην αγορά.
+    </p>
+    <p>
+      Αν θες να δεις την αγορά με απλό τρόπο, μπορείς να χρησιμοποιήσεις διάφορες πλατφόρμες.
+      Εγώ χρησιμοποιώ τη <strong>Freedom24</strong> — ταιριάζει στο δικό μου flow, είναι ευρωπαϊκή
+      και την έχω ενσωματώσει εδώ ως την πλατφόρμα που δουλεύω. Μπορείς να δεις αν σου ταιριάζει:
+    </p>
+
+    <div class="f24-reasons">
+      <div class="f24-reason">
+        <span class="f24-icon">🇪🇺</span>
+        <div>
+          <p class="font-semibold text-ink-100">Ευρωπαϊκή άδεια & ασφάλεια</p>
+          <p class="text-ink-300 text-sm mt-1">Εποπτεύεται από CySEC (Κύπρος, ΕΕ). Οι καταθέσεις καλύπτονται από το Ταμείο Αποζημίωσης Επενδυτών έως €20.000.</p>
+        </div>
+      </div>
+      <div class="f24-reason">
+        <span class="f24-icon">📊</span>
+        <div>
+          <p class="font-semibold text-ink-100">Πρόσβαση σε ETFs, μετοχές & ομόλογα</p>
+          <p class="text-ink-300 text-sm mt-1">Πάνω από 1 εκ. χρηματοπιστωτικά προϊόντα — ό,τι χρειαστείς, βρίσκεται εκεί.</p>
+        </div>
+      </div>
+      <div class="f24-reason">
+        <span class="f24-icon">📱</span>
+        <div>
+          <p class="font-semibold text-ink-100">Εφαρμογή & web platform</p>
+          <p class="text-ink-300 text-sm mt-1">Λειτουργεί καλά και από κινητό και από browser — χωρίς περίεργη UX.</p>
+        </div>
+      </div>
+      <div class="f24-reason">
+        <span class="f24-icon">🎁</span>
+        <div>
+          <p class="font-semibold text-ink-100">Μπόνους για νέους χρήστες</p>
+          <p class="text-ink-300 text-sm mt-1">Αν ανοίξεις λογαριασμό μέσω του link μου, παίρνεις έως 20 δωρεάν μετοχές — κλιμακωτά ανάλογα με την κατάθεσή σου (έως 30.06.2026, μόνο ΕΕ).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Freedom24 CTA block -->
+    <div class="f24-cta-block">
+      <p class="text-xl font-display font-semibold text-center">Άνοιξε λογαριασμό Freedom24</p>
+      <p class="text-ink-300 text-center text-sm mt-2">Δωρεάν εγγραφή · Έως 20 δωρεάν μετοχές · Κεφάλαιο σε κίνδυνο</p>
+      <a
+        href={freedom24.url}
+        target="_blank"
+        rel="noopener sponsored"
+        data-cta="guide-chapter4-main"
+        class="mt-5 block w-full text-center rounded-full bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold py-4 transition-colors text-lg"
+      >
+        🎁 Κάνε εγγραφή & πάρε μπόνους μετοχές
+      </a>
+      <p class="text-xs text-ink-500 text-center mt-3">
+        Αυτό είναι affiliate link — αν εγγραφείς, παίρνω μικρή αμοιβή χωρίς καμία επιπλέον χρέωση για σένα.
+        Τη χρησιμοποιώ ο ίδιος — αυτός είναι ο λόγος που είναι εδώ.
+      </p>
+    </div>
+
+    <p class="back-to-top"><a href="#tic">↑ Πίσω στα περιεχόμενα</a></p>
+  </article>
+
+  <div class="rule-gold mx-auto max-w-2xl"></div>
+
+  <!-- ───── ΚΕΦΑΛΑΙΟ 5 ───── -->
+  <article class="px-5 py-14 max-w-2xl mx-auto prose-guide" id="kef5">
+    <p class="chapter-label">Κεφάλαιο 5</p>
+    <h2>Η πρώτη σου αγορά ETF — βήμα βήμα</h2>
+
+    <p>
+      Έχεις ανοίξει λογαριασμό, έχεις κάνει κατάθεση. Τι κάνεις τώρα; Ορίστε η διαδικασία:
+    </p>
+
+    <ol class="steps-list">
+      <li>
+        <span class="step-badge">1</span>
+        <div>
+          <p class="font-semibold text-ink-100">Αποφάσισε τι ETF θέλεις</p>
+          <p class="text-ink-300 text-sm mt-1">
+            Για αρχάριους εδώ κρατάμε το VUAA ως το πρακτικό παράδειγμά μας για S&amp;P 500.
+            Το official TER του είναι 0,07% και εγώ το χρησιμοποιώ με DCA, αλλά αυτό δεν είναι προτροπή ή επενδυτική συμβουλή.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span class="step-badge">2</span>
+        <div>
+          <p class="font-semibold text-ink-100">Βρες το ETF στην πλατφόρμα</p>
+          <p class="text-ink-300 text-sm mt-1">
+            Ψάξε το ticker <code class="text-gold-400">VUAA</code> ή το πλήρες όνομα του S&amp;P 500 ETF.
+            Κοίτα το TER (ετήσια χρέωση) μόνο ως reference: VUAA 0,07%.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span class="step-badge">3</span>
+        <div>
+          <p class="font-semibold text-ink-100">Επίλεξε ποσό & τύπο εντολής</p>
+          <p class="text-ink-300 text-sm mt-1">
+            «Market order» για αγορά στην τρέχουσα τιμή (η πιο απλή επιλογή).
+            Ξεκίνα με ό,τι ποσό σου φαίνεται άνετο — δεν χρειάζεται να γεμίσεις το χαρτοφυλάκιό σου αμέσως.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span class="step-badge">4</span>
+        <div>
+          <p class="font-semibold text-ink-100">Επιβεβαίωσε & ξέχνα</p>
+          <p class="text-ink-300 text-sm mt-1">
+            Σοβαρά — μη κοιτάς την τιμή κάθε μέρα. Το VUAA είναι μακροπρόθεσμο εργαλείο για μένα.
+            Ορίσε ένα σταθερό ποσό κάθε μήνα (Dollar-Cost Averaging). Εγώ το εφαρμόζω στο VUAA.
+          </p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="callout-box">
+      <p class="text-gold-400 font-semibold">Τι είναι το Dollar-Cost Averaging (DCA)</p>
+      <p class="mt-2 text-ink-300">
+        Αντί να βάλεις €5.000 σε μία συναλλαγή και να ανησυχείς για «την τέλεια στιγμή», βάζεις
+        €100-€200 κάθε μήνα. Μερικές φορές αγοράζεις ακριβά, μερικές φορές φτηνά — ο μέσος όρος
+        λειτουργεί υπέρ σου με τον καιρό.
+      </p>
+    </div>
+
+    <!-- Inline Freedom24 CTA (less prominent) -->
+    <div class="mt-10 flex flex-col sm:flex-row items-center gap-4 rounded-2xl border border-gold-600/40 bg-navy-900/60 p-6">
+      <div class="flex-1">
+        <p class="font-semibold">Έτοιμος να ξεκινήσεις;</p>
+        <p class="text-sm text-ink-300 mt-1">Άνοιξε λογαριασμό Freedom24 και πάρε έως 20 δωρεάν μετοχές.</p>
+      </div>
+      <a
+        href={freedom24.url}
+        target="_blank"
+        rel="noopener sponsored"
+        data-cta="guide-chapter5-cta"
+        class="shrink-0 rounded-full bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold px-6 py-3 transition-colors whitespace-nowrap"
+      >
+        Εγγραφή 🎁
+      </a>
+    </div>
+
+    <p class="back-to-top mt-8"><a href="#tic">↑ Πίσω στα περιεχόμενα</a></p>
+  </article>
+
+  <div class="rule-gold mx-auto max-w-2xl"></div>
+
+  <!-- ───── ΚΕΦΑΛΑΙΟ 6 — FAQ ───── -->
+  <article class="px-5 py-14 max-w-2xl mx-auto prose-guide" id="kef6">
+    <p class="chapter-label">Κεφάλαιο 6</p>
+    <h2>Συχνές ερωτήσεις</h2>
+
+    <details class="faq-item">
+      <summary>Πόσα χρήματα χρειάζομαι για να ξεκινήσω;</summary>
+      <p>Κυριολεκτικά €10-€50 αρκούν για την πρώτη σου επένδυση. Δεν υπάρχει ελάχιστο ποσό στις περισσότερες πλατφόρμες. Αυτό που μετράει είναι η συνέπεια — €50 κάθε μήνα για 20 χρόνια κάνουν θαύματα.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Κινδυνεύω να χάσω όλα μου τα χρήματα;</summary>
+      <p>Ένα διαφοροποιημένο ETF όπως το MSCI World δεν μπορεί να πάει στο μηδέν — θα σήμαινε ότι κατέρρευσαν χιλιάδες παγκόσμιες εταιρείες ταυτόχρονα. Υπάρχει κίνδυνος ζημίας βραχυπρόθεσμα (κρίσεις, υφέσεις), γι' αυτό επενδύουμε μόνο για μακροπρόθεσμο ορίζοντα και με χρήματα που δεν χρειαζόμαστε άμεσα.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Πώς φορολογούνται τα κέρδη στην Ελλάδα;</summary>
+      <p>Τα κέρδη από πώληση μετοχών/ETF φορολογούνται με 15% (συνήθως). Τα μερίσματα με 5%. Ο broker συνήθως κάνει παρακράτηση αυτόματα. Σε κάθε περίπτωση, συμβουλεύσου λογιστή για την ατομική σου κατάσταση — εγώ δεν παρέχω φορολογικές συμβουλές.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>ETF ή μετοχές; Τι είναι καλύτερο;</summary>
+      <p>Για αρχάριους: ETF πάντα. Μετοχές μεμονωμένων εταιρειών απαιτούν ανάλυση, παρακολούθηση, και υψηλότερη ανοχή στον κίνδυνο. Όταν αποκτήσεις εμπειρία και καταλάβεις καλύτερα τις αγορές, μπορείς να αφιερώσεις ένα μικρό μέρος του χαρτοφυλακίου σε επιλεγμένες μετοχές.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Πότε πρέπει να πουλήσω;</summary>
+      <p>Ιδανικά: ποτέ, μέχρι να χρειαστείς τα χρήματα (συνταξιοδότηση, μεγάλη αγορά, κ.λπ.). Οι αποδόσεις μεγαλώνουν με τον χρόνο. Το να πουλάς σε πανικό όταν πέφτουν οι αγορές είναι το πιο ακριβό λάθος που κάνουν οι αρχάριοι επενδυτές.</p>
+    </details>
+
+    <p class="back-to-top"><a href="#tic">↑ Πίσω στα περιεχόμενα</a></p>
+  </article>
+
+  <div class="rule-gold mx-auto max-w-2xl"></div>
+
+  <NewsletterSignup />
+
+  <div class="rule-gold mx-auto max-w-2xl"></div>
+
+  <!-- ───── ΤΕΛΙΚΟ CTA ───── -->
+  <section class="px-5 py-16 max-w-2xl mx-auto text-center">
+    <p class="text-gold-500 tracking-widest text-xs uppercase mb-4">Επόμενο βήμα</p>
+    <h2 class="text-3xl sm:text-4xl">Ξεκίνα με ένα πραγματικό λογαριασμό</h2>
+    <p class="mt-5 text-ink-300 leading-relaxed max-w-xl mx-auto">
+      Διάβασες τον οδηγό. Τώρα η κίνηση που έχει σημασία είναι η πρώτη πρακτική.
+      Άνοιξε λογαριασμό Freedom24, κάνε κατάθεση με ό,τι σου είναι άνετο, και αγόρασε
+      το πρώτο σου ETF — έστω και αν είναι €50.
+    </p>
+    <a
+      href={freedom24.url}
+      target="_blank"
+      rel="noopener sponsored"
+      data-cta="guide-final-cta"
+      class="mt-8 inline-block rounded-full bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold px-10 py-4 text-lg transition-colors"
+    >
+      🎁 Κάνε εγγραφή & πάρε έως 20 δωρεάν μετοχές
+    </a>
+    <p class="mt-4 text-xs text-ink-500">
+      Affiliate link · Κεφάλαιο σε κίνδυνο · Έως 30.06.2026, μόνο ΕΕ · Υπόκειται σε όρους
+    </p>
+  </section>
+
+  <!-- ───── SCRIPTS ───── -->
+  <script is:inline>
+    // Show sticky after 400px scroll
+    (function () {
+      const el = document.getElementById("sticky-f24");
+      if (!el) return;
+      function check() {
+        if (window.scrollY > 400) el.classList.remove("hidden");
+        else el.classList.add("hidden");
+      }
+      window.addEventListener("scroll", check, { passive: true });
+    })();
+  </script>
+</Base>
+
+<style>
+  .prose-guide h2 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--color-ink-100);
+    margin-bottom: 1.25rem;
+    line-height: 1.25;
+  }
+  .prose-guide h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-ink-100);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-guide p {
+    color: var(--color-ink-300);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .prose-guide ul, .prose-guide ol { margin: 1rem 0 1.5rem 1.25rem; }
+  .prose-guide li {
+    color: var(--color-ink-300);
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+  .prose-guide strong { color: var(--color-ink-100); }
+
+  .chapter-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-gold-500);
+    margin-bottom: 0.5rem !important;
+  }
+
+  .callout-box {
+    background: rgba(201, 168, 76, 0.07);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 1rem;
+    padding: 1.25rem 1.5rem;
+    margin: 1.75rem 0;
+  }
+  .callout-warning {
+    background: rgba(255, 200, 50, 0.05);
+    border-color: rgba(255, 200, 50, 0.2);
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(19,29,51,0.9), rgba(27,39,66,0.9));
+    border: 1px solid var(--color-navy-600);
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    margin: 1.75rem 0;
+  }
+
+  .steps-grid {
+    display: grid;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  @media (min-width: 640px) { .steps-grid { grid-template-columns: repeat(3, 1fr); } }
+  .step-card {
+    background: rgba(19,29,51,0.7);
+    border: 1px solid var(--color-navy-600);
+    border-radius: 1rem;
+    padding: 1.25rem;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; height: 2rem;
+    border-radius: 50%;
+    background: var(--color-gold-500);
+    color: var(--color-navy-950);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .step-card h4 {
+    font-weight: 600;
+    color: var(--color-ink-100);
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+  }
+  .step-card p { font-size: 0.85rem; color: var(--color-ink-300); margin: 0; }
+
+  .etf-table { margin: 1.5rem 0; border: 1px solid var(--color-navy-600); border-radius: 0.75rem; overflow: hidden; }
+  .etf-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr 2fr;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    color: var(--color-ink-300);
+    border-bottom: 1px solid var(--color-navy-700);
+  }
+  .etf-row:last-child { border-bottom: none; }
+  .etf-row.header {
+    background: rgba(19,29,51,0.6);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-ink-500);
+  }
+
+  .f24-reasons { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; }
+  .f24-reason {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem;
+    border: 1px solid var(--color-navy-600);
+    border-radius: 0.875rem;
+    background: rgba(13,27,42,0.5);
+  }
+  .f24-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+  .f24-cta-block {
+    margin-top: 2rem;
+    background: linear-gradient(135deg, rgba(27,39,66,0.95), rgba(19,29,51,0.95));
+    border: 1px solid var(--color-gold-600);
+    border-radius: 1.5rem;
+    padding: 2rem;
+  }
+
+  .steps-list { list-style: none; padding: 0; margin: 1.5rem 0; display: flex; flex-direction: column; gap: 1.25rem; }
+  .steps-list li { display: flex; gap: 1rem; align-items: flex-start; }
+  .step-badge {
+    flex-shrink: 0;
+    width: 2rem; height: 2rem;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--color-gold-500);
+    color: var(--color-navy-950);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .steps-list code { font-size: 0.85em; }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-navy-700);
+    padding: 1.25rem 0;
+  }
+  .faq-item summary {
+    font-weight: 600;
+    color: var(--color-ink-100);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .faq-item summary::after { content: "+"; color: var(--color-gold-500); font-size: 1.3rem; flex-shrink: 0; }
+  .faq-item[open] summary::after { content: "−"; }
+  .faq-item p {
+    margin-top: 0.75rem;
+    padding-left: 0.25rem;
+    font-size: 0.95rem;
+  }
+
+  .back-to-top { margin-top: 2.5rem; font-size: 0.8rem; }
+  .back-to-top a { color: var(--color-ink-500); hover: color: var(--color-gold-400); }
+
+  /* lamp reuse */
+  .lamp {
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(52rem, 98vw);
+    height: 380px;
+    pointer-events: none;
+    background: conic-gradient(from 270deg at 50% 0%, transparent 60deg, rgba(212,175,87,0.18) 90deg, rgba(212,175,87,0.06) 130deg, transparent 180deg, transparent 180deg, rgba(212,175,87,0.06) 230deg, rgba(212,175,87,0.18) 270deg, transparent 300deg);
+    mask-image: linear-gradient(to bottom, white 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, white 0%, transparent 100%);
+  }
+</style>

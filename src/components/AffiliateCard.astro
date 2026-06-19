@@ -1,44 +1,44 @@
 ---
 import { AFFILIATES } from "../config";
 ---
-<section id="affiliates" class="px-5 py-14 max-w-3xl mx-auto">
-  <details class="group rounded-3xl border border-navy-800 bg-navy-900/50 overflow-hidden">
-    <summary class="cursor-pointer list-none p-6 sm:p-7 flex items-center justify-between gap-4">
-      <span>
-        <span class="block text-xl sm:text-2xl font-display">Πλατφόρμες & εργαλεία που χρησιμοποιώ</span>
-        <span class="block mt-1 text-sm text-ink-500">Πάτα για να δεις τα links & τις προσφορές</span>
-      </span>
-      <span class="text-gold-500 text-2xl transition-transform group-open:rotate-45" aria-hidden="true">+</span>
-    </summary>
+<section id="affiliates" class="section-shell">
+  <div class="max-w-4xl mx-auto">
+    <details class="group surface-card overflow-hidden">
+      <summary class="cursor-pointer list-none p-6 sm:p-7 flex items-center justify-between gap-4">
+        <span>
+          <span class="block text-xl sm:text-2xl font-display">Πλατφόρμες & εργαλεία που χρησιμοποιώ</span>
+          <span class="block mt-1 text-sm text-ink-500">Πάτα για να δεις τα links & τις προσφορές</span>
+        </span>
+        <span class="text-gold-500 text-2xl transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+      </summary>
 
-    <div class="px-6 sm:px-7 pb-7">
-      <p class="text-ink-300 leading-relaxed">
-        Αν θες να εξερευνήσεις κάποια από αυτές, μπορείς μέσα από τα links μου — με προσφορές
-        για νέους χρήστες.
-      </p>
+      <div class="px-6 sm:px-7 pb-7">
+        <p class="text-ink-300 leading-relaxed">
+          Αν θες να εξερευνήσεις κάποια από αυτές, μπορείς μέσα από τα links μου — με προσφορές για νέους χρήστες.
+        </p>
 
-      <ul class="mt-6 grid gap-3">
-        {AFFILIATES.map((a) => (
-          <li class="rounded-2xl border border-navy-800 bg-navy-800/40 p-4">
-            <div class="flex items-center justify-between gap-3">
-              <span class="font-semibold text-ink-100">{a.name}</span>
-              <a href={a.url} target="_blank" rel="sponsored noopener"
-                 data-cta={`aff-${a.name.toLowerCase()}`}
-                 class="text-sm rounded-full border border-gold-600 px-4 py-1.5 hover:bg-gold-500 hover:text-navy-950 transition-colors whitespace-nowrap">
-                Άνοιγμα →
-              </a>
+        <div class="mt-6 grid gap-3">
+          {AFFILIATES.map((a) => (
+            <div class="surface-card p-4">
+              <div class="flex items-center justify-between gap-3">
+                <span class="font-semibold text-ink-100">{a.name}</span>
+                <a href={a.url} target="_blank" rel="sponsored noopener"
+                   data-cta={`aff-${a.name.toLowerCase()}`}
+                   class="text-sm rounded-full border border-gold-600/40 bg-gold-500/10 px-4 py-1.5 text-gold-300 transition-colors hover:bg-gold-500 hover:text-navy-950 whitespace-nowrap">
+                  Άνοιγμα →
+                </a>
+              </div>
+              <p class="mt-1 text-sm text-ink-300">{a.blurb}</p>
+              <p class="mt-1 text-sm text-gold-400/90">{a.offer}</p>
             </div>
-            <p class="mt-1 text-sm text-ink-300">{a.blurb}</p>
-            <p class="mt-1 text-sm text-gold-400/90">{a.offer}</p>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
 
-      <p class="mt-6 text-xs text-ink-500 leading-relaxed border-t border-navy-800 pt-4">
-        Τα παραπάνω είναι affiliate links — μπορεί να λάβω προμήθεια χωρίς κόστος για σένα.
-        Η επένδυση εμπεριέχει ρίσκο. Το περιεχόμενο είναι εκπαιδευτικό και δεν αποτελεί
-        επενδυτική συμβουλή.
-      </p>
-    </div>
-  </details>
+        <p class="mt-6 text-xs text-ink-500 leading-relaxed border-t border-navy-800 pt-4">
+          Τα παραπάνω είναι affiliate links — μπορεί να λάβω προμήθεια χωρίς κόστος για σένα.
+          Η επένδυση εμπεριέχει ρίσκο. Το περιεχόμενο είναι εκπαιδευτικό και δεν αποτελεί επενδυτική συμβουλή.
+        </p>
+      </div>
+    </details>
+  </div>
 </section>
