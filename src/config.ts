@@ -39,8 +39,8 @@ export const LUMI = {
  *   1) βάλε το checkoutUrl   2) άλλαξε mode σε "live".
  */
 export const MONEY_OS = {
-  mode: "waitlist" as "waitlist" | "live",
-  checkoutUrl: "TODO_GUMROAD_OR_LEMONSQUEEZY", // TODO: checkout link
+  mode: "live" as "waitlist" | "live",
+  checkoutUrl: "https://buy.stripe.com/cNifZieVt09nfmC7Jy1wY01",
   launchPrice: "17€",
   futurePrice: "27€",
   features: [

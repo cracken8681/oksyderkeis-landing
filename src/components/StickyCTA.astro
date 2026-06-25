@@ -8,19 +8,50 @@
   </a>
 </div>
 
-<!-- Desktop: sticky top banner (appears after scroll) -->
-<div id="desktop-sticky"
-     class="hidden sm:flex fixed top-0 inset-x-0 z-50 items-center justify-between gap-4 px-6 py-3
+<!-- Desktop: sticky nav (appears after scroll) -->
+<nav id="desktop-sticky"
+     aria-label="Quick navigation"
+     class="hidden sm:flex fixed top-0 inset-x-0 z-50 items-center justify-between gap-6 px-8 py-3
             bg-navy-950/95 backdrop-blur border-b border-navy-800 shadow-lg shadow-black/30
             translate-y-[-100%] transition-transform duration-300">
-  <p class="text-sm text-ink-300">
-    <span class="text-ink-100 font-semibold">Oksyderkeis</span> — οικονομική πειθαρχία και πρακτικά εργαλεία, χωρίς hype.
-  </p>
+
+  <!-- Brand -->
+  <span class="text-sm font-semibold text-ink-100 shrink-0">Oksyderkeis</span>
+
+  <!-- Anchor links -->
+  <div class="flex items-center gap-1 text-sm text-ink-400">
+    <a href="#mini-agent" data-cta="nav-tools"
+       class="px-3 py-1.5 rounded-full hover:bg-navy-800 hover:text-ink-100 transition-colors">
+      Εργαλεία
+    </a>
+    <span class="text-navy-700">·</span>
+    <a href="#money-os" data-cta="nav-moneyos"
+       class="px-3 py-1.5 rounded-full hover:bg-navy-800 hover:text-ink-100 transition-colors">
+      Money OS
+    </a>
+    <span class="text-navy-700">·</span>
+    <a href="#ai-audit" data-cta="nav-aiaudit"
+       class="px-3 py-1.5 rounded-full hover:bg-navy-800 hover:text-ink-100 transition-colors">
+      AI Audit
+    </a>
+    <span class="text-navy-700">·</span>
+    <a href="/case-study" data-cta="nav-casestudy"
+       class="px-3 py-1.5 rounded-full hover:bg-navy-800 hover:text-ink-100 transition-colors">
+      Case Study
+    </a>
+    <span class="text-navy-700">·</span>
+    <a href="#faq" data-cta="nav-faq"
+       class="px-3 py-1.5 rounded-full hover:bg-navy-800 hover:text-ink-100 transition-colors">
+      FAQ
+    </a>
+  </div>
+
+  <!-- Primary CTA -->
   <a href="#mini-agent" data-cta="sticky-desktop"
      class="shrink-0 rounded-full bg-gold-500 px-5 py-2 text-sm font-semibold text-navy-950 transition-transform transition-colors hover:bg-gold-400 hover:-translate-y-0.5">
-    Δες τα δωρεάν εργαλεία →
+    Δωρεάν εργαλεία →
   </a>
-</div>
+</nav>
 
 <script is:inline>
   (function () {
