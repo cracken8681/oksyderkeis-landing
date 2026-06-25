@@ -4,685 +4,447 @@ import Base from "../layouts/Base.astro";
 
 <Base
   title="AI Expert 30-Day Plan — David"
-  description="30-ήμερο πρόγραμμα εκπαίδευσης AI για τον David — resources σε Ρωσικά, Ελληνικά και Αγγλικά."
+  description="30-ήμερο πρόγραμμα εκπαίδευσης AI — resources σε Ρωσικά, Ελληνικά, Αγγλικά."
 >
-<main class="plan-page">
+<main class="lp">
 
   <!-- Header -->
-  <section class="plan-hero">
-    <div class="container">
-      <p class="eyebrow">AI Expert Plan · David × Silvy · Ξεκίνησε 25 Ιουνίου 2026</p>
+  <section class="lp-hero">
+    <div class="lp-container">
+      <p class="eyebrow">AI Expert Plan · David × Silvy · 25 Ιουνίου 2026</p>
       <h1>30-Ήμερο Πρόγραμμα AI</h1>
-      <p class="subtitle">Από βάση έως expert — resources σε 🇷🇺 Ρωσικά · 🇬🇷 Ελληνικά · 🇬🇧 Αγγλικά</p>
+      <p class="sub">🇷🇺 Ρωσικά · 🇬🇷 Ελληνικά · 🇬🇧 Αγγλικά</p>
 
-      <div class="hero-stats" id="hero-stats">
-        <div class="stat-box">
-          <span class="stat-num" id="stat-done">0</span>
-          <span class="stat-label">Ολοκληρωμένες</span>
+      <div class="top-stats">
+        <div class="ts-item">
+          <span class="ts-num" id="s-done">0</span>
+          <span class="ts-lbl">Ολοκληρωμένες</span>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat-box">
-          <span class="stat-num" id="stat-today">1</span>
-          <span class="stat-label">Σημερινή μέρα</span>
+        <div class="ts-sep"></div>
+        <div class="ts-item">
+          <span class="ts-num" id="s-day">1</span>
+          <span class="ts-lbl">Σημερινή ημέρα</span>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat-box">
-          <span class="stat-num" id="stat-pct">0%</span>
-          <span class="stat-label">Πρόοδος</span>
+        <div class="ts-sep"></div>
+        <div class="ts-item">
+          <span class="ts-num" id="s-pct">0%</span>
+          <span class="ts-lbl">Συνολική πρόοδος</span>
         </div>
       </div>
 
-      <div class="progress-track">
-        <div class="progress-fill" id="progress-fill"></div>
+      <div class="overall-bar-wrap">
+        <div class="overall-bar" id="overall-bar"></div>
       </div>
     </div>
   </section>
 
-  <!-- Today Banner -->
-  <div class="container">
-    <div class="today-card" id="today-card">
-      <div class="today-left">
-        <span class="today-badge">▶ ΣΗΜΕΡΑ</span>
-        <h2 id="today-title">Φόρτωση...</h2>
-        <p id="today-desc"></p>
+  <!-- Today banner -->
+  <div class="lp-container">
+    <div class="today-strip" id="today-strip">
+      <div>
+        <span class="today-tag">▶ ΣΗΜΕΡΑ</span>
+        <strong id="td-title"></strong>
+        <span id="td-desc"></span>
       </div>
-      <button class="complete-btn" id="today-btn" onclick="completeTodayFromBanner()">
-        ✓ Ολοκλήρωσα το μάθημα
-      </button>
+      <button class="td-btn" id="td-btn" onclick="completeToday()">✓ Ολοκλήρωσα</button>
     </div>
   </div>
 
-  <!-- Certs Row -->
-  <div class="container">
-    <div class="certs-row">
-      <span class="certs-label">🎓 Στόχοι πιστοποίησης:</span>
-      <a href="https://grow.google/ai" target="_blank" class="cert-pill">Google AI Essentials (δωρεάν)</a>
-      <a href="https://learn.microsoft.com/en-us/credentials/certifications/ai-business-professional/" target="_blank" class="cert-pill">Microsoft AI Business Professional (~€100)</a>
-      <a href="https://cloud.google.com/blog/topics/training-certifications/new-google-cloud-certification-in-generative-ai" target="_blank" class="cert-pill">Google Cloud Gen AI Leader</a>
+  <!-- Certs -->
+  <div class="lp-container">
+    <div class="cert-strip">
+      <span class="cert-lbl">🎓 Στόχοι:</span>
+      <a href="https://grow.google/ai" target="_blank" class="cpill">Google AI Essentials (free)</a>
+      <a href="https://learn.microsoft.com/en-us/credentials/certifications/ai-business-professional/" target="_blank" class="cpill">Microsoft AI Business Pro (~€100)</a>
     </div>
   </div>
 
-  <!-- Days -->
-  <div class="container" id="days-root"></div>
+  <!-- Weeks accordion -->
+  <div class="lp-container" id="root"></div>
 
 </main>
 
 <style>
-  .plan-page { max-width: 100%; overflow-x: hidden; }
-  .container { max-width: 940px; margin: 0 auto; padding: 0 1.5rem; }
+  :root{--g:#d4af57;--g2:#f0cc7a;--n:#0a0f1e;--n2:#111827;--n3:#1c2737;--ink:#e8e8f0;--ink2:#9ca3af;--ink3:#6b7280;--green:#10b981}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--n);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  .lp{max-width:100%;overflow-x:hidden}
+  .lp-container{max-width:860px;margin:0 auto;padding:0 1.5rem}
 
   /* Hero */
-  .plan-hero {
-    padding: 5rem 0 3rem;
-    text-align: center;
-    border-bottom: 1px solid rgba(212,175,87,0.12);
-    background: radial-gradient(ellipse at 50% 0%, rgba(212,175,87,0.06) 0%, transparent 70%);
-  }
-  .eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-gold-500);
-    margin-bottom: 1rem;
-  }
-  .plan-hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    color: var(--color-ink-100);
-    margin-bottom: 0.75rem;
-  }
-  .subtitle { color: var(--color-ink-300); font-size: 1rem; margin-bottom: 2.5rem; }
+  .lp-hero{padding:4.5rem 0 2.5rem;text-align:center;border-bottom:1px solid rgba(212,175,87,.12);background:radial-gradient(ellipse at 50% 0%,rgba(212,175,87,.07) 0%,transparent 70%)}
+  .eyebrow{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:.9rem}
+  .lp-hero h1{font-family:var(--font-display,Georgia,serif);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;color:var(--ink);margin-bottom:.5rem}
+  .sub{color:var(--ink2);font-size:.95rem;margin-bottom:2rem}
 
-  .hero-stats {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(212,175,87,0.15);
-    border-radius: 12px;
-    display: inline-flex;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-  }
-  .stat-box { padding: 1rem 2rem; text-align: center; }
-  .stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.08); }
-  .stat-num {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--color-gold-500);
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-  .stat-label { font-size: 0.7rem; color: var(--color-ink-500); text-transform: uppercase; letter-spacing: 0.06em; }
+  .top-stats{display:inline-flex;background:rgba(255,255,255,.03);border:1px solid rgba(212,175,87,.15);border-radius:12px;overflow:hidden;margin-bottom:1.25rem}
+  .ts-item{padding:.9rem 1.75rem;text-align:center}
+  .ts-sep{width:1px;background:rgba(255,255,255,.07)}
+  .ts-num{display:block;font-family:var(--font-display,Georgia,serif);font-size:1.7rem;font-weight:700;color:var(--g);line-height:1;margin-bottom:.2rem}
+  .ts-lbl{font-size:.65rem;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em}
 
-  .progress-track {
-    background: rgba(255,255,255,0.08);
-    border-radius: 99px;
-    height: 6px;
-    max-width: 400px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    border-radius: 99px;
-    background: linear-gradient(90deg, var(--color-gold-500), #f0cc7a);
-    transition: width 0.5s ease;
-    width: 0%;
-  }
+  .overall-bar-wrap{background:rgba(255,255,255,.08);border-radius:99px;height:6px;max-width:360px;margin:0 auto;overflow:hidden}
+  .overall-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--g),var(--g2));transition:width .5s ease;width:0%}
 
-  /* Today Card */
-  .today-card {
-    margin: 2rem 0 1.25rem;
-    background: linear-gradient(135deg, rgba(212,175,87,0.1), rgba(212,175,87,0.04));
-    border: 1px solid rgba(212,175,87,0.35);
-    border-radius: 14px;
-    padding: 1.75rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .today-left { flex: 1; min-width: 200px; }
-  .today-badge {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--color-gold-500);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .today-card h2 {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--color-ink-100);
-    margin-bottom: 0.35rem;
-  }
-  .today-card p { font-size: 0.88rem; color: var(--color-ink-300); line-height: 1.5; }
+  /* Today strip */
+  .today-strip{margin:1.5rem 0 1rem;background:linear-gradient(135deg,rgba(212,175,87,.1),rgba(212,175,87,.03));border:1px solid rgba(212,175,87,.35);border-radius:12px;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  .today-strip>div{flex:1;min-width:180px;display:flex;flex-direction:column;gap:.25rem}
+  .today-tag{font-size:.65rem;font-weight:700;letter-spacing:.1em;color:var(--g);text-transform:uppercase}
+  .today-strip strong{font-size:.95rem;color:var(--ink)}
+  .today-strip span{font-size:.8rem;color:var(--ink2);line-height:1.5}
+  .td-btn{background:var(--g);color:var(--n);font-weight:700;font-size:.83rem;padding:.7rem 1.3rem;border-radius:7px;border:none;cursor:pointer;white-space:nowrap;transition:background .2s,transform .15s;flex-shrink:0}
+  .td-btn:hover{background:var(--g2);transform:translateY(-1px)}
+  .td-btn.done{background:var(--green);color:#fff;cursor:default;transform:none}
 
-  .complete-btn {
-    background: var(--color-gold-500);
-    color: var(--color-navy-950);
-    font-weight: 700;
-    font-size: 0.88rem;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .complete-btn:hover { background: #f0cc7a; transform: translateY(-1px); }
-  .complete-btn.done {
-    background: #10b981;
-    color: white;
-    cursor: default;
-    transform: none;
-  }
-
-  /* Certs Row */
-  .certs-row {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
-    padding: 0.9rem 1.25rem;
-    background: rgba(212,175,87,0.03);
-    border: 1px solid rgba(212,175,87,0.12);
-    border-radius: 10px;
-  }
-  .certs-label { font-size: 0.78rem; color: var(--color-ink-300); white-space: nowrap; }
-  .cert-pill {
-    font-size: 0.75rem;
-    color: var(--color-gold-500);
-    border: 1px solid rgba(212,175,87,0.3);
-    border-radius: 99px;
-    padding: 0.3rem 0.85rem;
-    text-decoration: none;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .cert-pill:hover { background: rgba(212,175,87,0.1); }
+  /* Certs */
+  .cert-strip{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;padding:.8rem 1rem;background:rgba(212,175,87,.03);border:1px solid rgba(212,175,87,.1);border-radius:9px}
+  .cert-lbl{font-size:.75rem;color:var(--ink2);white-space:nowrap}
+  .cpill{font-size:.72rem;color:var(--g);border:1px solid rgba(212,175,87,.28);border-radius:99px;padding:.25rem .75rem;text-decoration:none;white-space:nowrap;transition:background .15s}
+  .cpill:hover{background:rgba(212,175,87,.1)}
 
   /* Week block */
-  .week-block { margin-bottom: 2.5rem; }
-  .week-header {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(212,175,87,0.15);
-  }
-  .week-header h2 {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-gold-500);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .week-header p { font-size: 0.82rem; color: var(--color-ink-400); }
+  .week-block{margin-bottom:1.25rem;border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden}
 
-  .days-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-  }
+  .week-head{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;background:rgba(255,255,255,.02);transition:background .15s;gap:1rem;user-select:none}
+  .week-head:hover{background:rgba(255,255,255,.04)}
+  .wh-left{display:flex;align-items:center;gap:.85rem;flex:1;min-width:0}
+  .wh-title{font-size:.85rem;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+  .wh-sub{font-size:.78rem;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-  /* Day card */
-  .day-card {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 12px;
-    padding: 1.25rem;
-    transition: border-color 0.15s, background 0.15s;
-    position: relative;
-    overflow: hidden;
-  }
-  .day-card:hover { border-color: rgba(212,175,87,0.2); background: rgba(255,255,255,0.03); }
-  .day-card.is-today {
-    border-color: rgba(212,175,87,0.4);
-    background: rgba(212,175,87,0.05);
-  }
-  .day-card.is-done {
-    opacity: 0.6;
-  }
-  .day-card.is-done::after {
-    content: '✓';
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    width: 22px;
-    height: 22px;
-    background: #10b981;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    color: white;
-    font-weight: 700;
-    line-height: 22px;
-    text-align: center;
-  }
+  .wh-right{display:flex;align-items:center;gap:.85rem;flex-shrink:0}
+  .week-progress-wrap{width:100px;background:rgba(255,255,255,.08);border-radius:99px;height:5px;overflow:hidden}
+  .week-progress-fill{height:100%;border-radius:99px;background:var(--g);transition:width .4s ease}
+  .wh-pct{font-size:.7rem;color:var(--ink3);min-width:28px;text-align:right}
+  .wh-arrow{font-size:.7rem;color:var(--ink3);transition:transform .25s}
+  .week-block.open .wh-arrow{transform:rotate(180deg)}
 
-  .day-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.6rem;
-  }
-  .day-num-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--color-ink-500);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .is-today .day-num-label { color: var(--color-gold-500); }
+  /* Days list */
+  .days-list{display:none;flex-direction:column;border-top:1px solid rgba(255,255,255,.05)}
+  .week-block.open .days-list{display:flex}
 
-  .day-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--color-ink-100);
-    margin-bottom: 0.4rem;
-    line-height: 1.35;
-  }
-  .day-desc {
-    font-size: 0.78rem;
-    color: var(--color-ink-400);
-    line-height: 1.55;
-    margin-bottom: 0.85rem;
-  }
+  /* Day row */
+  .day-row{border-bottom:1px solid rgba(255,255,255,.04)}
+  .day-row:last-child{border-bottom:none}
 
-  .res-list { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1rem; }
-  .res-link {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.35rem 0.55rem;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.05);
-    text-decoration: none;
-    transition: all 0.12s;
-  }
-  .res-link:hover { background: rgba(212,175,87,0.07); border-color: rgba(212,175,87,0.2); }
-  .res-flag { font-size: 0.85rem; flex-shrink: 0; }
-  .res-type {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 0.12rem 0.38rem;
-    border-radius: 3px;
-    flex-shrink: 0;
-  }
-  .rt-yt { background: rgba(255,50,50,0.15); color: #ff7070; }
-  .rt-course { background: rgba(60,130,246,0.15); color: #7ab4ff; }
-  .rt-cert { background: rgba(212,175,87,0.15); color: var(--color-gold-500); }
-  .rt-read { background: rgba(16,185,129,0.15); color: #4ade80; }
-  .res-title { font-size: 0.75rem; color: var(--color-ink-400); line-height: 1.3; }
-  .res-link:hover .res-title { color: var(--color-ink-100); }
-  .res-free { margin-left: auto; font-size: 0.6rem; color: #4ade80; font-weight: 700; flex-shrink: 0; }
+  .day-head{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.25rem;cursor:pointer;transition:background .15s;user-select:none}
+  .day-head:hover{background:rgba(255,255,255,.02)}
+  .day-row.open .day-head{background:rgba(212,175,87,.04)}
 
-  .day-complete-btn {
-    width: 100%;
-    padding: 0.6rem;
-    border-radius: 7px;
-    border: 1px solid rgba(212,175,87,0.25);
-    background: transparent;
-    color: var(--color-gold-500);
-    font-size: 0.78rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .day-complete-btn:hover { background: rgba(212,175,87,0.08); border-color: rgba(212,175,87,0.5); }
-  .day-complete-btn.done {
-    background: rgba(16,185,129,0.1);
-    border-color: rgba(16,185,129,0.3);
-    color: #4ade80;
-    cursor: default;
+  .day-check{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.15);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;transition:all .2s}
+  .day-check.done{background:var(--green);border-color:var(--green);color:#fff}
+  .day-check.today{border-color:var(--g)}
+
+  .day-num{font-size:.68rem;font-weight:700;color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;min-width:48px;flex-shrink:0}
+  .day-row.is-today .day-num{color:var(--g)}
+  .day-title-row{font-size:.88rem;color:var(--ink);flex:1}
+  .day-row.is-today .day-title-row{color:var(--g2)}
+  .day-arrow{font-size:.65rem;color:var(--ink3);transition:transform .22s;flex-shrink:0}
+  .day-row.open .day-arrow{transform:rotate(180deg)}
+
+  /* Day body */
+  .day-body{display:none;padding:.1rem 1.25rem 1.25rem 1.25rem;padding-left:calc(1.25rem + 22px + .75rem + 48px + .75rem)}
+  .day-row.open .day-body{display:block}
+
+  .day-desc-text{font-size:.82rem;color:var(--ink2);line-height:1.6;margin-bottom:.85rem}
+  .res-list{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.9rem}
+  .res-a{display:flex;align-items:center;gap:.4rem;padding:.38rem .6rem;border-radius:6px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);text-decoration:none;transition:all .12s}
+  .res-a:hover{background:rgba(212,175,87,.07);border-color:rgba(212,175,87,.2)}
+  .rflag{font-size:.82rem;flex-shrink:0}
+  .rtype{font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.1rem .35rem;border-radius:3px;flex-shrink:0}
+  .yt{background:rgba(255,50,50,.15);color:#ff7070}
+  .course{background:rgba(60,130,246,.15);color:#7ab4ff}
+  .cert{background:rgba(212,175,87,.15);color:var(--g)}
+  .read{background:rgba(16,185,129,.15);color:#4ade80}
+  .rtitle{font-size:.75rem;color:var(--ink2);line-height:1.3;flex:1}
+  .res-a:hover .rtitle{color:var(--ink)}
+  .rfree{margin-left:auto;font-size:.58rem;color:#4ade80;font-weight:700;flex-shrink:0}
+
+  .complete-btn{width:100%;padding:.6rem;border-radius:7px;border:1px solid rgba(212,175,87,.3);background:transparent;color:var(--g);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s}
+  .complete-btn:hover{background:rgba(212,175,87,.08);border-color:rgba(212,175,87,.55)}
+  .complete-btn.done{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:#4ade80;cursor:default}
+
+  @media(max-width:600px){
+    .lp-container{padding:0 1rem}
+    .day-body{padding-left:1rem}
+    .ts-item{padding:.75rem 1.25rem}
+    .wh-sub{display:none}
   }
 </style>
 
 <script is:inline>
 const START = new Date('2026-06-25T00:00:00');
 
-const DAYS = [
-  { week:1, wt:"Εβδομάδα 1", ws:"Θεωρητική βάση — Πώς λειτουργεί το AI",
-    t:"Πώς δουλεύουν τα LLMs",
-    d:"Large Language Models: τι είναι, πώς εκπαιδεύονται, γιατί κάνουν λάθη. Η βάση για όλα.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Как работают языковые модели — Антон Сабуров",u:"https://www.youtube.com/watch?v=nkmz-Z5PRL4"},
-      {f:"🇬🇷",tp:"yt",n:"Εισαγωγή στην Τεχνητή Νοημοσύνη — Ελληνικά",u:"https://www.youtube.com/watch?v=KxUD5Rc149Y"},
-      {f:"🇬🇧",tp:"yt",n:"But what is a GPT? — 3Blue1Brown",u:"https://www.youtube.com/watch?v=wjZofJX0v4M"},
-      {f:"🇬🇧",tp:"course",n:"AI for Everyone — Andrew Ng (Coursera, audit free)",u:"https://www.coursera.org/learn/ai-for-everyone"},
-    ]},
-  { week:1,
-    t:"Prompt Engineering — Βασικά",
-    d:"Zero-shot, few-shot, chain-of-thought. Πώς γράφεις prompts που δίνουν σταθερά αποτελέσματα.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Промптинг для бизнеса — полный разбор",u:"https://www.youtube.com/watch?v=LQHvDpLVm-8"},
-      {f:"🇬🇧",tp:"course",n:"Prompt Engineering — Great Learning (free)",u:"https://www.mygreatlearning.com/academy/learn-for-free/courses/prompt-engineering-for-chatgpt"},
-      {f:"🇬🇧",tp:"read",n:"OpenAI Prompt Engineering Guide",u:"https://platform.openai.com/docs/guides/prompt-engineering"},
-    ]},
-  { week:1,
-    t:"Prompt Engineering — Προχωρημένα",
-    d:"Role prompting, structured output, prompt chaining. Αυτά χρησιμοποιείς ήδη — τώρα τα ονομάζεις σωστά.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Продвинутые техники промптинга 2025",u:"https://www.youtube.com/watch?v=C2NZs1fCLfo"},
-      {f:"🇬🇧",tp:"course",n:"Generative AI for Everyone — Andrew Ng",u:"https://www.coursera.org/learn/generative-ai-for-everyone"},
-      {f:"🇬🇧",tp:"yt",n:"Advanced Prompting — AI Explained",u:"https://www.youtube.com/watch?v=0GrG_WX9DK8"},
-    ]},
-  { week:1,
-    t:"RAG — Retrieval Augmented Generation",
-    d:"Τι είναι RAG, γιατί είναι το #1 enterprise AI pattern, πώς εξηγείς το concept σε client.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"RAG объяснение для бизнеса",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"},
-      {f:"🇬🇧",tp:"course",n:"RAG for Beginners — Simplilearn (free)",u:"https://www.simplilearn.com/rag-course-for-beginners-skillup"},
-      {f:"🇬🇧",tp:"course",n:"Introduction to RAG — Great Learning (free)",u:"https://www.mygreatlearning.com/academy/learn-for-free/courses/introduction-to-rag"},
-    ]},
-  { week:1,
-    t:"AI Safety & Responsible AI",
-    d:"Hallucinations, bias, GDPR compliance, EU AI Act. Κρίσιμο για κυβερνητική αίτηση €150M.",
-    r:[
-      {f:"🇬🇷",tp:"yt",n:"AI και Ηθική — ΕΑΠ",u:"https://www.youtube.com/watch?v=PYXw80BfYrw"},
-      {f:"🇬🇧",tp:"course",n:"Introduction to Responsible AI — Google (free)",u:"https://www.cloudskillsboost.google/courses/554"},
-      {f:"🇬🇧",tp:"read",n:"EU AI Act — Executive Summary",u:"https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"},
-    ]},
-  { week:1,
-    t:"AI Tools Landscape",
-    d:"Ποια tools υπάρχουν για κάθε κατηγορία: text, image, audio, code, automation. Χάρτης αγοράς.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Топ AI-инструменты для бизнеса 2025",u:"https://www.youtube.com/watch?v=vA8CCMFSmkM"},
-      {f:"🇬🇷",tp:"yt",n:"AI Εργαλεία για Επιχειρήσεις",u:"https://www.youtube.com/watch?v=NINf98ytEe8"},
-      {f:"🇬🇧",tp:"yt",n:"The AI Tool Stack for Consultants 2025",u:"https://www.youtube.com/watch?v=BK_mMvGWSo0"},
-    ]},
-  { week:1,
-    t:"Review Εβδομάδας 1",
-    d:"Self-test: μπορείς να εξηγήσεις LLM, RAG, prompt engineering σε client χωρίς jargon;",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"10 AI курсов — самооценка и обзор",u:"https://www.youtube.com/watch?v=LQHvDpLVm-8"},
-      {f:"🇬🇧",tp:"course",n:"Intro to Generative AI — Google (20 λεπτά)",u:"https://www.cloudskillsboost.google/courses/536"},
+const WEEKS = [
+  { wt:"Εβδομάδα 1", ws:"Θεωρητική βάση — Πώς λειτουργεί το AI",
+    days:[
+      { t:"Πώς δουλεύουν τα LLMs",
+        d:"Large Language Models: τι είναι, πώς εκπαιδεύονται, γιατί κάνουν λάθη. Η βάση για όλα.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Как работают языковые модели — Антон Сабуров",u:"https://www.youtube.com/watch?v=nkmz-Z5PRL4"},
+           {f:"🇬🇷",tp:"yt",n:"Εισαγωγή στην Τεχνητή Νοημοσύνη — Ελληνικά",u:"https://www.youtube.com/watch?v=KxUD5Rc149Y"},
+           {f:"🇬🇧",tp:"yt",n:"But what is a GPT? — 3Blue1Brown",u:"https://www.youtube.com/watch?v=wjZofJX0v4M"},
+           {f:"🇬🇧",tp:"course",n:"AI for Everyone — Andrew Ng (free audit)",u:"https://www.coursera.org/learn/ai-for-everyone"}]},
+      { t:"Prompt Engineering — Βασικά",
+        d:"Zero-shot, few-shot, chain-of-thought. Πώς γράφεις prompts που δίνουν σταθερά αποτελέσματα.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Промптинг для бизнеса — полный разбор",u:"https://www.youtube.com/watch?v=LQHvDpLVm-8"},
+           {f:"🇬🇧",tp:"course",n:"Prompt Engineering — Great Learning (free)",u:"https://www.mygreatlearning.com/academy/learn-for-free/courses/prompt-engineering-for-chatgpt"},
+           {f:"🇬🇧",tp:"read",n:"OpenAI Prompt Engineering Guide",u:"https://platform.openai.com/docs/guides/prompt-engineering"}]},
+      { t:"Prompt Engineering — Προχωρημένα",
+        d:"Role prompting, structured output, prompt chaining. Αυτά χρησιμοποιείς ήδη — τώρα τα ονομάζεις σωστά.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Продвинутые техники промптинга 2025",u:"https://www.youtube.com/watch?v=C2NZs1fCLfo"},
+           {f:"🇬🇧",tp:"course",n:"Generative AI for Everyone — Andrew Ng",u:"https://www.coursera.org/learn/generative-ai-for-everyone"},
+           {f:"🇬🇧",tp:"yt",n:"Advanced Prompting — AI Explained",u:"https://www.youtube.com/watch?v=0GrG_WX9DK8"}]},
+      { t:"RAG — Retrieval Augmented Generation",
+        d:"Τι είναι RAG, γιατί είναι το #1 enterprise AI pattern, πώς το εξηγείς σε client.",
+        r:[{f:"🇷🇺",tp:"yt",n:"RAG объяснение для бизнеса",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"},
+           {f:"🇬🇧",tp:"course",n:"RAG for Beginners — Simplilearn (free)",u:"https://www.simplilearn.com/rag-course-for-beginners-skillup"},
+           {f:"🇬🇧",tp:"course",n:"Introduction to RAG — Great Learning (free)",u:"https://www.mygreatlearning.com/academy/learn-for-free/courses/introduction-to-rag"}]},
+      { t:"AI Safety & Responsible AI",
+        d:"Hallucinations, bias, GDPR, EU AI Act. Κρίσιμο για κυβερνητική αίτηση €150M.",
+        r:[{f:"🇬🇷",tp:"yt",n:"AI και Ηθική — ΕΑΠ",u:"https://www.youtube.com/watch?v=PYXw80BfYrw"},
+           {f:"🇬🇧",tp:"course",n:"Introduction to Responsible AI — Google (free)",u:"https://www.cloudskillsboost.google/courses/554"},
+           {f:"🇬🇧",tp:"read",n:"EU AI Act — Executive Summary",u:"https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"}]},
+      { t:"AI Tools Landscape",
+        d:"Χάρτης εργαλείων: text, image, audio, code, automation. Ποιο εργαλείο για ποιο πρόβλημα.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Топ AI-инструменты для бизнеса 2025",u:"https://www.youtube.com/watch?v=vA8CCMFSmkM"},
+           {f:"🇬🇷",tp:"yt",n:"AI Εργαλεία για Επιχειρήσεις",u:"https://www.youtube.com/watch?v=NINf98ytEe8"},
+           {f:"🇬🇧",tp:"yt",n:"The AI Tool Stack for Consultants 2025",u:"https://www.youtube.com/watch?v=BK_mMvGWSo0"}]},
+      { t:"Review Εβδομάδας 1",
+        d:"Self-test: μπορείς να εξηγήσεις LLM, RAG, prompt engineering σε non-technical client;",
+        r:[{f:"🇷🇺",tp:"yt",n:"10 AI курсов — самооценка и обзор",u:"https://www.youtube.com/watch?v=LQHvDpLVm-8"},
+           {f:"🇬🇧",tp:"course",n:"Intro to Generative AI — Google (20 λεπτά, free)",u:"https://www.cloudskillsboost.google/courses/536"}]},
     ]},
 
-  { week:2, wt:"Εβδομάδα 2", ws:"Business AI Tools — αυτά χρησιμοποιούν οι SME clients",
-    t:"ChatGPT for Business",
-    d:"ChatGPT Enterprise vs Team vs Plus, custom GPTs, API. Πώς στήνεις workflow για εταιρεία.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"ChatGPT Business: автоматизация — Антон Сабуров",u:"https://www.youtube.com/watch?v=nkmz-Z5PRL4"},
-      {f:"🇬🇷",tp:"yt",n:"ChatGPT για Επιχειρήσεις στα Ελληνικά",u:"https://www.youtube.com/watch?v=KxUD5Rc149Y"},
-      {f:"🇬🇧",tp:"read",n:"OpenAI for Business — Official",u:"https://openai.com/business"},
-    ]},
-  { week:2,
-    t:"Microsoft 365 Copilot",
-    d:"Word, Excel, Outlook, Teams + Copilot. Αυτό χρησιμοποιούν 90% των ελληνικών εταιρειών.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Microsoft Copilot для бизнеса — обзор",u:"https://www.youtube.com/watch?v=05TgSbP5f0w"},
-      {f:"🇬🇧",tp:"course",n:"Copilot Foundation Path — Microsoft Learn (free)",u:"https://learn.microsoft.com/en-us/training/paths/copilot-foundational/"},
-      {f:"🇬🇧",tp:"yt",n:"FREE AI Workshop: Copilot for Business Leaders",u:"https://www.youtube.com/watch?v=Dhl0KPWDeh4"},
-    ]},
-  { week:2,
-    t:"Make (Integromat) — AI Automation",
-    d:"No-code automation: ChatGPT + Google Sheets + email + CRM. Δείχνεις αυτό σε clients.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Make.com + AI — полный курс автоматизации",u:"https://www.youtube.com/watch?v=uHuiO984uRs"},
-      {f:"🇬🇧",tp:"course",n:"Make Academy — Official Free Courses",u:"https://www.make.com/en/academy"},
-      {f:"🇬🇧",tp:"yt",n:"AI Automation Full Course — Make + ChatGPT",u:"https://www.youtube.com/watch?v=Dhl0KPWDeh4"},
-    ]},
-  { week:2,
-    t:"n8n — Open Source Automation",
-    d:"n8n vs Zapier vs Make. Self-hosted option για clients με GDPR concerns.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"n8n — бесплатная автоматизация с AI",u:"https://www.youtube.com/watch?v=tgiRGuXQrak"},
-      {f:"🇬🇧",tp:"yt",n:"n8n + AI Agents Full Course",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"},
-      {f:"🇬🇧",tp:"course",n:"n8n Official Docs + Templates",u:"https://docs.n8n.io"},
-    ]},
-  { week:2,
-    t:"Notion AI & Google Workspace AI",
-    d:"Εργαλεία που χρησιμοποιεί κάθε SME. Πώς τα ενσωματώνεις στη ροή εργασίας client.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Notion AI — как использовать в бизнесе",u:"https://www.youtube.com/watch?v=nVVWSEe-KLs"},
-      {f:"🇬🇷",tp:"yt",n:"Google Workspace AI — παρουσίαση",u:"https://www.youtube.com/watch?v=5ZlpgiFjGIE"},
-      {f:"🇬🇧",tp:"course",n:"Google Workspace + AI — Skillshop",u:"https://skillshop.withgoogle.com"},
-    ]},
-  { week:2,
-    t:"AI for Sales & Marketing",
-    d:"Lead generation, email automation, social content, SEO με AI. Τυπικές ανάγκες ελληνικών πελατών.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"AI в маркетинге: реальные кейсы",u:"https://www.youtube.com/watch?v=yYOtMdRPwLE"},
-      {f:"🇬🇷",tp:"yt",n:"AI στο Marketing — Ελληνική αγορά",u:"https://www.youtube.com/watch?v=tQjgnOug0j4"},
-      {f:"🇬🇧",tp:"yt",n:"AI Marketing Strategy 2025 — Case Studies",u:"https://www.youtube.com/watch?v=BK_mMvGWSo0"},
-    ]},
-  { week:2,
-    t:"Demo Build Day",
-    d:"Φτιάξε live demo: Make scenario email → GPT → Google Sheets. Αυτό δείχνεις στον επόμενο client.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"AI Agency Masterclass — первые клиенты без кодинга",u:"https://www.youtube.com/watch?v=C2NZs1fCLfo"},
-      {f:"🇬🇧",tp:"yt",n:"The Ultimate AI Agency Masterclass (6+ hours)",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"},
+  { wt:"Εβδομάδα 2", ws:"Business AI Tools — αυτά χρησιμοποιούν οι SME clients",
+    days:[
+      { t:"ChatGPT for Business",
+        d:"Enterprise vs Team vs Plus, custom GPTs, API. Πώς στήνεις workflow για εταιρεία.",
+        r:[{f:"🇷🇺",tp:"yt",n:"ChatGPT Business: автоматизация — Антон Сабуров",u:"https://www.youtube.com/watch?v=nkmz-Z5PRL4"},
+           {f:"🇬🇷",tp:"yt",n:"ChatGPT για Επιχειρήσεις στα Ελληνικά",u:"https://www.youtube.com/watch?v=KxUD5Rc149Y"},
+           {f:"🇬🇧",tp:"read",n:"OpenAI for Business — Official",u:"https://openai.com/business"}]},
+      { t:"Microsoft 365 Copilot",
+        d:"Word, Excel, Outlook, Teams + Copilot. Αυτό χρησιμοποιούν 90% των ελληνικών εταιρειών.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Microsoft Copilot для бизнеса — обзор",u:"https://www.youtube.com/watch?v=05TgSbP5f0w"},
+           {f:"🇬🇧",tp:"course",n:"Copilot Foundation Path — Microsoft Learn (free)",u:"https://learn.microsoft.com/en-us/training/paths/copilot-foundational/"},
+           {f:"🇬🇧",tp:"yt",n:"FREE Workshop: Copilot for Business Leaders",u:"https://www.youtube.com/watch?v=Dhl0KPWDeh4"}]},
+      { t:"Make (Integromat) — AI Automation",
+        d:"No-code automation: ChatGPT + Google Sheets + email + CRM. Δείχνεις αυτό σε clients.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Make.com + AI — полный курс",u:"https://www.youtube.com/watch?v=uHuiO984uRs"},
+           {f:"🇬🇧",tp:"course",n:"Make Academy — Official Free Courses",u:"https://www.make.com/en/academy"},
+           {f:"🇬🇧",tp:"yt",n:"AI Automation Full Course — Make + ChatGPT",u:"https://www.youtube.com/watch?v=Dhl0KPWDeh4"}]},
+      { t:"n8n — Open Source Automation",
+        d:"n8n vs Zapier vs Make. Self-hosted για clients με GDPR concerns.",
+        r:[{f:"🇷🇺",tp:"yt",n:"n8n — бесплатная автоматизация с AI",u:"https://www.youtube.com/watch?v=tgiRGuXQrak"},
+           {f:"🇬🇧",tp:"yt",n:"n8n + AI Agents Full Course",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"},
+           {f:"🇬🇧",tp:"course",n:"n8n Official Docs + Templates",u:"https://docs.n8n.io"}]},
+      { t:"Notion AI & Google Workspace AI",
+        d:"Εργαλεία που χρησιμοποιεί κάθε SME. Πώς τα ενσωματώνεις στη ροή εργασίας client.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Notion AI — как использовать в бизнесе",u:"https://www.youtube.com/watch?v=nVVWSEe-KLs"},
+           {f:"🇬🇷",tp:"yt",n:"Google Workspace AI — παρουσίαση",u:"https://www.youtube.com/watch?v=5ZlpgiFjGIE"},
+           {f:"🇬🇧",tp:"course",n:"Google Workspace + AI — Skillshop",u:"https://skillshop.withgoogle.com"}]},
+      { t:"AI for Sales & Marketing",
+        d:"Lead generation, email automation, social content, SEO με AI. Τυπικές ανάγκες ελληνικών πελατών.",
+        r:[{f:"🇷🇺",tp:"yt",n:"AI в маркетинге: реальные кейсы",u:"https://www.youtube.com/watch?v=yYOtMdRPwLE"},
+           {f:"🇬🇷",tp:"yt",n:"AI στο Marketing — Ελληνική αγορά",u:"https://www.youtube.com/watch?v=tQjgnOug0j4"},
+           {f:"🇬🇧",tp:"yt",n:"AI Marketing Strategy 2025",u:"https://www.youtube.com/watch?v=BK_mMvGWSo0"}]},
+      { t:"Demo Build Day",
+        d:"Φτιάξε live demo: Make scenario email → GPT → Google Sheets. Αυτό δείχνεις στον επόμενο client.",
+        r:[{f:"🇷🇺",tp:"yt",n:"AI Agency Masterclass — первые клиенты без кодинга",u:"https://www.youtube.com/watch?v=C2NZs1fCLfo"},
+           {f:"🇬🇧",tp:"yt",n:"The Ultimate AI Agency Masterclass (6+ hours)",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"}]},
     ]},
 
-  { week:3, wt:"Εβδομάδα 3", ws:"Business Methodology — πώς δουλεύεις με clients",
-    t:"AI Audit Framework — Discovery",
-    d:"Ποιες ερωτήσεις ρωτάς στο πρώτο meeting. Business goals → AI opportunities mapping.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Как проводить AI-аудит — методология",u:"https://www.youtube.com/watch?v=vA8CCMFSmkM"},
-      {f:"🇬🇧",tp:"yt",n:"AI Business Audit Framework — Step by Step",u:"https://www.youtube.com/watch?v=0GrG_WX9DK8"},
-    ]},
-  { week:3,
-    t:"AI Audit Framework — Analysis",
-    d:"Πώς αξιολογείς processes, δεδομένα, readiness. Ποιο AI tool ταιριάζει σε ποιο πρόβλημα.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Анализ бизнес-процессов для AI",u:"https://www.youtube.com/watch?v=LQHvDpLVm-8"},
-      {f:"🇬🇧",tp:"course",n:"AI Business Strategy — Microsoft Learn (free)",u:"https://learn.microsoft.com/en-us/training/paths/transform-your-business-with-microsoft-ai/"},
-    ]},
-  { week:3,
-    t:"Μέτρηση ROI του AI",
-    d:"Πώς βάζεις αριθμούς: ώρες × κόστος ανθρώπου. Υπολογισμός payback period για proposal.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"ROI от AI: как считать и презентовать клиенту",u:"https://www.youtube.com/watch?v=C2NZs1fCLfo"},
-      {f:"🇬🇧",tp:"yt",n:"How to Calculate AI ROI for Business",u:"https://www.youtube.com/watch?v=BK_mMvGWSo0"},
-    ]},
-  { week:3,
-    t:"Client Presentation Skills",
-    d:"Πώς παρουσιάζεις AI findings σε non-technical CEO. Structure, visuals, objection handling.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Как презентовать AI-проект руководству",u:"https://www.youtube.com/watch?v=nVVWSEe-KLs"},
-      {f:"🇬🇧",tp:"yt",n:"Presenting AI to Business Leaders",u:"https://www.youtube.com/watch?v=Dhl0KPWDeh4"},
-    ]},
-  { week:3,
-    t:"Pricing & Proposals",
-    d:"Outcome-based vs hourly pricing. Πώς γράφεις proposal που δικαιολογεί €997+. Value anchoring.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Как продавать AI-услуги дорого",u:"https://www.youtube.com/watch?v=yYOtMdRPwLE"},
-      {f:"🇬🇧",tp:"yt",n:"Value-Based Pricing for Consultants",u:"https://www.youtube.com/watch?v=0GrG_WX9DK8"},
-    ]},
-  { week:3,
-    t:"Ελληνικές ΜΜΕ — Ειδικές Ανάγκες",
-    d:"Τι θέλουν οι Έλληνες επιχειρηματίες από AI: γλώσσα, GDPR, εμπιστοσύνη, τιμή.",
-    r:[
-      {f:"🇬🇷",tp:"read",n:"ΜΜΕ & AI στην Ελλάδα 2025 — NBG Research",u:"https://www.greeceinfigures.com/texniti-noimosuni-ai-stis-epixeiriseis/"},
-      {f:"🇬🇷",tp:"read",n:"AI στις Ελληνικές Επιχειρήσεις — Capital.gr",u:"https://www.capital.gr/arthra/3895670/i-texniti-noimosuni-stin-ellada-to-2025-prokliseis-kai-prooptikes/"},
-    ]},
-  { week:3,
-    t:"Build: Audit Template",
-    d:"Φτιάξε το δικό σου AI Audit Template σε PDF — αυτό παραδίδεις στους clients. Ζήτα βοήθεια από τη Silvy.",
-    r:[
-      {f:"🇬🇧",tp:"yt",n:"AI Consulting Template Walkthrough",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"},
+  { wt:"Εβδομάδα 3", ws:"Business Methodology — πώς δουλεύεις με clients",
+    days:[
+      { t:"AI Audit Framework — Discovery",
+        d:"Ποιες ερωτήσεις ρωτάς στο πρώτο meeting. Business goals → AI opportunities mapping.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Как проводить AI-аудит — методология",u:"https://www.youtube.com/watch?v=vA8CCMFSmkM"},
+           {f:"🇬🇧",tp:"yt",n:"AI Business Audit Framework — Step by Step",u:"https://www.youtube.com/watch?v=0GrG_WX9DK8"}]},
+      { t:"AI Audit Framework — Analysis",
+        d:"Πώς αξιολογείς processes, δεδομένα, readiness. Ποιο AI tool ταιριάζει σε ποιο πρόβλημα.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Анализ бизнес-процессов для AI",u:"https://www.youtube.com/watch?v=LQHvDpLVm-8"},
+           {f:"🇬🇧",tp:"course",n:"AI Business Strategy — Microsoft Learn (free)",u:"https://learn.microsoft.com/en-us/training/paths/transform-your-business-with-microsoft-ai/"}]},
+      { t:"Μέτρηση ROI του AI",
+        d:"Πώς βάζεις αριθμούς: ώρες × κόστος ανθρώπου. Υπολογισμός payback period για proposal.",
+        r:[{f:"🇷🇺",tp:"yt",n:"ROI от AI: как считать и презентовать клиенту",u:"https://www.youtube.com/watch?v=C2NZs1fCLfo"},
+           {f:"🇬🇧",tp:"yt",n:"How to Calculate AI ROI for Business",u:"https://www.youtube.com/watch?v=BK_mMvGWSo0"}]},
+      { t:"Client Presentation Skills",
+        d:"Πώς παρουσιάζεις AI findings σε non-technical CEO. Structure, visuals, objection handling.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Как презентовать AI-проект руководству",u:"https://www.youtube.com/watch?v=nVVWSEe-KLs"},
+           {f:"🇬🇧",tp:"yt",n:"Presenting AI to Business Leaders",u:"https://www.youtube.com/watch?v=Dhl0KPWDeh4"}]},
+      { t:"Pricing & Proposals",
+        d:"Outcome-based pricing. Πώς γράφεις proposal που δικαιολογεί €997+. Value anchoring.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Как продавать AI-услуги дорого",u:"https://www.youtube.com/watch?v=yYOtMdRPwLE"},
+           {f:"🇬🇧",tp:"yt",n:"Value-Based Pricing for Consultants",u:"https://www.youtube.com/watch?v=0GrG_WX9DK8"}]},
+      { t:"Ελληνικές ΜΜΕ — Ειδικές Ανάγκες",
+        d:"Τι θέλουν οι Έλληνες επιχειρηματίες: γλώσσα, GDPR, εμπιστοσύνη, τιμή.",
+        r:[{f:"🇬🇷",tp:"read",n:"ΜΜΕ & AI στην Ελλάδα 2025",u:"https://www.greeceinfigures.com/texniti-noimosuni-ai-stis-epixeiriseis/"},
+           {f:"🇬🇷",tp:"read",n:"AI στις Ελληνικές Επιχειρήσεις — Capital.gr",u:"https://www.capital.gr/arthra/3895670/i-texniti-noimosuni-stin-ellada-to-2025-prokliseis-kai-prooptikes/"}]},
+      { t:"Build: Audit Template",
+        d:"Φτιάξε το δικό σου AI Audit Template σε PDF. Αυτό παραδίδεις στους clients.",
+        r:[{f:"🇬🇧",tp:"yt",n:"AI Consulting Template Walkthrough",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"}]},
     ]},
 
-  { week:4, wt:"Εβδομάδα 4", ws:"Certifications + Grant Preparation",
-    t:"Google AI Essentials — Part 1",
-    d:"Ξεκίνα το Google AI Essentials. Module 1-2: AI foundations + using AI tools at work.",
-    r:[
-      {f:"🇬🇧",tp:"cert",n:"Google AI Essentials — grow.google/ai (δωρεάν)",u:"https://grow.google/ai"},
-      {f:"🇬🇷",tp:"cert",n:"Google AI για Ελλάδα",u:"https://grow.google/intl/el/google-career-certificates/ai-professional/"},
-    ]},
-  { week:4,
-    t:"Google AI Essentials — Part 2",
-    d:"Module 3-5: AI για data analysis, content creation, productivity. Τελείωσε και πάρε certificate.",
-    r:[
-      {f:"🇬🇧",tp:"cert",n:"Google AI Essentials — συνέχεια",u:"https://grow.google/ai"},
-    ]},
-  { week:4,
-    t:"Microsoft AI-900 Prep — Part 1",
-    d:"Azure AI Fundamentals: AI workloads, machine learning, computer vision, NLP.",
-    r:[
-      {f:"🇬🇧",tp:"cert",n:"AI-900 Study Guide — Microsoft Learn (free)",u:"https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/"},
-      {f:"🇷🇺",tp:"yt",n:"AI-900 подготовка к экзамену",u:"https://www.youtube.com/watch?v=tgiRGuXQrak"},
-    ]},
-  { week:4,
-    t:"Microsoft AI-900 Prep — Part 2",
-    d:"Conversational AI, responsible AI principles. Practice tests + κλείσε εξέταση (~€100).",
-    r:[
-      {f:"🇬🇧",tp:"cert",n:"AI-900 Practice Assessment — Microsoft",u:"https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/"},
-      {f:"🇬🇧",tp:"cert",n:"AI-900 Exam Registration",u:"https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-900/"},
-    ]},
-  { week:4,
-    t:"LinkedIn Thought Leadership",
-    d:"Δημιούργησε 3 LinkedIn posts με βάση αυτά που έμαθες. Τεκμηρίωσε το setup σου ως expert.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"LinkedIn для AI-специалистов — контент-стратегия",u:"https://www.youtube.com/watch?v=nkmz-Z5PRL4"},
-      {f:"🇬🇧",tp:"yt",n:"LinkedIn Content Strategy for Consultants 2025",u:"https://www.youtube.com/watch?v=BK_mMvGWSo0"},
-    ]},
-  { week:4,
-    t:"Grant Research — Πρόγραμμα €150M",
-    d:"Ψάξε ακριβείς προϋποθέσεις. Τι τεκμήρια χρειάζονται; Ποιος φορέας διαχειρίζεται;",
-    r:[
-      {f:"🇬🇷",tp:"read",n:"ΕΣΠΑ / Ψηφιακός Μετασχηματισμός",u:"https://www.espa.gr"},
-      {f:"🇬🇷",tp:"read",n:"OpenAI + Ελλάδα — Επίσημο",u:"https://openai.com/el-GR/business/"},
-    ]},
-  { week:4,
-    t:"Portfolio Finalization",
-    d:"Ενημέρωσε landing page με certifications. Φωτογράφισε certificates. Έτοιμο για clients + grant.",
-    r:[
-      {f:"🇬🇧",tp:"yt",n:"AI Consultant Portfolio — How to Stand Out",u:"https://www.youtube.com/watch?v=0GrG_WX9DK8"},
+  { wt:"Εβδομάδα 4", ws:"Certifications + Grant Preparation",
+    days:[
+      { t:"Google AI Essentials — Part 1",
+        d:"Module 1-2: AI foundations + using AI tools at work.",
+        r:[{f:"🇬🇧",tp:"cert",n:"Google AI Essentials — grow.google/ai (free)",u:"https://grow.google/ai"},
+           {f:"🇬🇷",tp:"cert",n:"Google AI για Ελλάδα",u:"https://grow.google/intl/el/google-career-certificates/ai-professional/"}]},
+      { t:"Google AI Essentials — Part 2",
+        d:"Module 3-5: AI για data analysis, content creation, productivity. Πάρε certificate.",
+        r:[{f:"🇬🇧",tp:"cert",n:"Google AI Essentials — συνέχεια",u:"https://grow.google/ai"}]},
+      { t:"Microsoft AI-900 Prep — Part 1",
+        d:"Azure AI Fundamentals: AI workloads, machine learning, computer vision, NLP.",
+        r:[{f:"🇬🇧",tp:"cert",n:"AI-900 Study Guide — Microsoft Learn (free)",u:"https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/"},
+           {f:"🇷🇺",tp:"yt",n:"AI-900 подготовка к экзамену",u:"https://www.youtube.com/watch?v=tgiRGuXQrak"}]},
+      { t:"Microsoft AI-900 Prep — Part 2",
+        d:"Conversational AI, responsible AI. Practice tests + κλείσε εξέταση (~€100).",
+        r:[{f:"🇬🇧",tp:"cert",n:"AI-900 Practice Assessment — Microsoft",u:"https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/"},
+           {f:"🇬🇧",tp:"cert",n:"AI-900 Exam Registration",u:"https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-900/"}]},
+      { t:"LinkedIn Thought Leadership",
+        d:"Δημιούργησε 3 LinkedIn posts. Τεκμηρίωσε το setup σου ως expert.",
+        r:[{f:"🇷🇺",tp:"yt",n:"LinkedIn для AI-специалистов — контент",u:"https://www.youtube.com/watch?v=nkmz-Z5PRL4"},
+           {f:"🇬🇧",tp:"yt",n:"LinkedIn Content Strategy for Consultants 2025",u:"https://www.youtube.com/watch?v=BK_mMvGWSo0"}]},
+      { t:"Grant Research — Πρόγραμμα €150M",
+        d:"Ψάξε ακριβείς προϋποθέσεις. Τι τεκμήρια χρειάζονται; Ποιος φορέας;",
+        r:[{f:"🇬🇷",tp:"read",n:"ΕΣΠΑ / Ψηφιακός Μετασχηματισμός",u:"https://www.espa.gr"},
+           {f:"🇬🇷",tp:"read",n:"OpenAI + Ελλάδα — Επίσημο",u:"https://openai.com/el-GR/business/"}]},
+      { t:"Portfolio Finalization",
+        d:"Ενημέρωσε landing page με certifications. Έτοιμο για clients + grant.",
+        r:[{f:"🇬🇧",tp:"yt",n:"AI Consultant Portfolio — How to Stand Out",u:"https://www.youtube.com/watch?v=0GrG_WX9DK8"}]},
     ]},
 
-  { week:5, wt:"Εβδομάδα 5", ws:"Final Review + Launch",
-    t:"Mock Client Audit",
-    d:"Κάνε πλήρες demo audit σε φανταστική ελληνική εταιρεία. Γράψε report. Υπολόγισε ROI.",
-    r:[
-      {f:"🇬🇧",tp:"yt",n:"Real AI Audit Walkthrough — Live Demo",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"},
-    ]},
-  { week:5,
-    t:"Τελικό Review + Τι Ακολουθεί",
-    d:"Αξιολόγησε τι έμαθες. Φτιάξε plan για τους επόμενους 3 μήνες.",
-    r:[
-      {f:"🇷🇺",tp:"yt",n:"Итоги: путь AI-консультанта в 2025",u:"https://www.youtube.com/watch?v=C2NZs1fCLfo"},
-      {f:"🇬🇧",tp:"cert",n:"Google AI Professional Certificate — complete",u:"https://grow.google/intl/el/google-career-certificates/ai-professional/"},
+  { wt:"Εβδομάδα 5", ws:"Final Review + Launch",
+    days:[
+      { t:"Mock Client Audit",
+        d:"Κάνε demo audit σε φανταστική ελληνική εταιρεία. Γράψε report. Υπολόγισε ROI.",
+        r:[{f:"🇬🇧",tp:"yt",n:"Real AI Audit Walkthrough — Live Demo",u:"https://www.youtube.com/watch?v=uaEXcgBpLbo"}]},
+      { t:"Τελικό Review + Τι Ακολουθεί",
+        d:"Αξιολόγησε τι έμαθες. Φτιάξε plan επόμενων 3 μηνών.",
+        r:[{f:"🇷🇺",tp:"yt",n:"Итоги: путь AI-консультанта в 2025",u:"https://www.youtube.com/watch?v=C2NZs1fCLfo"},
+           {f:"🇬🇧",tp:"cert",n:"Google AI Professional Certificate — complete",u:"https://grow.google/intl/el/google-career-certificates/ai-professional/"}]},
     ]},
 ];
 
-function today() {
-  const now = new Date(); now.setHours(0,0,0,0);
-  const s = new Date(START); s.setHours(0,0,0,0);
-  return Math.max(0, Math.min(Math.floor((now-s)/(864e5)), DAYS.length-1));
-}
+// Flatten for today/global index
+const FLAT = [];
+WEEKS.forEach(function(w){ w.days.forEach(function(d){ FLAT.push(d); }); });
 
-function load() {
-  try { return JSON.parse(localStorage.getItem('ai30-done')||'{}'); }
-  catch(e){ return {}; }
+function todayIdx(){
+  const n=new Date(); n.setHours(0,0,0,0);
+  const s=new Date(START); s.setHours(0,0,0,0);
+  return Math.max(0,Math.min(Math.floor((n-s)/864e5),FLAT.length-1));
 }
-function save(d){ localStorage.setItem('ai30-done', JSON.stringify(d)); }
+function load(){ try{ return JSON.parse(localStorage.getItem('ai30v2')||'{}'); }catch(e){ return {}; } }
+function save(d){ localStorage.setItem('ai30v2',JSON.stringify(d)); }
 
-function toggle(i){
-  const d = load(); d[i] = !d[i]; save(d); render();
+function toggleDay(globalIdx){
+  const d=load(); d[globalIdx]=!d[globalIdx]; save(d); render();
 }
+function completeToday(){ const i=todayIdx(); const d=load(); if(!d[i]){ d[i]=true; save(d); render(); } }
 
-function completeTodayFromBanner(){
-  const i = today(); const d = load(); if(!d[i]){ d[i]=true; save(d); render(); }
-}
-
-function typeTag(tp){
-  const map = {yt:'rt-yt',course:'rt-course',cert:'rt-cert',read:'rt-read'};
-  return map[tp]||'rt-read';
-}
-function typeLabel(tp){
-  const map = {yt:'YT',course:'COURSE',cert:'CERT',read:'READ'};
-  return map[tp]||tp.toUpperCase();
-}
+function typeClass(tp){ return ({yt:'yt',course:'course',cert:'cert',read:'read'})[tp]||'read'; }
+function typeLabel(tp){ return ({yt:'YT',course:'COURSE',cert:'CERT',read:'READ'})[tp]||(tp||'').toUpperCase(); }
 
 function render(){
-  const todayIdx = today();
+  const ti = todayIdx();
   const done = load();
+  const total = FLAT.length;
   const completedCount = Object.values(done).filter(Boolean).length;
-  const pct = Math.round((completedCount/DAYS.length)*100);
+  const pct = Math.round((completedCount/total)*100);
 
-  document.getElementById('stat-done').textContent = completedCount;
-  document.getElementById('stat-today').textContent = Math.min(todayIdx+1, DAYS.length);
-  document.getElementById('stat-pct').textContent = pct+'%';
-  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('s-done').textContent = completedCount;
+  document.getElementById('s-day').textContent = Math.min(ti+1, total);
+  document.getElementById('s-pct').textContent = pct+'%';
+  document.getElementById('overall-bar').style.width = pct+'%';
 
-  // Today banner
-  const td = DAYS[todayIdx];
-  if(td){
-    document.getElementById('today-title').textContent = 'Μέρα '+(todayIdx+1)+': '+td.t;
-    document.getElementById('today-desc').textContent = td.d;
-    const tb = document.getElementById('today-btn');
-    if(done[todayIdx]){ tb.textContent = '✓ Ολοκληρώθηκε!'; tb.className='complete-btn done'; }
-    else { tb.textContent = '✓ Ολοκλήρωσα το μάθημα'; tb.className='complete-btn'; }
-  }
+  // Today strip
+  const td = FLAT[ti];
+  document.getElementById('td-title').textContent = 'Μέρα '+(ti+1)+': '+td.t;
+  document.getElementById('td-desc').textContent = td.d;
+  const tdb = document.getElementById('td-btn');
+  if(done[ti]){ tdb.textContent='✓ Ολοκληρώθηκε!'; tdb.className='td-btn done'; }
+  else { tdb.textContent='✓ Ολοκλήρωσα'; tdb.className='td-btn'; }
 
-  // Days
-  const root = document.getElementById('days-root');
+  // Weeks
+  const root = document.getElementById('root');
+  // Preserve open state
+  const openWeeks = {};
+  root.querySelectorAll('.week-block').forEach(function(el,i){ openWeeks[i]=el.classList.contains('open'); });
+  const openDays = {};
+  root.querySelectorAll('.day-row').forEach(function(el){ if(el.dataset.gi!==undefined) openDays[el.dataset.gi]=el.classList.contains('open'); });
+
   root.innerHTML = '';
-  let curWeek = null, weekEl = null, gridEl = null;
+  let globalIdx = 0;
 
-  DAYS.forEach(function(d, i){
-    if(d.week !== curWeek){
-      curWeek = d.week;
-      weekEl = document.createElement('div');
-      weekEl.className = 'week-block';
-      if(d.wt){
-        const wh = document.createElement('div');
-        wh.className = 'week-header';
-        wh.innerHTML = '<h2>'+d.wt+'</h2>'+(d.ws?'<p>'+d.ws+'</p>':'');
-        weekEl.appendChild(wh);
-      }
-      gridEl = document.createElement('div');
-      gridEl.className = 'days-grid';
-      weekEl.appendChild(gridEl);
-      root.appendChild(weekEl);
-    }
+  WEEKS.forEach(function(w, wi){
+    const weekDone = w.days.filter(function(d,di){ return !!done[globalIdx+di]; }).length;
+    const weekTotal = w.days.length;
+    const weekPct = Math.round((weekDone/weekTotal)*100);
 
-    const isToday = i===todayIdx;
-    const isDone = !!done[i];
+    const isOpen = openWeeks[wi] !== undefined ? openWeeks[wi] : (w.days.some(function(d,di){ return (globalIdx+di)===ti; }));
 
-    const card = document.createElement('div');
-    card.className = 'day-card'+(isToday?' is-today':'')+(isDone?' is-done':'');
+    const block = document.createElement('div');
+    block.className = 'week-block' + (isOpen?' open':'');
 
-    const resHtml = (d.r||[]).map(function(r){
-      return '<a class="res-link" href="'+r.u+'" target="_blank">'
-        +'<span class="res-flag">'+r.f+'</span>'
-        +'<span class="res-type '+typeTag(r.tp)+'">'+typeLabel(r.tp)+'</span>'
-        +'<span class="res-title">'+r.n+'</span>'
-        +'<span class="res-free">FREE</span>'
-        +'</a>';
-    }).join('');
+    block.innerHTML = '<div class="week-head" onclick="toggleWeek(this)">'
+      +'<div class="wh-left"><span class="wh-title">'+w.wt+'</span><span class="wh-sub">'+w.ws+'</span></div>'
+      +'<div class="wh-right">'
+      +'<div class="week-progress-wrap"><div class="week-progress-fill" style="width:'+weekPct+'%"></div></div>'
+      +'<span class="wh-pct">'+weekDone+'/'+weekTotal+'</span>'
+      +'<span class="wh-arrow">▼</span>'
+      +'</div></div>'
+      +'<div class="days-list"></div>';
 
-    const btnLabel = isDone ? '✓ Ολοκληρώθηκε!' : '✓ Ολοκλήρωσα το μάθημα';
-    const btnClass = isDone ? 'day-complete-btn done' : 'day-complete-btn';
+    const daysList = block.querySelector('.days-list');
 
-    card.innerHTML = '<div class="day-meta"><span class="day-num-label">'
-      +(isToday?'▶ ':'')+'Μέρα '+(i+1)+'</span></div>'
-      +'<div class="day-title">'+d.t+'</div>'
-      +'<div class="day-desc">'+d.d+'</div>'
-      +'<div class="res-list">'+resHtml+'</div>'
-      +'<button class="'+btnClass+'"'+(isDone?' disabled':'')+' onclick="toggle('+i+')">'+btnLabel+'</button>';
+    w.days.forEach(function(d, di){
+      const gi = globalIdx + di;
+      const isToday = gi === ti;
+      const isDone = !!done[gi];
+      const isDayOpen = openDays[gi] !== undefined ? openDays[gi] : isToday;
 
-    gridEl.appendChild(card);
+      const row = document.createElement('div');
+      row.className = 'day-row'+(isToday?' is-today':'')+(isDayOpen?' open':'');
+      row.dataset.gi = gi;
+
+      const checkHtml = '<div class="day-check'+(isDone?' done':'')+(isToday&&!isDone?' today':'')+'">'+(isDone?'✓':'')+'</div>';
+      const resHtml = (d.r||[]).map(function(r){
+        return '<a class="res-a" href="'+r.u+'" target="_blank">'
+          +'<span class="rflag">'+r.f+'</span>'
+          +'<span class="rtype '+typeClass(r.tp)+'">'+typeLabel(r.tp)+'</span>'
+          +'<span class="rtitle">'+r.n+'</span>'
+          +'<span class="rfree">FREE</span>'
+          +'</a>';
+      }).join('');
+
+      const btnLabel = isDone ? '✓ Ολοκληρώθηκε!' : '✓ Ολοκλήρωσα το μάθημα';
+      const btnClass = isDone ? 'complete-btn done' : 'complete-btn';
+
+      row.innerHTML = '<div class="day-head" onclick="toggleDay_row(this)">'
+        +checkHtml
+        +'<span class="day-num">'+(isToday?'▶ ':'')+'Μέρα '+(gi+1)+'</span>'
+        +'<span class="day-title-row">'+d.t+'</span>'
+        +'<span class="day-arrow">▼</span>'
+        +'</div>'
+        +'<div class="day-body">'
+        +'<p class="day-desc-text">'+d.d+'</p>'
+        +'<div class="res-list">'+resHtml+'</div>'
+        +'<button class="'+btnClass+'"'+(isDone?' disabled':'')+' onclick="toggleDay('+gi+')">'+btnLabel+'</button>'
+        +'</div>';
+
+      daysList.appendChild(row);
+    });
+
+    root.appendChild(block);
+    globalIdx += w.days.length;
   });
+}
+
+function toggleWeek(headEl){
+  headEl.closest('.week-block').classList.toggle('open');
+}
+function toggleDay_row(headEl){
+  headEl.closest('.day-row').classList.toggle('open');
 }
 
 render();
