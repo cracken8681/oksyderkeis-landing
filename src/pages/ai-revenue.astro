@@ -1,0 +1,520 @@
+---
+import Base from "../layouts/Base.astro";
+import Footer from "../components/Footer.astro";
+import { SITE } from "../config";
+
+const auditUrl = "/ai-audit";
+const pageUrl = `${SITE.url}/ai-revenue`;
+---
+
+<Base
+  title="Ερωτηματολόγιο AI Visibility | AI Revenue by Oksyderkeis"
+  description="Συμπλήρωσε το σύντομο διαγνωστικό για να δούμε αν υπάρχει πραγματικό κενό ορατότητας στη σελίδα σου — πριν πληρώσεις έλεγχο."
+>
+  <main class="quiz-page">
+    <section class="hero">
+      <div class="shell">
+        <a href={auditUrl} class="back-link">← Πίσω στο AI Visibility Audit</a>
+        <p class="eyebrow">AI Revenue by Oksyderkeis</p>
+        <h1>Σύντομο διαγνωστικό</h1>
+        <p class="subtitle">
+          Πριν γράψουμε audit ή προτείνουμε αλλαγές, θέλουμε να καταλάβουμε τι πουλάς, σε ποιον, και ποιο είναι το πρώτο πρακτικό βήμα που αξίζει να γίνει.
+        </p>
+        <div class="notice">
+          <strong>Γιατί το ζητάμε:</strong> οι απαντήσεις μας βοηθούν να μη γράψουμε γενικές συμβουλές — αλλά καθαρό πλάνο με πρώτο βήμα και μέτρο επιτυχίας.
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="shell">
+        <form id="intakeForm" novalidate>
+          <div class="form-card">
+            <h2>Στοιχεία επιχείρησης</h2>
+            <div class="field-grid">
+              <div class="field">
+                <label for="businessName">Όνομα επιχείρησης <span class="req">*</span></label>
+                <input id="businessName" name="business_name" type="text" required autocomplete="organization" />
+              </div>
+              <div class="field">
+                <label for="website">Website <span class="req">*</span></label>
+                <input id="website" name="website" type="url" placeholder="https://..." required />
+              </div>
+              <div class="field">
+                <label for="contactName">Ονοματεπώνυμο <span class="req">*</span></label>
+                <input id="contactName" name="contact_name" type="text" required autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="email">Email <span class="req">*</span></label>
+                <input id="email" name="email" type="email" required autocomplete="email" />
+              </div>
+              <div class="field">
+                <label for="industry">Κλάδος / τι κάνεις</label>
+                <input id="industry" name="industry" type="text" placeholder="π.χ. coaching, HR, εκπαίδευση, υπηρεσίες" />
+              </div>
+              <div class="field">
+                <label for="phone">Τηλέφωνο</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card" id="questionsCard">
+            <h2>15 ερωτήσεις που ξεκλειδώνουν το audit</h2>
+            <div id="questionsRoot"></div>
+          </div>
+
+          <div class="form-card promise-card">
+            <h2>Τι θα παραλάβεις</h2>
+            <p>Μια σύντομη ανατροφοδότηση με το πρώτο εύρημα και το επόμενο βήμα. Δεν υπόσχεται θέσεις στη Google ή έσοδα. Υπόσχεται καθαρότερη εικόνα.</p>
+          </div>
+
+          <div class="submit-bar">
+            <button type="submit" class="cta-btn" id="submitBtn">Καταχώρηση απαντήσεων</button>
+            <span class="status" id="statusMsg">Συμπλήρωσε τα βασικά πεδία και όσες απαντήσεις μπορείς.</span>
+          </div>
+        </form>
+
+        <div id="successPanel" class="success-panel" style="display:none">
+          <div class="success-inner">
+            <p class="eyebrow">Ολοκληρώθηκε</p>
+            <h2>Λάβαμε τις απαντήσεις σου.</h2>
+            <p>Θα επικοινωνήσουμε μαζί σου εντός 1-2 εργάσιμων ημερών με την πρώτη εκτίμηση.</p>
+            <a href={auditUrl} class="cta-btn" style="margin-top:24px;display:inline-flex">← Επιστροφή στο Audit</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<script>
+  const QUESTIONS = [
+    {
+      id: "q1", label: "1. Ποια υπηρεσία ή προϊόν σου φέρνει τα περισσότερα χρήματα σήμερα;",
+      help: "Μας δείχνει ποια σελίδα ή προσφορά πρέπει να γίνει πρώτη προτεραιότητα.",
+      choices: ["Υπηρεσία υψηλής αξίας", "Επαναλαμβανόμενη υπηρεσία", "Εκπαίδευση / σεμινάρια", "Δεν είμαι σίγουρος/η"]
+    },
+    {
+      id: "q2", label: "2. Ποιον πελάτη θέλεις περισσότερο;",
+      help: "Δεν γράφουμε το ίδιο μήνυμα για ιδιοκτήτη επιχείρησης, HR manager ή αυτοαπασχολούμενο.",
+      choices: ["Ιδιοκτήτες μικρών επιχειρήσεων", "HR / στελέχη εταιρειών", "Οικογενειακές επιχειρήσεις", "Επαγγελματίες / αυτοαπασχολούμενοι"]
+    },
+    {
+      id: "q3", label: "3. Ποιο πρόβλημα πρέπει να καταλαβαίνει πρώτα ο επισκέπτης ότι λύνεις;",
+      help: "Αυτό καθορίζει το πρώτο μήνυμα της σελίδας.",
+      choices: ["Δεν βρίσκω σωστό προσωπικό", "Η επιχείρηση δεν είναι οργανωμένη", "Θέλω περισσότερες πωλήσεις", "Η ομάδα δεν λειτουργεί όπως πρέπει"]
+    },
+    {
+      id: "q4", label: "4. Αν ο επισκέπτης καταλάβει μόνο ένα πράγμα για σένα, ποιο πρέπει να είναι;",
+      help: "Εδώ κλειδώνει η απλή διατύπωση της αρχικής σελίδας.",
+      choices: ["Έχω εμπειρία", "Έχω πρακτικά εργαλεία", "Βοηθώ συγκεκριμένο τύπο πελάτη", "Δεν το έχω καθαρίσει ακόμα"]
+    },
+    {
+      id: "q5", label: "5. Τι θέλεις να κάνει ο επισκέπτης πρώτα;",
+      help: "Το audit πρέπει να οδηγεί σε μία καθαρή πρώτη κίνηση.",
+      choices: ["Να κλείσει call", "Να συμπληρώσει φόρμα", "Να κατεβάσει υλικό", "Να δει συγκεκριμένη υπηρεσία"]
+    },
+    {
+      id: "q6", label: "6. Από πού έρχονται σήμερα οι καλύτεροι πελάτες σου;",
+      help: "Μας δείχνει ποιο κανάλι έχει ήδη εμπιστοσύνη.",
+      choices: ["Συστάσεις", "Google", "Social / LinkedIn", "Σεμινάρια / events"]
+    },
+    {
+      id: "q7", label: "7. Πού πιστεύεις ότι χάνεται ο επισκέπτης στο site;",
+      help: "Αν δεν το ξέρεις, το σημειώνουμε και το ψάχνουμε στο audit.",
+      choices: ["Δεν καταλαβαίνει την υπηρεσία", "Δεν ξέρει ποιο κουμπί να πατήσει", "Έχει πολλές επιλογές", "Δεν έχω δεδομένα"]
+    },
+    {
+      id: "q8", label: "8. Ποιο είναι το πιο δυνατό σου proof;",
+      help: "Proof σημαίνει απόδειξη εμπιστοσύνης: κριτικές, case studies, εμπειρία, συνεργασίες.",
+      choices: ["Κριτικές", "Case studies", "Χρόνια εμπειρίας", "Γνωστές συνεργασίες / πελάτες"]
+    },
+    {
+      id: "q9", label: "9. Ποιον θεωρείς άμεσο ανταγωνιστή ή εναλλακτική λύση;",
+      help: "Αν δεν έχεις όνομα, γράψε τι θα έψαχνε ο πελάτης αντί για σένα.",
+      choices: ["Άλλη εταιρεία συμβούλων", "HR / recruiting εταιρεία", "Business coach", "Δεν γνωρίζω"]
+    },
+    {
+      id: "q10", label: "10. Σε ποια αναζήτηση θα ήθελες να σε βρίσκει ο ιδανικός πελάτης;",
+      help: "Παράδειγμα: αξιολόγηση προσωπικού Ελλάδα, business coach Αθήνα.",
+      choices: ["Υπηρεσία + Ελλάδα", "Πρόβλημα που έχω", "Όνομα brand", "Δεν είμαι σίγουρος/η"]
+    },
+    {
+      id: "q11", label: "11. Ποια υπηρεσία θέλεις να προωθηθεί πρώτη τις επόμενες 30 ημέρες;",
+      help: "Δεν βελτιώνουμε όλο το site μαζί. Διαλέγουμε πρώτο path.",
+      choices: ["Κύρια υπηρεσία", "Δευτερεύουσα υπηρεσία", "Εκπαίδευση / σεμινάριο", "Νέα υπηρεσία που ετοιμάζω"]
+    },
+    {
+      id: "q12", label: "12. Τι θα θεωρούσες επιτυχία από το audit ή το πρώτο sprint;",
+      help: "Χρειαζόμαστε μέτρο επιτυχίας, όχι μόνο εντύπωση.",
+      choices: ["Περισσότερα calls", "Πιο καθαρό site", "Καλύτερη εμφάνιση σε Google/AI", "Καλύτερη σελίδα για μία υπηρεσία"]
+    },
+    {
+      id: "q13", label: "13. Υπάρχει κάτι που δεν θέλεις να αλλάξει;",
+      help: "Μας προστατεύει από προτάσεις που δεν ταιριάζουν στο brand σου.",
+      choices: ["Το ύφος", "Οι βασικές υπηρεσίες", "Τα χρώματα/brand", "Δεν υπάρχει περιορισμός"]
+    },
+    {
+      id: "q14", label: "14. Πόσο άμεσα θέλεις να γίνει η πρώτη βελτίωση;",
+      help: "Άλλο πλάνο θέλει κάτι για αυτή την εβδομάδα, άλλο για επόμενο μήνα.",
+      choices: ["Αυτή την εβδομάδα", "Μέσα στον μήνα", "Δεν επείγει", "Θέλω πρώτα να δω πλάνο"]
+    },
+    {
+      id: "q15", label: "15. Τι πρέπει να ξέρουμε πριν σου προτείνουμε λύση;",
+      help: "Εδώ γράψε οτιδήποτε δεν χωράει στις επιλογές.",
+      choices: ["Έχω ήδη συνεργάτη", "Έχω περιορισμένο budget", "Θέλω κάτι πολύ απλό", "Θέλω πλήρη υλοποίηση"]
+    },
+  ];
+
+  const root = document.getElementById("questionsRoot");
+  QUESTIONS.forEach((q) => {
+    const wrap = document.createElement("div");
+    wrap.className = "question-block";
+    const choices = q.choices.map((c) => `
+      <label class="choice-label">
+        <input type="radio" name="${q.id}" value="${c.replace(/"/g, "&quot;")}">
+        <span>${c}</span>
+      </label>
+    `).join("");
+    wrap.innerHTML = `
+      <h3>${q.label}</h3>
+      <p class="help-text">${q.help}</p>
+      <div class="choices-grid">${choices}</div>
+      <div class="other-field">
+        <label for="${q.id}_other">Άλλο / δική σου απάντηση</label>
+        <textarea id="${q.id}_other" name="${q.id}_other" placeholder="Γράψε εδώ αν οι επιλογές δεν σε καλύπτουν."></textarea>
+      </div>
+    `;
+    root.appendChild(wrap);
+  });
+
+  const form = document.getElementById("intakeForm");
+  const statusMsg = document.getElementById("statusMsg");
+  const submitBtn = document.getElementById("submitBtn");
+  const successPanel = document.getElementById("successPanel");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+
+    const required = ["business_name", "website", "contact_name", "email"];
+    for (const field of required) {
+      if (!data.get(field)) {
+        statusMsg.innerHTML = `<span class="error">Συμπλήρωσε όλα τα υποχρεωτικά πεδία.</span>`;
+        return;
+      }
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Αποστολή...";
+
+    const answers = {};
+    QUESTIONS.forEach((q) => {
+      answers[q.id] = data.get(q.id) || "";
+      answers[`${q.id}_other`] = data.get(`${q.id}_other`) || "";
+    });
+
+    const payload = {
+      meta: { source: "ai-revenue-quiz", version: "v2", path: "/ai-revenue" },
+      contact: {
+        business: data.get("business_name"),
+        website: data.get("website"),
+        name: data.get("contact_name"),
+        email: data.get("email"),
+        phone: data.get("phone") || "",
+        industry: data.get("industry") || "",
+      },
+      answers,
+    };
+
+    try {
+      const res = await fetch("/api/intake", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        form.style.display = "none";
+        successPanel.style.display = "block";
+      } else {
+        const err = await res.json().catch(() => ({}));
+        statusMsg.innerHTML = `<span class="error">Κάτι πήγε στραβά (${err.error || res.status}). Δοκίμασε ξανά.</span>`;
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Καταχώρηση απαντήσεων";
+      }
+    } catch {
+      statusMsg.innerHTML = `<span class="error">Αποτυχία σύνδεσης. Έλεγξε το internet σου και δοκίμασε ξανά.</span>`;
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Καταχώρηση απαντήσεων";
+    }
+  });
+</script>
+
+<style>
+  .quiz-page {
+    --ai-bg: #f8fafc;
+    --ai-surface: #ffffff;
+    --ai-ink: #0f172a;
+    --ai-muted: #475569;
+    --ai-soft: #e2e8f0;
+    --ai-navy: #1e3a8a;
+    --ai-blue: #1e40af;
+    --ai-gold: #b45309;
+    --ai-gold-light: #fef3c7;
+    --ai-success: #059669;
+    --ai-error: #dc2626;
+    --ai-radius: 10px;
+    background:
+      linear-gradient(180deg, rgba(30, 58, 138, 0.08), rgba(248, 250, 252, 0) 400px),
+      var(--ai-bg);
+    color: var(--ai-ink);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    min-height: 100vh;
+  }
+
+  .shell {
+    width: min(860px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .hero {
+    padding: 64px 0 0;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--ai-navy);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 28px;
+    opacity: 0.75;
+    transition: opacity 150ms;
+  }
+  .back-link:hover { opacity: 1; }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    color: var(--ai-gold);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.05;
+    color: var(--ai-ink);
+    font-family: var(--font-display, Georgia, serif);
+  }
+
+  h2 {
+    margin: 0 0 20px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ai-ink);
+    font-family: var(--font-display, Georgia, serif);
+  }
+
+  h3 {
+    margin: 0 0 6px;
+    font-size: 0.97rem;
+    font-weight: 700;
+    color: var(--ai-ink);
+    line-height: 1.45;
+  }
+
+  .subtitle {
+    margin: 20px 0 0;
+    font-size: 1.05rem;
+    color: var(--ai-muted);
+    line-height: 1.65;
+    max-width: 680px;
+  }
+
+  .notice {
+    margin-top: 24px;
+    background: var(--ai-gold-light);
+    border: 1px solid #fde68a;
+    border-radius: var(--ai-radius);
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    color: #78350f;
+    line-height: 1.55;
+  }
+
+  .form-section {
+    padding: 40px 0 80px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-card {
+    background: var(--ai-surface);
+    border: 1px solid var(--ai-soft);
+    border-radius: var(--ai-radius);
+    padding: 28px 28px 32px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  }
+
+  .field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ai-ink);
+  }
+
+  .req { color: var(--ai-error); }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    border: 1px solid var(--ai-soft);
+    border-radius: 7px;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 0.925rem;
+    background: #fff;
+    color: var(--ai-ink);
+    box-sizing: border-box;
+    transition: border-color 150ms;
+  }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--ai-navy);
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+  }
+  textarea { min-height: 70px; resize: vertical; }
+
+  .question-block {
+    padding: 20px 0;
+    border-top: 1px solid var(--ai-soft);
+  }
+  .question-block:first-child { border-top: none; padding-top: 0; }
+
+  .help-text {
+    font-size: 0.82rem;
+    color: var(--ai-muted);
+    margin: 0 0 10px;
+    line-height: 1.5;
+  }
+
+  .choices-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .choice-label {
+    display: flex;
+    cursor: pointer;
+  }
+  .choice-label input { display: none; }
+  .choice-label span {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--ai-soft);
+    border-radius: 7px;
+    padding: 9px 12px;
+    font-size: 0.875rem;
+    background: var(--ai-bg);
+    color: var(--ai-muted);
+    transition: border-color 150ms, background 150ms, color 150ms;
+    line-height: 1.4;
+  }
+  .choice-label input:checked + span {
+    border-color: var(--ai-navy);
+    background: rgba(30, 58, 138, 0.06);
+    color: var(--ai-navy);
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--ai-navy);
+  }
+  .choice-label:hover span { border-color: #94a3b8; }
+
+  .other-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .other-field label { font-size: 0.8rem; color: var(--ai-muted); font-weight: 500; }
+
+  .promise-card { background: rgba(30, 58, 138, 0.04); }
+  .promise-card p { color: var(--ai-muted); font-size: 0.95rem; line-height: 1.65; margin: 0; }
+
+  .submit-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    background: var(--ai-surface);
+    border: 1px solid var(--ai-soft);
+    border-radius: var(--ai-radius);
+    padding: 18px 24px;
+    position: sticky;
+    bottom: 16px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 22px;
+    background: var(--ai-gold);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 160ms;
+    white-space: nowrap;
+  }
+  .cta-btn:hover { opacity: 0.88; }
+  .cta-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .status { font-size: 0.875rem; color: var(--ai-muted); }
+  .error { color: var(--ai-error); font-weight: 600; }
+
+  .success-panel {
+    background: var(--ai-surface);
+    border: 1px solid var(--ai-soft);
+    border-radius: var(--ai-radius);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .success-inner h2 { font-size: 1.8rem; margin-bottom: 12px; }
+  .success-inner p { color: var(--ai-muted); margin: 0; }
+
+  @media (max-width: 640px) {
+    .field-grid, .choices-grid { grid-template-columns: 1fr; }
+    .form-card { padding: 20px; }
+    .submit-bar { position: static; }
+    h1 { font-size: 1.85rem; }
+  }
+</style>
