@@ -1,565 +1,839 @@
 ---
 import Base from "../layouts/Base.astro";
 import Footer from "../components/Footer.astro";
+import { SITE } from "../config";
+
+const quizUrl = "https://oksyderkeis.net/ai-revenue";
+const pageUrl = `${SITE.url}/ai-audit`;
+
+const faqItems = [
+  {
+    question: "Τι είναι AI Visibility Audit;",
+    answer:
+      "Είναι έλεγχος του πώς εμφανίζεται και πώς καταλαβαίνεται η επιχείρησή σου από ανθρώπους, Google και εργαλεία AI όπως ChatGPT ή Perplexity.",
+  },
+  {
+    question: "Είναι SEO ή κάτι διαφορετικό;",
+    answer:
+      "Πατάει πάνω σε SEO, αλλά κοιτά και τις απαντήσεις που δίνουν τα εργαλεία AI: αν το περιεχόμενο, η δομή, οι αποδείξεις και οι σελίδες σου βοηθούν μια μηχανή να εξηγήσει σωστά ποιος είσαι και γιατί να σε προτείνει.",
+  },
+  {
+    question: "Για ποιον είναι;",
+    answer:
+      "Για επαγγελματίες υπηρεσιών, τοπικές επιχειρήσεις και B2B ομάδες στην Ελλάδα που έχουν site αλλά δεν είναι σίγουροι αν φέρνει εμπιστοσύνη, αιτήματα επικοινωνίας και σωστή παρουσία σε Google και AI.",
+  },
+  {
+    question: "Τι παίρνω μετά το ερωτηματολόγιο;",
+    answer:
+      "Το ερωτηματολόγιο δίνει την αρχική εικόνα. Αν υπάρχει πραγματικό κενό ορατότητας ή επικοινωνίας, προτείνεται πληρωμένος έλεγχος με συγκεκριμένο πλαίσιο και επόμενο βήμα.",
+  },
+  {
+    question: "Τι περιλαμβάνει ο πληρωμένος έλεγχος;",
+    answer:
+      "Περιλαμβάνει έλεγχο site, μηνύματος, ορατότητας σε Google και AI, αποδείξεων εμπιστοσύνης, διαδρομής προς την επικοινωνία και προτεραιοτήτων. Η εγγύηση είναι τουλάχιστον 3 χρήσιμα ευρήματα ή επιστροφή χρημάτων.",
+  },
+  {
+    question: "Τι δεν υποσχόμαστε;",
+    answer:
+      "Δεν υποσχόμαστε κατάταξη, έσοδα ή σίγουρα αποτελέσματα. Δείχνουμε τι βλέπουμε, τι λείπει και ποιες αλλαγές έχουν προτεραιότητα.",
+  },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "AI Visibility Audit για επιχειρήσεις στην Ελλάδα",
+    serviceType: "AI Visibility Audit",
+    provider: {
+      "@type": "Organization",
+      name: "Oksyderkeis",
+      url: SITE.url,
+    },
+    areaServed: ["Greece", "Cyprus", "European Union"],
+    url: pageUrl,
+    description:
+      "Έλεγχος ορατότητας σε Google και AI για επιχειρήσεις στην Ελλάδα που θέλουν πιο καθαρό site, καλύτερη εμπιστοσύνη και σαφέστερο επόμενο βήμα.",
+    offers: [
+      {
+        "@type": "Offer",
+        name: "AI Visibility Audit",
+        price: "349",
+        priceCurrency: "EUR",
+        url: quizUrl,
+      },
+      {
+        "@type": "Offer",
+        name: "Implementation Sprint",
+        price: "1290",
+        priceCurrency: "EUR",
+        url: quizUrl,
+      },
+      {
+        "@type": "Offer",
+        name: "AI Visibility Monitoring",
+        price: "590",
+        priceCurrency: "EUR",
+        description: "Μηνιαία παρακολούθηση ορατότητας, αναφορά και προτεραιότητες.",
+        url: quizUrl,
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
 ---
 
 <Base
-  title="AI Visibility & Conversion Audit — Oksyderkeis"
-  description="Ανακάλυψε γιατί οι επισκέπτες φεύγουν χωρίς να επικοινωνήσουν — και τι ακριβώς αλλάζεις για να το σταματήσεις."
+  title="AI Visibility Audit για επιχειρήσεις στην Ελλάδα | Oksyderkeis"
+  description="Έλεγχος ορατότητας σε Google και AI για επιχειρήσεις στην Ελλάδα που θέλουν καθαρό site, εμπιστοσύνη και περισσότερα σωστά αιτήματα."
+  jsonLd={jsonLd}
 >
   <main class="audit-page">
-
-    <!-- Hero -->
     <section class="hero">
-      <div class="container">
-        <p class="eyebrow">Υπηρεσία για Coaches & Consultants</p>
-        <h1>Κάθε μήνας που το site σου δεν converts είναι leads που χάνεις και δεν θα μάθεις ποτέ.</h1>
-        <p class="subtitle">
-          Ούτε ο επιχειρηματίας που ψάχνει βοήθεια. Ούτε το ChatGPT που του τη συστήνει.
-          Ένα πλήρες audit σου δείχνει ακριβώς τι αλλάζεις — σε 3 έως 5 εργάσιμες μέρες.
-        </p>
-        <a href="mailto:oksyderkeisbydavid@gmail.com?subject=Ενδιαφέρομαι για AI Audit" class="cta-btn">
-          Εκδήλωση ενδιαφέροντος →
-        </a>
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">AI Revenue by Oksyderkeis</p>
+          <h1>AI Visibility Audit για ελληνικές επιχειρήσεις που θέλουν να εμφανίζονται σωστά σε Google και AI απαντήσεις</h1>
+          <p class="subtitle">
+            Ελέγχουμε τι βλέπει ο πελάτης, τι διαβάζουν τα εργαλεία AI από πίσω και πού χάνεται η διαδρομή προς την επικοινωνία.
+          </p>
+          <div class="hero-actions">
+            <a href={quizUrl} class="cta-btn" data-cta="ai-audit-hero-quiz">Κάνε το ερωτηματολόγιο</a>
+            <a href="#process" class="text-link">Δες τη διαδικασία</a>
+          </div>
+          <dl class="hero-facts" aria-label="Βασικά στοιχεία υπηρεσίας">
+            <div>
+              <dt>Audit</dt>
+              <dd>349€ + ΦΠΑ</dd>
+            </div>
+            <div>
+              <dt>Εγγύηση</dt>
+              <dd>3+ ευρήματα ή επιστροφή</dd>
+            </div>
+            <div>
+              <dt>Στόχος</dt>
+              <dd>ορατότητα + επικοινωνία</dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside class="audit-mockup" aria-label="Δείγμα κάρτας βαθμολογίας AI Visibility">
+          <div class="mockup-topbar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="score-row">
+            <div>
+              <p class="mockup-label">Βαθμολογία ορατότητας AI</p>
+              <strong>62/100</strong>
+            </div>
+            <p class="score-note">Ενδεικτικό δείγμα</p>
+          </div>
+          <div class="signal-list">
+            <div class="signal good">
+              <span></span>
+              <p><strong>Καθαρή πρόταση</strong> που καταλαβαίνει ο επισκέπτης</p>
+            </div>
+            <div class="signal warn">
+              <span></span>
+              <p><strong>Στοιχεία επιχείρησης</strong> που δεν διαβάζονται καθαρά από τα AI</p>
+            </div>
+            <div class="signal bad">
+              <span></span>
+              <p><strong>Διαδρομή επικοινωνίας</strong> χωρίς καθαρό επόμενο βήμα</p>
+            </div>
+          </div>
+          <div class="mockup-card">
+            <p>Κύριο εύρημα</p>
+            <strong>Άλλο βλέπει ο άνθρωπος, άλλο διαβάζει η μηχανή από πίσω.</strong>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <!-- Problem -->
-    <section class="problem">
-      <div class="container">
-        <h2>Το πρόβλημα που λύνει αυτή η υπηρεσία</h2>
-        <div class="problem-grid">
-          <div class="problem-card">
-            <span class="icon">🔍</span>
-            <p>Οι επισκέπτες έρχονται στο site σου, δεν καταλαβαίνουν τι κάνεις στα πρώτα 10 δευτερόλεπτα και φεύγουν.</p>
-          </div>
-          <div class="problem-card">
-            <span class="icon">🤖</span>
-            <p>Όταν κάποιος ρωτά το ChatGPT ή το Google AI για coach ή consultant στη θέση σου — το όνομά σου δεν εμφανίζεται πουθενά.</p>
-          </div>
-          <div class="problem-card">
-            <span class="icon">📉</span>
-            <p>Έχεις εξαιρετική δουλειά και αποδεδειγμένα αποτελέσματα — αλλά η online παρουσία δεν τα μεταδίδει με αρκετή σαφήνεια.</p>
+    <section class="answer-band">
+      <div class="shell answer-grid">
+        <div>
+          <p class="eyebrow">Τι είναι</p>
+          <h2>Το AI Visibility δεν είναι μαγικό. Είναι καθαρή πληροφορία που μπορεί να διαβαστεί σωστά.</h2>
+        </div>
+        <p>
+          Πολλές επιχειρήσεις έχουν site που φαίνεται κανονικό σε άνθρωπο, αλλά η μηχανή από πίσω δεν καταλαβαίνει καθαρά ποιοι είναι, τι προσφέρουν, σε ποια αγορά δουλεύουν και γιατί να τους προτείνει.
+        </p>
+      </div>
+    </section>
+
+    <section class="proof-preview">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Δείγμα ελέγχου</p>
+          <h2>Δεν πουλάμε υποσχέσεις. Δείχνουμε πού υπάρχει κενό.</h2>
+          <p>Η αναφορά πρέπει να μοιάζει με εργαλείο απόφασης, όχι με γενική συμβουλή. Γι' αυτό το πρώτο παραδοτέο είναι μια καθαρή μέτρηση με ευρήματα, προτεραιότητες και επόμενο βήμα.</p>
+        </div>
+        <div class="scroll-stage" aria-label="Δείγμα ενοτήτων αναφοράς ελέγχου">
+          <div class="report-sheet">
+            <div class="report-header">
+              <span>Πρώτη μέτρηση AI Visibility</span>
+              <strong>Χάρτης ευρημάτων</strong>
+            </div>
+            <div class="report-grid">
+              <article>
+                <span>01</span>
+                <h3>Τι ψάχνει ο πελάτης</h3>
+                <p>Ποιες ερωτήσεις πρέπει να απαντά καθαρά η σελίδα.</p>
+              </article>
+              <article>
+                <span>02</span>
+                <h3>Τι διαβάζει η μηχανή</h3>
+                <p>Τι λείπει από τίτλους, δομή, δομημένα δεδομένα και στοιχεία επιχείρησης.</p>
+              </article>
+              <article>
+                <span>03</span>
+                <h3>Αποδείξεις εμπιστοσύνης</h3>
+                <p>Πού χρειάζεται απόδειξη χωρίς fake testimonials ή υπερβολές.</p>
+              </article>
+              <article>
+                <span>04</span>
+                <h3>Διαδρομή προς την επικοινωνία</h3>
+                <p>Ποιο είναι το καθαρότερο επόμενο βήμα για τον σωστό πελάτη.</p>
+              </article>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Deliverables -->
-    <section class="deliverables">
-      <div class="container">
-        <h2>Τι παραδίδω</h2>
-        <p class="section-sub">Πλήρης ανάλυση και actionable roadmap για τη δική σου περίπτωση.</p>
-        <ul class="deliverable-list">
+    <section id="process" class="process">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Διαδικασία</p>
+          <h2>Από ερωτηματολόγιο σε καθαρή απόφαση</h2>
+        </div>
+        <ol class="steps">
           <li>
-            <span class="check">✓</span>
-            <div>
-              <strong>Positioning & μήνυμα</strong>
-              <p>Πώς αντιλαμβάνεται ο επισκέπτης την υπηρεσία σου στα πρώτα 10 δευτερόλεπτα — και τι πρέπει να αλλάξει.</p>
-            </div>
+            <span>1</span>
+            <h3>Ερωτηματολόγιο</h3>
+            <p>Μαζεύουμε βασικά στοιχεία για επιχείρηση, πρόταση, αγορά και επείγοντα στόχο.</p>
           </li>
           <li>
-            <span class="check">✓</span>
-            <div>
-              <strong>AI Visibility</strong>
-              <p>Δομή περιεχομένου που σε κάνει ορατό σε ChatGPT, Perplexity και Google AI searches — εκεί που γίνονται οι αποφάσεις.</p>
-            </div>
+            <span>2</span>
+            <h3>Έλεγχος ορατότητας</h3>
+            <p>Ελέγχουμε site, σήματα σε Google, ετοιμότητα για απαντήσεις AI και διαδρομή προς την επικοινωνία.</p>
           </li>
           <li>
-            <span class="check">✓</span>
-            <div>
-              <strong>Trust signals</strong>
-              <p>Ποια στοιχεία αξιοπιστίας έχεις ήδη και δεν αξιοποιείς — και πού πρέπει να εμφανίζονται.</p>
-            </div>
+            <span>3</span>
+            <h3>Ευρήματα</h3>
+            <p>Παραδίδουμε τουλάχιστον 3 χρήσιμα ευρήματα ή επιστροφή χρημάτων στον πληρωμένο έλεγχο.</p>
           </li>
           <li>
-            <span class="check">✓</span>
-            <div>
-              <strong>Conversion path</strong>
-              <p>Πού χάνεται ο επισκέπτης πριν επικοινωνήσει — και πώς κλείνεις αυτό το κενό.</p>
-            </div>
+            <span>4</span>
+            <h3>Πλάνο ενεργειών</h3>
+            <p>Βάζουμε σειρά: τι αλλάζει πρώτο, τι περιμένει και τι αξίζει να υλοποιηθεί από εμάς.</p>
           </li>
-          <li>
-            <span class="check">✓</span>
-            <div>
-              <strong>Actionable roadmap</strong>
-              <p>Σαφείς προτεραιότητες με σειρά impact — τι κάνεις πρώτο, τι μπορεί να περιμένει.</p>
-            </div>
-          </li>
-          <li>
-            <span class="check">✓</span>
-            <div>
-              <strong>Post-implementation review</strong>
-              <p>Μετά την εφαρμογή των αλλαγών, επιστρέφω και επιβεβαιώνω ότι όλα τηρήθηκαν σύμφωνα με τις προδιαγραφές — για το μέγιστο αποτέλεσμα.</p>
-            </div>
-          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="pricing">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Πακέτα</p>
+          <h2>Ξεκινάμε με διάγνωση, όχι με τυφλή υλοποίηση</h2>
+          <p>Το ερωτηματολόγιο δείχνει αν υπάρχει πραγματικός λόγος να προχωρήσουμε. Ο πληρωμένος έλεγχος δίνει την πρώτη μέτρηση. Η υλοποίηση έρχεται μόνο όταν έχει νόημα.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="pricing-card featured">
+            <p class="pricing-label">Πρώτη μέτρηση</p>
+            <h3>AI Visibility Audit</h3>
+            <p class="price">349€ <span>+ ΦΠΑ</span></p>
+            <ul>
+              <li>Έλεγχος site και πρότασης</li>
+              <li>Έλεγχοι ορατότητας σε Google και AI</li>
+              <li>Ευρήματα για τη διαδρομή προς την επικοινωνία</li>
+              <li>3+ χρήσιμα ευρήματα ή επιστροφή χρημάτων</li>
+            </ul>
+            <a href={quizUrl} class="cta-btn" data-cta="ai-audit-pricing-audit">Ξεκίνα με το ερωτηματολόγιο</a>
+          </article>
+          <article class="pricing-card">
+            <p class="pricing-label">Υλοποίηση</p>
+            <h3>Visibility Sprint</h3>
+            <p class="price">1.290€</p>
+            <ul>
+              <li>Διορθώσεις με σειρά προτεραιότητας</li>
+              <li>Αναδιάρθρωση σελίδων και κειμένων</li>
+              <li>Δομημένα δεδομένα, ερωτήσεις-απαντήσεις, κείμενα</li>
+              <li>Επαλήθευση μετά τις αλλαγές</li>
+            </ul>
+            <p class="card-note">Μόνο αν ο έλεγχος δείξει καθαρό λόγο υλοποίησης.</p>
+          </article>
+          <article class="pricing-card">
+            <p class="pricing-label">Συνεχής παρακολούθηση</p>
+            <h3>AI Visibility Monitoring</h3>
+            <p class="price">590€ <span>/ μήνα</span></p>
+            <ul>
+              <li>Μηνιαίος έλεγχος ορατότητας</li>
+              <li>Νέες ερωτήσεις που αξίζει να καλυφθούν</li>
+              <li>Προτεραιότητες σε κείμενα και επικοινωνία</li>
+              <li>Μηνιαία αναφορά</li>
+            </ul>
+            <p class="card-note">Για επιχειρήσεις που θέλουν συνεχή βελτίωση.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="boundaries">
+      <div class="shell boundary-grid">
+        <div>
+          <p class="eyebrow">Όρια</p>
+          <h2>Τι δεν υποσχόμαστε</h2>
+        </div>
+        <ul>
+          <li>Δεν υπόσχομαι κατάταξη σε Google ή εργαλεία AI.</li>
+          <li>Δεν υπόσχομαι έσοδα ή συγκεκριμένο αριθμό αιτημάτων επικοινωνίας.</li>
+          <li>Δεν δίνω γενικές συμβουλές χωρίς στοιχεία από το δικό σου site.</li>
+          <li>Δεν χρησιμοποιώ ψεύτικες κριτικές, ψεύτικα λογότυπα ή φουσκωμένους ισχυρισμούς.</li>
         </ul>
       </div>
     </section>
 
-    <!-- Pricing -->
-    <section class="pricing">
-      <div class="container">
-        <h2>Διάλεξε πακέτο</h2>
-        <div class="pricing-grid">
-
-          <!-- €497 Essential -->
-          <div class="pricing-card">
-            <p class="pricing-label">Essential Audit</p>
-            <p class="pricing-amount">497€ <span>+ ΦΠΑ</span></p>
-            <p class="pricing-delivery">Παράδοση: 3 εργάσιμες μέρες</p>
-            <ul class="pricing-includes">
-              <li>✓ Ανάλυση site & βασικού μηνύματος</li>
-              <li>✓ AI visibility snapshot</li>
-              <li>✓ Top 5 αλλαγές με σειρά προτεραιότητας</li>
-              <li>✓ Σύντομο report σε PDF</li>
-            </ul>
-            <a href="mailto:oksyderkeisbydavid@gmail.com?subject=Ενδιαφέρομαι για Essential Audit (497€)&body=Ονοματεπώνυμο:%0AΕταιρεία:%0ASite:%0AΒραχυπρόθεσμος στόχος:" class="cta-btn">
-              Ξεκινάω με το Essential →
-            </a>
-            <div class="upsell-badge">
-              <span>⚡ Μετά την αγορά:</span> Αποκτάς τα <strong>AI Follow-Up Scripts</strong> (αξίας 97€) με ειδική τιμή 47€ — για να κλείνεις τις προσφορές που στέλνεις.
-            </div>
-            <p class="pricing-note">Δεν απαιτείται κλήση. Επικοινωνία μέσω email.</p>
-          </div>
-
-          <!-- €997 Full -->
-          <div class="pricing-card pricing-card--featured">
-            <p class="pricing-badge">Πιο δημοφιλές</p>
-            <p class="pricing-label">Full Audit</p>
-            <p class="pricing-amount">997€ <span>+ ΦΠΑ</span></p>
-            <p class="pricing-delivery">Παράδοση: 5 εργάσιμες μέρες</p>
-            <ul class="pricing-includes">
-              <li>✓ Πλήρης ανάλυση site & περιεχομένου</li>
-              <li>✓ AI visibility audit (ChatGPT, Perplexity, Google AI)</li>
-              <li>✓ Αναλυτικό report με προτεραιότητες</li>
-              <li>✓ Post-implementation review χωρίς επιπλέον κόστος</li>
-            </ul>
-            <a href="mailto:oksyderkeisbydavid@gmail.com?subject=Ενδιαφέρομαι για Full Audit (997€)&body=Ονοματεπώνυμο:%0AΕταιρεία:%0ASite:%0AΒραχυπρόθεσμος στόχος:" class="cta-btn">
-              Εκδήλωση ενδιαφέροντος →
-            </a>
-            <div class="upsell-badge">
-              <span>⚡ Μετά την αγορά:</span> Αποκτάς τα <strong>AI Follow-Up Scripts</strong> (αξίας 97€) με ειδική τιμή 47€ — για να κλείνεις τις προσφορές που στέλνεις.
-            </div>
-            <p class="pricing-note">Δεν απαιτείται κλήση. Όλη η επικοινωνία γίνεται μέσω email.</p>
-          </div>
-
-          <!-- €2.497 Premium -->
-          <div class="pricing-card pricing-card--premium">
-            <p class="pricing-label">Premium Audit</p>
-            <p class="pricing-amount">2.497€ <span>+ ΦΠΑ</span></p>
-            <p class="pricing-delivery">Παράδοση: 5 εργάσιμες μέρες</p>
-            <ul class="pricing-includes">
-              <li>✓ Πλήρης ανάλυση site & περιεχομένου</li>
-              <li>✓ AI visibility audit (ChatGPT, Perplexity, Google AI)</li>
-              <li>✓ Αναλυτικό report με προτεραιότητες</li>
-              <li>✓ Post-implementation review χωρίς επιπλέον κόστος</li>
-              <li>✓ <strong>Call υλοποίησης 30'</strong> — μαζί εφαρμόζουμε τις αλλαγές</li>
-              <li>✓ <strong>30 μέρες email support</strong> — ερωτήσεις & follow-up</li>
-              <li class="bonus-item">🎁 <strong>BONUS:</strong> AI Follow-Up Scripts (αξίας 97€) — included</li>
-            </ul>
-            <a href="mailto:oksyderkeisbydavid@gmail.com?subject=Ενδιαφέρομαι για Premium Audit (2.497€)&body=Ονοματεπώνυμο:%0AΕταιρεία:%0ASite:%0AΒραχυπρόθεσμος στόχος:" class="cta-btn">
-              Εκδήλωση ενδιαφέροντος →
-            </a>
-            <p class="pricing-note">Περιλαμβάνει κλήση 30' και 30 μέρες άμεση επικοινωνία.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section class="about">
-      <div class="container">
-        <h2>Ποιος το κάνει</h2>
-        <p>
-          Ο <strong>David</strong> είναι δημιουργός περιεχομένου στο YouTube channel <strong>Oksyderkeis</strong> με θέματα οικονομικά και αυτοβελτίωση,
-          και παράλληλα συνεργάζεται με επαγγελματίες και επιχειρήσεις στο πώς μπορούν να αξιοποιήσουν
-          τα νέα AI search channels για να προσελκύουν πελάτες και εγγραφές.
-        </p>
-        <p>
-          Η προσέγγιση είναι πρακτική και βασισμένη σε δεδομένα — όχι γενικές συμβουλές,
-          αλλά συγκεκριμένες αλλαγές για το δικό σου site και κοινό.
-        </p>
-        <div class="about-links">
-          <a href="https://www.youtube.com/@oksyderkeis" target="_blank" rel="noopener">YouTube →</a>
-          <a href="/" >Επιστροφή στο oksyderkeis.vercel.app →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
     <section class="faq">
-      <div class="container">
-        <h2>Συχνές ερωτήσεις</h2>
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Ερωτήσεις</p>
+          <h2>Οι βασικές ερωτήσεις που πρέπει να απαντά το site</h2>
+        </div>
         <div class="faq-list">
-          <div class="faq-item">
-            <p class="faq-q">Χρειάζεται να μιλήσουμε στο τηλέφωνο;</p>
-            <p class="faq-a">Όχι. Όλη η συνεργασία γίνεται μέσω email — από την πρώτη επικοινωνία μέχρι την παράδοση του report.</p>
-          </div>
-          <div class="faq-item">
-            <p class="faq-q">Ποιοι είναι οι κατάλληλοι πελάτες για αυτή την υπηρεσία;</p>
-            <p class="faq-a">Coaches, consultants, trainers και επαγγελματίες υπηρεσιών που έχουν ήδη κάποιο online παρουσία αλλά δεν βλέπουν αρκετά inbound inquiries.</p>
-          </div>
-          <div class="faq-item">
-            <p class="faq-q">Τι χρειάζεσαι από μένα;</p>
-            <p class="faq-a">Μόνο τη διεύθυνση του site και 3-4 γρήγορες ερωτήσεις για τον στόχο σου και το κοινό σου. Δεν χρειάζεται πρόσβαση σε backend ή credentials.</p>
-          </div>
-          <div class="faq-item">
-            <p class="faq-q">Πώς γίνεται η πληρωμή;</p>
-            <p class="faq-a">Με τιμολόγιο και τραπεζική μεταφορά. Απαιτείται προκαταβολή 1/3 για να ξεκινήσει η δουλειά — το υπόλοιπο με την παράδοση.</p>
-          </div>
+          {faqItems.map((item) => (
+            <article class="faq-item">
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
 
-    <!-- Final CTA -->
     <section class="final-cta">
-      <div class="container">
-        <h2>Κάθε εβδομάδα που περνάς χωρίς audit είναι εβδομάδα που χάνεις leads.</h2>
-        <p>Στείλε email με το site σου — σου απαντώ εντός 24 ωρών με αρχική εκτίμηση δωρεάν.</p>
-        <a href="mailto:oksyderkeisbydavid@gmail.com?subject=Ενδιαφέρομαι για AI Audit" class="cta-btn">
-          Επικοινωνία →
-        </a>
+      <div class="shell final-panel">
+        <p class="eyebrow">Πρώτο βήμα</p>
+        <h2>Ξεκίνα με το ερωτηματολόγιο. Αν υπάρχει πραγματικό κενό ορατότητας, θα το δούμε πριν πληρώσεις έλεγχο.</h2>
+        <a href={quizUrl} class="cta-btn" data-cta="ai-audit-final-quiz">Άνοιξε το ερωτηματολόγιο</a>
       </div>
     </section>
-
   </main>
   <Footer />
 </Base>
 
 <style>
   .audit-page {
-    max-width: 100%;
+    --ai-bg: #f8fafc;
+    --ai-surface: #ffffff;
+    --ai-ink: #0f172a;
+    --ai-muted: #475569;
+    --ai-soft: #e2e8f0;
+    --ai-navy: #1e3a8a;
+    --ai-blue: #1e40af;
+    --ai-gold: #b45309;
+    background:
+      linear-gradient(180deg, rgba(30, 58, 138, 0.08), rgba(248, 250, 252, 0) 460px),
+      var(--ai-bg);
+    color: var(--ai-ink);
     overflow-x: hidden;
   }
 
-  .container {
-    max-width: 760px;
+  .shell {
+    width: min(1120px, calc(100% - 32px));
     margin: 0 auto;
-    padding: 0 1.5rem;
   }
 
   section {
-    padding: 5rem 0;
+    padding: 72px 0;
   }
 
-  /* Hero */
-  .hero {
-    padding: 7rem 0 5rem;
-    text-align: center;
-    border-bottom: 1px solid rgba(212, 175, 87, 0.12);
+  :global(.reveal-ready) .audit-page section {
+    opacity: 1;
+    transform: none;
   }
 
   .eyebrow {
-    font-size: 0.8rem;
+    margin: 0 0 14px;
+    color: var(--ai-gold);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--color-gold-500);
-    margin-bottom: 1.5rem;
-    font-family: var(--font-sans);
   }
 
-  .hero h1 {
+  h1,
+  h2,
+  h3 {
+    color: var(--ai-ink);
     font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    color: var(--color-ink-100);
-    line-height: 1.2;
-    margin-bottom: 1.25rem;
+    letter-spacing: 0;
   }
 
-  .subtitle {
-    font-size: 1.1rem;
-    color: var(--color-ink-300);
-    max-width: 580px;
-    margin: 0 auto 2.5rem;
+  h1 {
+    max-width: 760px;
+    margin: 0;
+    font-size: clamp(2.35rem, 5vw, 4.8rem);
+    line-height: 1.02;
+  }
+
+  h2 {
+    max-width: 760px;
+    margin: 0;
+    font-size: clamp(1.85rem, 3.4vw, 3rem);
+    line-height: 1.08;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.12rem;
+    line-height: 1.25;
+  }
+
+  p {
+    color: var(--ai-muted);
     line-height: 1.7;
   }
 
-  /* CTA Button */
-  .cta-btn {
-    display: inline-block;
-    background: var(--color-gold-500);
-    color: var(--color-navy-950);
+  .hero {
+    padding: 86px 0 72px;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.72fr);
+    gap: 48px;
+    align-items: center;
+  }
+
+  .subtitle {
+    max-width: 660px;
+    margin: 24px 0 0;
+    font-size: 1.13rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-top: 32px;
+  }
+
+  .cta-btn,
+  .text-link {
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
     font-family: var(--font-sans);
+    font-size: 0.98rem;
     font-weight: 700;
-    font-size: 1rem;
-    padding: 0.85rem 2.2rem;
-    border-radius: 4px;
     text-decoration: none;
-    transition: background 0.2s;
-    letter-spacing: 0.01em;
-  }
-  .cta-btn:hover {
-    background: var(--color-gold-400);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
   }
 
-  /* Problem */
-  .problem {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .problem h2,
-  .deliverables h2,
-  .pricing h2,
-  .about h2,
-  .faq h2,
-  .final-cta h2 {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-    color: var(--color-ink-100);
-    margin-bottom: 2rem;
+  .cta-btn {
+    background: var(--ai-gold);
+    color: #fff;
+    padding: 0 20px;
+    border: 1px solid rgba(180, 83, 9, 0.24);
   }
 
-  .problem-grid {
+  .cta-btn:hover,
+  .text-link:hover {
+    transform: translateY(-1px);
+  }
+
+  .text-link {
+    color: var(--ai-navy);
+    padding: 0 6px;
+  }
+
+  .hero-facts {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 720px;
+    margin: 34px 0 0;
   }
 
-  .problem-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(212,175,87,0.1);
+  .hero-facts div {
+    border: 1px solid rgba(30, 58, 138, 0.14);
+    background: rgba(255, 255, 255, 0.72);
     border-radius: 8px;
-    padding: 1.5rem;
-  }
-  .problem-card .icon {
-    font-size: 1.5rem;
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-  .problem-card p {
-    color: var(--color-ink-300);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0;
+    padding: 14px;
   }
 
-  /* Deliverables */
-  .deliverables {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .section-sub {
-    color: var(--color-ink-500);
-    margin-bottom: 2rem;
-    font-size: 1rem;
+  .hero-facts dt {
+    color: var(--ai-muted);
+    font-size: 0.78rem;
   }
 
-  .deliverable-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .hero-facts dd {
+    margin: 4px 0 0;
+    color: var(--ai-ink);
+    font-weight: 700;
+  }
+
+  .audit-mockup {
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    background: rgba(255, 255, 255, 0.86);
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+  }
+
+  .mockup-topbar {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .deliverable-list li {
-    display: flex;
-    gap: 1.25rem;
-    align-items: flex-start;
-  }
-  .check {
-    color: var(--color-gold-500);
-    font-size: 1.1rem;
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-  .deliverable-list strong {
-    display: block;
-    color: var(--color-ink-100);
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
-  }
-  .deliverable-list p {
-    color: var(--color-ink-300);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin: 0;
+    gap: 7px;
+    margin-bottom: 18px;
   }
 
-  /* Pricing */
-  .pricing {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .pricing h2 {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-    color: var(--color-ink-100);
-    margin-bottom: 2rem;
-  }
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    max-width: 1060px;
-    margin: 0 auto;
-  }
-  .pricing-card {
-    background: rgba(212, 175, 87, 0.05);
-    border: 1px solid rgba(212, 175, 87, 0.20);
-    border-radius: 10px;
-    padding: 2rem;
-    text-align: center;
-    position: relative;
-  }
-  .pricing-card--featured {
-    border-color: rgba(212, 175, 87, 0.45);
-    background: rgba(212, 175, 87, 0.08);
-  }
-  .pricing-card--premium {
-    border-color: rgba(212, 175, 87, 0.6);
-    background: rgba(212, 175, 87, 0.06);
-    box-shadow: 0 0 32px rgba(212, 175, 87, 0.08);
-  }
-  .pricing-badge {
-    display: inline-block;
-    background: var(--color-gold-500);
-    color: var(--color-navy-950);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.25rem 0.85rem;
+  .mockup-topbar span {
+    width: 9px;
+    height: 9px;
     border-radius: 99px;
-    margin-bottom: 1rem;
+    background: #cbd5e1;
   }
-  .pricing-label {
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-gold-500);
-    margin-bottom: 1rem;
+
+  .score-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    border: 1px solid rgba(30, 58, 138, 0.12);
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 18px;
   }
-  .pricing-amount {
+
+  .mockup-label,
+  .score-note,
+  .mockup-card p {
+    margin: 0;
+    color: var(--ai-muted);
+    font-size: 0.8rem;
+  }
+
+  .score-row strong {
+    display: block;
+    margin-top: 6px;
+    color: var(--ai-navy);
     font-family: var(--font-display);
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-ink-100);
-    margin-bottom: 0.25rem;
+    font-size: 2.3rem;
     line-height: 1;
   }
-  .pricing-amount span {
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: var(--color-ink-500);
-    font-family: var(--font-sans);
+
+  .signal-list {
+    display: grid;
+    gap: 10px;
+    margin: 16px 0;
   }
-  .pricing-delivery {
-    color: var(--color-ink-500);
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-  }
-  .pricing-includes {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 2rem;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .pricing-includes li {
-    color: var(--color-ink-300);
-    font-size: 0.9rem;
-  }
-  .bonus-item {
-    color: var(--color-gold-400) !important;
-    border-top: 1px solid rgba(212,175,87,0.15);
-    padding-top: 0.5rem;
-    margin-top: 0.25rem;
-  }
-  .upsell-badge {
-    background: rgba(212,175,87,0.07);
-    border: 1px solid rgba(212,175,87,0.2);
+
+  .signal {
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    gap: 12px;
+    align-items: center;
+    border: 1px solid rgba(15, 23, 42, 0.08);
     border-radius: 8px;
-    padding: 0.85rem 1rem;
-    font-size: 0.82rem;
-    color: var(--color-ink-300);
-    text-align: left;
-    margin: 1.25rem 0 0.75rem;
-    line-height: 1.55;
+    padding: 12px;
   }
-  .upsell-badge span {
-    color: var(--color-gold-400);
-    font-weight: 700;
+
+  .signal span {
+    width: 10px;
+    height: 10px;
+    border-radius: 99px;
   }
-  .upsell-badge strong {
-    color: var(--color-ink-100);
+
+  .signal.good span { background: #15803d; }
+  .signal.warn span { background: #b45309; }
+  .signal.bad span { background: #b91c1c; }
+
+  .signal p {
+    margin: 0;
+    font-size: 0.88rem;
   }
-  .pricing-note {
-    font-size: 0.8rem;
-    color: var(--color-ink-500);
-    margin-top: 1rem;
+
+  .mockup-card {
+    border-radius: 8px;
+    background: #0f172a;
+    padding: 16px;
+  }
+
+  .mockup-card strong {
+    display: block;
+    margin-top: 6px;
+    color: #fff;
+    line-height: 1.45;
+  }
+
+  .answer-band,
+  .process,
+  .boundaries {
+    background: var(--ai-surface);
+    border-top: 1px solid var(--ai-soft);
+    border-bottom: 1px solid var(--ai-soft);
+  }
+
+  .answer-grid,
+  .boundary-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 42px;
+    align-items: start;
+  }
+
+  .answer-grid p,
+  .boundary-grid ul {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .section-heading {
+    max-width: 780px;
+    margin-bottom: 34px;
+  }
+
+  .section-heading p:last-child {
     margin-bottom: 0;
   }
 
-  /* About */
-  .about {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .about p {
-    color: var(--color-ink-300);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-  }
-  .about-links {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .about-links a {
-    color: var(--color-gold-500);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-  .about-links a:hover {
-    color: var(--color-gold-400);
+  .scroll-stage {
+    perspective: 1200px;
   }
 
-  /* FAQ */
-  .faq {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+  .report-sheet {
+    border: 1px solid rgba(30, 58, 138, 0.14);
+    background: linear-gradient(180deg, #fff, #f8fafc);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 22px 70px rgba(15, 23, 42, 0.12);
+    transform: rotateX(2deg);
+    transform-origin: top center;
   }
-  .faq-list {
+
+  .report-header {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    color: var(--ai-muted);
   }
+
+  .report-header strong {
+    color: var(--ai-navy);
+  }
+
+  .report-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .report-grid article,
+  .steps li,
+  .pricing-card,
   .faq-item {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    padding-bottom: 1.5rem;
+    border: 1px solid rgba(30, 58, 138, 0.12);
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
   }
-  .faq-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+
+  .report-grid span,
+  .steps span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-bottom: 16px;
+    border-radius: 99px;
+    background: rgba(30, 58, 138, 0.1);
+    color: var(--ai-navy);
+    font-weight: 800;
   }
-  .faq-q {
-    font-weight: 700;
-    color: var(--color-ink-100);
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
+
+  .report-grid p,
+  .steps p,
+  .pricing-card li,
+  .card-note,
+  .faq-item p {
+    margin-bottom: 0;
+    font-size: 0.94rem;
   }
-  .faq-a {
-    color: var(--color-ink-300);
-    font-size: 0.9rem;
-    line-height: 1.65;
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    list-style: none;
+    padding: 0;
     margin: 0;
   }
 
-  /* Final CTA */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .pricing-card.featured {
+    border-color: rgba(180, 83, 9, 0.42);
+    box-shadow: 0 18px 45px rgba(180, 83, 9, 0.12);
+  }
+
+  .pricing-label {
+    margin: 0 0 10px;
+    color: var(--ai-gold);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .price {
+    margin: 18px 0;
+    color: var(--ai-ink);
+    font-family: var(--font-display);
+    font-size: 2.45rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .price span {
+    color: var(--ai-muted);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .pricing-card ul,
+  .boundary-grid ul {
+    display: grid;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pricing-card li,
+  .boundary-grid li {
+    position: relative;
+    padding-left: 18px;
+    color: var(--ai-muted);
+  }
+
+  .pricing-card li::before,
+  .boundary-grid li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border-radius: 99px;
+    background: var(--ai-gold);
+  }
+
+  .pricing-card .cta-btn {
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .faq-item h3 {
+    font-size: 1rem;
+  }
+
   .final-cta {
+    padding-top: 30px;
+  }
+
+  .final-panel {
+    border-radius: 8px;
+    background: #0f172a;
+    padding: clamp(28px, 5vw, 54px);
     text-align: center;
   }
-  .final-cta p {
-    color: var(--color-ink-300);
-    margin-bottom: 2rem;
-    font-size: 1rem;
+
+  .final-panel h2 {
+    margin: 0 auto 26px;
+    color: #fff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-btn,
+    .text-link,
+    .report-sheet {
+      transition: none;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .answer-grid,
+    .boundary-grid,
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .report-grid,
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    section {
+      padding: 54px 0;
+    }
+
+    .hero {
+      padding-top: 64px;
+    }
+
+    .hero-facts,
+    .report-grid,
+    .steps {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .cta-btn,
+    .text-link {
+      width: 100%;
+    }
+
+    .audit-mockup {
+      padding: 14px;
+    }
   }
 </style>
