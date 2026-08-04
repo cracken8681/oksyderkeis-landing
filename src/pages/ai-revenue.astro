@@ -1,520 +1,785 @@
 ---
-import Base from "../layouts/Base.astro";
-import Footer from "../components/Footer.astro";
-import { SITE } from "../config";
-
-const auditUrl = "/ai-audit";
-const pageUrl = `${SITE.url}/ai-revenue`;
+// Standalone page — no layout
 ---
 
-<Base
-  title="Ερωτηματολόγιο AI Visibility | AI Revenue by Oksyderkeis"
-  description="Συμπλήρωσε το σύντομο διαγνωστικό για να δούμε αν υπάρχει πραγματικό κενό ορατότητας στη σελίδα σου — πριν πληρώσεις έλεγχο."
->
-  <main class="quiz-page">
-    <section class="hero">
-      <div class="shell">
-        <a href={auditUrl} class="back-link">← Πίσω στο AI Visibility Audit</a>
-        <p class="eyebrow">AI Revenue by Oksyderkeis</p>
-        <h1>Σύντομο διαγνωστικό</h1>
-        <p class="subtitle">
-          Πριν γράψουμε audit ή προτείνουμε αλλαγές, θέλουμε να καταλάβουμε τι πουλάς, σε ποιον, και ποιο είναι το πρώτο πρακτικό βήμα που αξίζει να γίνει.
-        </p>
-        <div class="notice">
-          <strong>Γιατί το ζητάμε:</strong> οι απαντήσεις μας βοηθούν να μη γράψουμε γενικές συμβουλές — αλλά καθαρό πλάνο με πρώτο βήμα και μέτρο επιτυχίας.
-        </div>
-      </div>
-    </section>
-
-    <section class="form-section">
-      <div class="shell">
-        <form id="intakeForm" novalidate>
-          <div class="form-card">
-            <h2>Στοιχεία επιχείρησης</h2>
-            <div class="field-grid">
-              <div class="field">
-                <label for="businessName">Όνομα επιχείρησης <span class="req">*</span></label>
-                <input id="businessName" name="business_name" type="text" required autocomplete="organization" />
-              </div>
-              <div class="field">
-                <label for="website">Website <span class="req">*</span></label>
-                <input id="website" name="website" type="url" placeholder="https://..." required />
-              </div>
-              <div class="field">
-                <label for="contactName">Ονοματεπώνυμο <span class="req">*</span></label>
-                <input id="contactName" name="contact_name" type="text" required autocomplete="name" />
-              </div>
-              <div class="field">
-                <label for="email">Email <span class="req">*</span></label>
-                <input id="email" name="email" type="email" required autocomplete="email" />
-              </div>
-              <div class="field">
-                <label for="industry">Κλάδος / τι κάνεις</label>
-                <input id="industry" name="industry" type="text" placeholder="π.χ. coaching, HR, εκπαίδευση, υπηρεσίες" />
-              </div>
-              <div class="field">
-                <label for="phone">Τηλέφωνο</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-card" id="questionsCard">
-            <h2>15 ερωτήσεις που ξεκλειδώνουν το audit</h2>
-            <div id="questionsRoot"></div>
-          </div>
-
-          <div class="form-card promise-card">
-            <h2>Τι θα παραλάβεις</h2>
-            <p>Μια σύντομη ανατροφοδότηση με το πρώτο εύρημα και το επόμενο βήμα. Δεν υπόσχεται θέσεις στη Google ή έσοδα. Υπόσχεται καθαρότερη εικόνα.</p>
-          </div>
-
-          <div class="submit-bar">
-            <button type="submit" class="cta-btn" id="submitBtn">Καταχώρηση απαντήσεων</button>
-            <span class="status" id="statusMsg">Συμπλήρωσε τα βασικά πεδία και όσες απαντήσεις μπορείς.</span>
-          </div>
-        </form>
-
-        <div id="successPanel" class="success-panel" style="display:none">
-          <div class="success-inner">
-            <p class="eyebrow">Ολοκληρώθηκε</p>
-            <h2>Λάβαμε τις απαντήσεις σου.</h2>
-            <p>Θα επικοινωνήσουμε μαζί σου εντός 1-2 εργάσιμων ημερών με την πρώτη εκτίμηση.</p>
-            <a href={auditUrl} class="cta-btn" style="margin-top:24px;display:inline-flex">← Επιστροφή στο Audit</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <Footer />
-</Base>
-
-<script>
-  const QUESTIONS = [
-    {
-      id: "q1", label: "1. Ποια υπηρεσία ή προϊόν σου φέρνει τα περισσότερα χρήματα σήμερα;",
-      help: "Μας δείχνει ποια σελίδα ή προσφορά πρέπει να γίνει πρώτη προτεραιότητα.",
-      choices: ["Υπηρεσία υψηλής αξίας", "Επαναλαμβανόμενη υπηρεσία", "Εκπαίδευση / σεμινάρια", "Δεν είμαι σίγουρος/η"]
-    },
-    {
-      id: "q2", label: "2. Ποιον πελάτη θέλεις περισσότερο;",
-      help: "Δεν γράφουμε το ίδιο μήνυμα για ιδιοκτήτη επιχείρησης, HR manager ή αυτοαπασχολούμενο.",
-      choices: ["Ιδιοκτήτες μικρών επιχειρήσεων", "HR / στελέχη εταιρειών", "Οικογενειακές επιχειρήσεις", "Επαγγελματίες / αυτοαπασχολούμενοι"]
-    },
-    {
-      id: "q3", label: "3. Ποιο πρόβλημα πρέπει να καταλαβαίνει πρώτα ο επισκέπτης ότι λύνεις;",
-      help: "Αυτό καθορίζει το πρώτο μήνυμα της σελίδας.",
-      choices: ["Δεν βρίσκω σωστό προσωπικό", "Η επιχείρηση δεν είναι οργανωμένη", "Θέλω περισσότερες πωλήσεις", "Η ομάδα δεν λειτουργεί όπως πρέπει"]
-    },
-    {
-      id: "q4", label: "4. Αν ο επισκέπτης καταλάβει μόνο ένα πράγμα για σένα, ποιο πρέπει να είναι;",
-      help: "Εδώ κλειδώνει η απλή διατύπωση της αρχικής σελίδας.",
-      choices: ["Έχω εμπειρία", "Έχω πρακτικά εργαλεία", "Βοηθώ συγκεκριμένο τύπο πελάτη", "Δεν το έχω καθαρίσει ακόμα"]
-    },
-    {
-      id: "q5", label: "5. Τι θέλεις να κάνει ο επισκέπτης πρώτα;",
-      help: "Το audit πρέπει να οδηγεί σε μία καθαρή πρώτη κίνηση.",
-      choices: ["Να κλείσει call", "Να συμπληρώσει φόρμα", "Να κατεβάσει υλικό", "Να δει συγκεκριμένη υπηρεσία"]
-    },
-    {
-      id: "q6", label: "6. Από πού έρχονται σήμερα οι καλύτεροι πελάτες σου;",
-      help: "Μας δείχνει ποιο κανάλι έχει ήδη εμπιστοσύνη.",
-      choices: ["Συστάσεις", "Google", "Social / LinkedIn", "Σεμινάρια / events"]
-    },
-    {
-      id: "q7", label: "7. Πού πιστεύεις ότι χάνεται ο επισκέπτης στο site;",
-      help: "Αν δεν το ξέρεις, το σημειώνουμε και το ψάχνουμε στο audit.",
-      choices: ["Δεν καταλαβαίνει την υπηρεσία", "Δεν ξέρει ποιο κουμπί να πατήσει", "Έχει πολλές επιλογές", "Δεν έχω δεδομένα"]
-    },
-    {
-      id: "q8", label: "8. Ποιο είναι το πιο δυνατό σου proof;",
-      help: "Proof σημαίνει απόδειξη εμπιστοσύνης: κριτικές, case studies, εμπειρία, συνεργασίες.",
-      choices: ["Κριτικές", "Case studies", "Χρόνια εμπειρίας", "Γνωστές συνεργασίες / πελάτες"]
-    },
-    {
-      id: "q9", label: "9. Ποιον θεωρείς άμεσο ανταγωνιστή ή εναλλακτική λύση;",
-      help: "Αν δεν έχεις όνομα, γράψε τι θα έψαχνε ο πελάτης αντί για σένα.",
-      choices: ["Άλλη εταιρεία συμβούλων", "HR / recruiting εταιρεία", "Business coach", "Δεν γνωρίζω"]
-    },
-    {
-      id: "q10", label: "10. Σε ποια αναζήτηση θα ήθελες να σε βρίσκει ο ιδανικός πελάτης;",
-      help: "Παράδειγμα: αξιολόγηση προσωπικού Ελλάδα, business coach Αθήνα.",
-      choices: ["Υπηρεσία + Ελλάδα", "Πρόβλημα που έχω", "Όνομα brand", "Δεν είμαι σίγουρος/η"]
-    },
-    {
-      id: "q11", label: "11. Ποια υπηρεσία θέλεις να προωθηθεί πρώτη τις επόμενες 30 ημέρες;",
-      help: "Δεν βελτιώνουμε όλο το site μαζί. Διαλέγουμε πρώτο path.",
-      choices: ["Κύρια υπηρεσία", "Δευτερεύουσα υπηρεσία", "Εκπαίδευση / σεμινάριο", "Νέα υπηρεσία που ετοιμάζω"]
-    },
-    {
-      id: "q12", label: "12. Τι θα θεωρούσες επιτυχία από το audit ή το πρώτο sprint;",
-      help: "Χρειαζόμαστε μέτρο επιτυχίας, όχι μόνο εντύπωση.",
-      choices: ["Περισσότερα calls", "Πιο καθαρό site", "Καλύτερη εμφάνιση σε Google/AI", "Καλύτερη σελίδα για μία υπηρεσία"]
-    },
-    {
-      id: "q13", label: "13. Υπάρχει κάτι που δεν θέλεις να αλλάξει;",
-      help: "Μας προστατεύει από προτάσεις που δεν ταιριάζουν στο brand σου.",
-      choices: ["Το ύφος", "Οι βασικές υπηρεσίες", "Τα χρώματα/brand", "Δεν υπάρχει περιορισμός"]
-    },
-    {
-      id: "q14", label: "14. Πόσο άμεσα θέλεις να γίνει η πρώτη βελτίωση;",
-      help: "Άλλο πλάνο θέλει κάτι για αυτή την εβδομάδα, άλλο για επόμενο μήνα.",
-      choices: ["Αυτή την εβδομάδα", "Μέσα στον μήνα", "Δεν επείγει", "Θέλω πρώτα να δω πλάνο"]
-    },
-    {
-      id: "q15", label: "15. Τι πρέπει να ξέρουμε πριν σου προτείνουμε λύση;",
-      help: "Εδώ γράψε οτιδήποτε δεν χωράει στις επιλογές.",
-      choices: ["Έχω ήδη συνεργάτη", "Έχω περιορισμένο budget", "Θέλω κάτι πολύ απλό", "Θέλω πλήρη υλοποίηση"]
-    },
-  ];
-
-  const root = document.getElementById("questionsRoot");
-  QUESTIONS.forEach((q) => {
-    const wrap = document.createElement("div");
-    wrap.className = "question-block";
-    const choices = q.choices.map((c) => `
-      <label class="choice-label">
-        <input type="radio" name="${q.id}" value="${c.replace(/"/g, "&quot;")}">
-        <span>${c}</span>
-      </label>
-    `).join("");
-    wrap.innerHTML = `
-      <h3>${q.label}</h3>
-      <p class="help-text">${q.help}</p>
-      <div class="choices-grid">${choices}</div>
-      <div class="other-field">
-        <label for="${q.id}_other">Άλλο / δική σου απάντηση</label>
-        <textarea id="${q.id}_other" name="${q.id}_other" placeholder="Γράψε εδώ αν οι επιλογές δεν σε καλύπτουν."></textarea>
-      </div>
-    `;
-    root.appendChild(wrap);
-  });
-
-  const form = document.getElementById("intakeForm");
-  const statusMsg = document.getElementById("statusMsg");
-  const submitBtn = document.getElementById("submitBtn");
-  const successPanel = document.getElementById("successPanel");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-
-    const required = ["business_name", "website", "contact_name", "email"];
-    for (const field of required) {
-      if (!data.get(field)) {
-        statusMsg.innerHTML = `<span class="error">Συμπλήρωσε όλα τα υποχρεωτικά πεδία.</span>`;
-        return;
-      }
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Revenue by Oksyderkeis - Διαγνωστικό πριν τον έλεγχο</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1e3a8a;
+      --navy-deep: #172554;
+      --ink: #22303c;
+      --muted: #5b6b78;
+      --paper: #fafaf7;
+      --card: #ffffff;
+      --line: #dde3e8;
+      --teal: #b45309;
+      --teal-soft: #fef3c7;
+      --amber: #d97706;
+      --danger: #b3261e;
+      --radius: 8px;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .band { padding: 54px 20px; }
+    .inner { max-width: 940px; margin: 0 auto; }
+    .narrow { max-width: 760px; margin: 0 auto; }
+    .eyebrow {
+      color: #fcd34d;
+      font-family: Commissioner, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 {
+      color: var(--navy);
+      font-family: Commissioner, sans-serif;
+      letter-spacing: 0;
+      line-height: 1.16;
+    }
+    h1 { color: #fff; font-size: clamp(30px, 6vw, 56px); max-width: 850px; }
+    h2 { font-size: clamp(24px, 3.6vw, 34px); margin-bottom: 12px; }
+    h3 { font-size: 18px; margin-bottom: 8px; }
+    p { margin-bottom: 12px; }
+    .hero {
+      background: var(--navy);
+      color: #fff;
+      min-height: 82vh;
+      display: flex;
+      align-items: center;
+      padding: 50px 20px 70px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      background:
+        radial-gradient(circle at top right, rgba(180,83,9,.15), transparent 38%),
+        radial-gradient(circle at 16% 18%, rgba(255,255,255,.08), transparent 28%);
+      content: "";
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+    }
+    .hero p {
+      color: #c8d6e0;
+      font-size: 18px;
+      margin: 18px 0 26px;
+      max-width: 760px;
+    }
+    .hero-grid {
+      position: relative;
+      display: grid;
+      gap: 34px;
+      grid-template-columns: minmax(0, 1.4fr) minmax(260px, .7fr);
+      align-items: end;
+    }
+    .cta {
+      background: var(--teal);
+      border: 0;
+      border-radius: var(--radius);
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-family: Commissioner, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 15px 20px;
+      text-decoration: none;
+    }
+    .cta:hover { background: #0b6257; }
+    .hero-proof {
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .hero-proof strong { color: #fff; display: block; font-family: Commissioner, sans-serif; margin-bottom: 8px; }
+    .hero-proof span { color: #c8d6e0; display: block; font-size: 14px; }
+    .three {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .item .num {
+      color: var(--teal);
+      display: block;
+      font-family: Commissioner, sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      margin-bottom: 10px;
+    }
+    .muted { color: var(--muted); }
+    .soft { background: #f1f5f4; border-block: 1px solid var(--line); }
+    .warning { background: #fff8e8; border-block: 1px solid #edd8a7; }
+    .scorecard {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .score-row {
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 110px 1.2fr;
+      padding: 13px 14px;
+    }
+    .score {
+      background: var(--teal-soft);
+      border-radius: 999px;
+      color: var(--teal);
+      font-family: Commissioner, sans-serif;
+      font-weight: 800;
+      padding: 5px 10px;
+      text-align: center;
+    }
+    .progress {
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .pwrap { align-items: center; display: flex; gap: 12px; margin: 0 auto; max-width: 760px; }
+    .pbar { background: #e8ecef; border-radius: 3px; flex: 1; height: 6px; overflow: hidden; }
+    .pfill { background: var(--teal); border-radius: 3px; height: 100%; transition: width .3s ease; width: 0; }
+    .plabel { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .section { margin-top: 44px; }
+    .stag { align-items: baseline; display: flex; gap: 10px; margin-bottom: 6px; }
+    .snum { color: var(--teal); font-family: Commissioner, sans-serif; font-size: 14px; font-weight: 800; letter-spacing: .06em; }
+    .stitle { color: var(--navy); font-family: Commissioner, sans-serif; font-size: 21px; font-weight: 700; }
+    .swhy {
+      background: linear-gradient(90deg, var(--teal-soft), transparent 70%);
+      border-left: 3px solid var(--teal);
+      color: var(--muted);
+      font-size: 13.5px;
+      margin: 8px 0 18px;
+      padding: 2px 0 2px 10px;
+    }
+    .q {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      padding: 18px 18px 16px;
+    }
+    .q.answered { border-color: #d4a76a; }
+    .qhead { align-items: baseline; display: flex; gap: 8px; margin-bottom: 4px; }
+    .qn { color: var(--teal); font-family: Commissioner, sans-serif; font-size: 13.5px; font-weight: 700; min-width: 26px; }
+    .qt { font-size: 15.5px; font-weight: 600; }
+    .qhint { color: var(--muted); font-size: 13px; margin: 2px 0 12px 34px; }
+    .opts { display: flex; flex-wrap: wrap; gap: 8px; margin-left: 34px; }
+    .opt {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      padding: 8px 14px;
+      user-select: none;
+    }
+    .opt:hover { border-color: var(--teal); }
+    .opt.sel { background: var(--teal); border-color: var(--teal); color: #fff; font-weight: 500; }
+    .opt:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+    .otherwrap { display: none; margin: 10px 0 0 34px; }
+    .otherwrap.show { display: block; }
+    .otherwrap input, .otherwrap textarea, .field input, .field select {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      font: inherit;
+      font-size: 14.5px;
+      padding: 10px 12px;
+      width: 100%;
+    }
+    .otherwrap textarea { min-height: 70px; resize: vertical; }
+    .otherwrap input:focus, .otherwrap textarea:focus, .field input:focus, .field select:focus {
+      border-color: var(--teal);
+      outline: none;
+    }
+    .multi-note { color: var(--amber); font-size: 12px; font-weight: 500; margin: 0 0 8px 34px; }
+    .grid { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+    .field label { color: var(--navy); display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+    .req { color: var(--danger); }
+    .field input.err { background: #fef7f6; border-color: var(--danger); }
+    .field-note { color: var(--muted); display: block; font-size: 12px; margin-top: 5px; }
+    .consent {
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      display: flex;
+      font-size: 13.5px;
+      gap: 10px;
+      margin-top: 26px;
+      padding: 16px;
+    }
+    .consent input { accent-color: var(--teal); flex-shrink: 0; height: 17px; margin-top: 3px; width: 17px; }
+    .consent.err { border-color: var(--danger); }
+    .submitrow { margin-top: 22px; text-align: center; }
+    button.submit {
+      background: var(--navy);
+      border: none;
+      border-radius: var(--radius);
+      color: #fff;
+      cursor: pointer;
+      font-family: Commissioner, sans-serif;
+      font-size: 16.5px;
+      font-weight: 700;
+      padding: 15px 38px;
+    }
+    button.submit:hover { background: var(--navy-deep); }
+    button.submit:disabled { cursor: wait; opacity: .6; }
+    .formerr { color: var(--danger); display: none; font-size: 14px; font-weight: 500; margin-top: 12px; }
+    .formerr.show { display: block; }
+    .privacy-note { color: var(--muted); font-size: 12px; margin-top: 12px; }
+    .success {
+      background: var(--card);
+      border: 1px solid #d4a76a;
+      border-radius: var(--radius);
+      display: none;
+      margin-top: 40px;
+      padding: 34px 26px;
+      text-align: center;
+    }
+    .success.show { display: block; }
+    .success .check { background: var(--navy); border-radius: 50%; color: #fff; font-size: 26px; height: 52px; line-height: 52px; margin: 0 auto 16px; width: 52px; }
+    .instant-score {
+      background: #f1f5f4;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: none;
+      margin-top: 22px;
+      padding: 18px;
+      text-align: left;
+    }
+    .instant-score.show { display: block; }
+    .instant-score strong {
+      color: var(--navy);
+      display: block;
+      font-family: Commissioner, sans-serif;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .instant-score .score {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .instant-score ul {
+      color: var(--muted);
+      margin: 8px 0 0 18px;
+    }
+    .demo-dl { font-size: 13px; margin-top: 16px; }
+    .demo-dl a { color: var(--teal); font-weight: 600; margin: 0 8px; }
+    .faq { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq:first-of-type { border-top: 0; }
+    footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; padding: 26px 20px 46px; text-align: center; }
+    .honey { left: -6000px; opacity: 0; position: absolute; }
+    @media (max-width: 780px) {
+      .hero { min-height: auto; padding-top: 44px; }
+      .hero-grid, .three { grid-template-columns: 1fr; }
+      .score-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .band { padding: 42px 16px; }
+      .grid { grid-template-columns: 1fr; }
+      .opts, .qhint, .multi-note, .otherwrap { margin-left: 0; }
+      .qhead { align-items: flex-start; }
+      .hero p { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="inner hero-grid">
+      <div>
+        <div class="eyebrow">AI Revenue by Oksyderkeis · Έλεγχος ορατότητας & μετατροπής επισκεπτών σε πελάτες</div>
+        <h1>Δείτε πώς σας βρίσκουν σήμερα οι πελάτες και πού χάνεται η επαφή.</h1>
+        <p>Απαντάτε σε λίγες ερωτήσεις για την επιχείρησή σας. Από εκεί βλέπουμε πού χάνετε τους πελάτες σήμερα και τι αξίζει να διορθωθεί πρώτο.</p>
+        <a class="cta" href="#quiz">Ξεκινήστε το δωρεάν διαγνωστικό (4-5 λεπτά)</a>
+      </div>
+      <div class="hero-proof">
+        <strong>Τι είναι:</strong>
+        <span>Ένα σύντομο διαγνωστικό για να δούμε τι συμβαίνει σήμερα στο site σας: πού μπερδεύεται ο επισκέπτης, πού χάνεται η επικοινωνία και ποια αλλαγή αξίζει να γίνει πρώτη. Δεν πουλάμε υποσχέσεις για "πρώτη θέση". Μετράμε το πού βρίσκεστε τώρα και τι μπορεί να βελτιωθεί στην πράξη.</span>
+      </div>
+    </div>
+  </section>
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Αποστολή...";
+  <section class="band">
+    <div class="inner">
+      <h2>Τι θα πάρετε</h2>
+      <p class="muted">Στο τέλος θα γνωρίζετε τι ακριβώς πρέπει να αλλάξει πρώτο στο site σας και γιατί.</p>
+      <div class="three">
+        <div class="item"><span class="num">01</span><h3>Πού χάνεται ο επισκέπτης</h3><p class="muted">Το σημείο όπου κάποιος μπαίνει στο site σας, κοιτάει, και φεύγει χωρίς να κάνει τίποτα.</p></div>
+        <div class="item"><span class="num">02</span><h3>Πώς φαίνεστε σε Google / AI</h3><p class="muted">Πραγματικά παραδείγματα από αναζητήσεις και απαντήσεις που σχετίζονται με την υπηρεσία σας.</p></div>
+        <div class="item"><span class="num">03</span><h3>Το πρώτο μετρήσιμο βήμα</h3><p class="muted">Μία αλλαγή που μπορείτε να εφαρμόσετε γρήγορα και να συγκρίνετε με τη σημερινή εικόνα.</p></div>
+      </div>
+    </div>
+  </section>
 
-    const answers = {};
-    QUESTIONS.forEach((q) => {
-      answers[q.id] = data.get(q.id) || "";
-      answers[`${q.id}_other`] = data.get(`${q.id}_other`) || "";
-    });
+  <section class="band soft">
+    <div class="inner">
+      <h2>Πώς δουλεύει</h2>
+      <div class="three">
+        <div class="item"><span class="num">Βήμα 1</span><h3>Διαγνωστικό</h3><p class="muted">Συμπληρώνετε τις βασικές απαντήσεις σε 4-5 λεπτά.</p></div>
+        <div class="item"><span class="num">Βήμα 2</span><h3>Έλεγχος με αποδείξεις</h3><p class="muted">Ελέγχουμε το site σας και το πώς εμφανίζεστε σε Google και σε εργαλεία AI όπως το ChatGPT. Κοιτάμε επίσης τι δείχνει ο ανταγωνισμός σας και πόσο πειστικές είναι οι αποδείξεις σας, όπως κριτικές και παραδείγματα δουλειάς.</p></div>
+        <div class="item"><span class="num">Βήμα 3</span><h3>Πρόταση πρώτων διορθώσεων</h3><p class="muted">Σας απαντάμε σε 1-2 εργάσιμες με τα πρώτα σημεία και το προτεινόμενο επόμενο βήμα.</p></div>
+      </div>
+    </div>
+  </section>
 
-    const payload = {
-      meta: { source: "ai-revenue-quiz", version: "v2", path: "/ai-revenue" },
-      contact: {
-        business: data.get("business_name"),
-        website: data.get("website"),
-        name: data.get("contact_name"),
-        email: data.get("email"),
-        phone: data.get("phone") || "",
-        industry: data.get("industry") || "",
-      },
-      answers,
+  <section class="band">
+    <div class="inner">
+      <h2>Δείγμα βαθμολογίας — έτσι μοιάζει το αποτέλεσμα του ελέγχου</h2>
+      <p class="muted">Το παρακάτω είναι ανώνυμο δείγμα από πραγματικό έλεγχο, π.χ. "εταιρεία συμβουλευτικής στην Αθήνα". (Δεν εμφανίζουμε στοιχεία πελάτη χωρίς άδεια)</p>
+      <div class="scorecard">
+        <div class="score-row"><strong>Πρώτο μήνυμα</strong><span class="score">6 / 10</span><span class="muted">Φαίνεται με τι ασχολείται η επιχείρηση. Το βασικό πρόβλημα που λύνει χρειάζεται να βγει πιο νωρίς.</span></div>
+        <div class="score-row"><strong>Πόσο εύκολα ο επισκέπτης φτάνει σε επικοινωνία</strong><span class="score">5 / 10</span><span class="muted">Ο επισκέπτης πρέπει να ψάξει για να βρει πώς θα επικοινωνήσει — και οι περισσότεροι δεν ψάχνουν.</span></div>
+        <div class="score-row"><strong>Αποδείξεις εμπιστοσύνης</strong><span class="score">7 / 10</span><span class="muted">Υπάρχει εμπειρία, ωστόσο θέλει πιο εμφανή παραδείγματα και στοιχεία εμπιστοσύνης.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band warning">
+    <div class="inner">
+      <h2>Τι δεν υποσχόμαστε</h2>
+      <div class="three">
+        <div class="item"><h3>Θέσεις στη Google / AI</h3><p class="muted">Κανείς δεν μπορεί να εγγυηθεί πρώτη θέση στις απαντήσεις. Αυτό που μπορούμε να κάνουμε είναι να δείξουμε πού στέκεστε σήμερα και τι αξίζει να διορθωθεί πρώτο.</p></div>
+        <div class="item"><h3>Αριθμός πελατών</h3><p class="muted">Την αγορά δεν την ελέγχει κανείς. Αν σας υποσχεθεί κάποιος συγκεκριμένο αριθμό αιτημάτων επικοινωνίας, το εφευρίσκει.</p></div>
+        <div class="item"><h3>Μαγικές AI λύσεις</h3><p class="muted">Δεν πουλάμε εργαλείο AI ούτε κάτι που δουλεύει από μόνο του. Ό,τι σας προτείνουμε στηρίζεται σε κάτι που θα δείτε κι εσείς: στιγμιότυπο οθόνης, πραγματική αναζήτηση, ή το σημείο της σελίδας όπου ο επισκέπτης μπερδεύεται.</p></div>
+      </div>
+      <p class="muted">Γι' αυτό και ο πληρωμένος έλεγχος έχει εγγύηση: λιγότερα από 3 τεκμηριωμένα ευρήματα = πλήρης επιστροφή χρημάτων.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="inner">
+      <h2>Τι ακολουθεί μετά το διαγνωστικό</h2>
+      <p class="muted">Μετά το διαγνωστικό, αν δούμε ότι μπορούμε πραγματικά να βοηθήσουμε, σας προτείνουμε τον πληρωμένο έλεγχο. Αν και εκεί ταιριάξουμε, συνεχίζουμε με τις πρώτες διορθώσεις ή με σταθερή μηνιαία συνεργασία.</p>
+    </div>
+  </section>
+
+  <section class="band soft">
+    <div class="inner">
+      <div class="eyebrow" style="color:var(--teal)">Μηνιαία παρακολούθηση</div>
+      <h2>Η ορατότητα στα AI αλλάζει. Γι' αυτό δεν αρκεί να τη μετρήσεις μία φορά.</h2>
+      <p class="muted">Το AI Visibility Audit είναι η πρώτη μέτρηση: πού στέκεται σήμερα το site σας σε πραγματικές ερωτήσεις πελατών. Μετά, η μηνιαία παρακολούθηση ξανατρέχει τις ίδιες ερωτήσεις κάθε μήνα και δείχνει τι άλλαξε.</p>
+      <div class="three">
+        <div class="item"><span class="num">01</span><h3>Σταθερό σύνολο ερωτήσεων</h3><p class="muted">Οι ίδιες 12-15 ερωτήσεις πελατών ξανατρέχουν ώστε η σύγκριση να είναι δίκαιη.</p></div>
+        <div class="item"><span class="num">02</span><h3>Εικόνα ανταγωνιστών</h3><p class="muted">Βλέπουμε ποιος εμφανίζεται όταν δεν εμφανίζεστε εσείς και ποια απόδειξη τον στηρίζει.</p></div>
+        <div class="item"><span class="num">03</span><h3>Επόμενη διόρθωση</h3><p class="muted">Παραδίδεται μία καθαρή κίνηση: τι είδαμε, γιατί μετράει, τι διορθώνεται.</p></div>
+      </div>
+      <p class="muted" style="margin-top:18px"><strong>250€ + ΦΠΑ / μήνα.</strong> Δεν εγγυόμαστε θέσεις σε Google ή AI απαντήσεις. Μετράμε, συγκρίνουμε και δείχνουμε τι αξίζει να γίνει μετά.</p>
+    </div>
+  </section>
+
+  <section class="band" id="quiz">
+    <div class="narrow">
+      <div class="eyebrow" style="color:var(--teal)">Το quiz είναι μόνο για τον δικό σας έλεγχο - οι απαντήσεις δεν κοινοποιούνται πουθενά, δεσμευόμαστε γι’ αυτό</div>
+      <h2>Σύντομο διαγνωστικό πριν τον έλεγχο</h2>
+      <p class="muted"><strong>Το διαγνωστικό είναι δωρεάν και δεν σας δεσμεύει σε τίποτα.</strong> Ο πληρωμένος έλεγχος είναι ξεχωριστό, επόμενο βήμα — και θα το ξέρετε πριν αποφασίσετε.</p>
+      <p class="muted">Οι απαντήσεις σας βοηθούν τον έλεγχο να ξεκινήσει από τα σημεία που μετράνε για τη δική σας περίπτωση. Χρειαζόμαστε τουλάχιστον 10 απαντήσεις για να βγει ουσία.</p>
+    </div>
+  </section>
+
+  <div class="progress"><div class="pwrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="plabel" id="plabel">0 / 18</div>
+  </div></div>
+
+  <div class="narrow" style="padding:0 20px 80px">
+    <form id="quizForm" novalidate>
+      <input type="text" name="company_url_hp" class="honey" tabindex="-1" autocomplete="off">
+
+      <div class="section">
+        <div class="stag"><span class="snum">Α</span><span class="stitle">Στοιχεία επιχείρησης</span></div>
+        <div class="swhy">Γιατί: για να δούμε το site σας πριν μιλήσουμε και να σας απαντήσουμε προσωπικά.</div>
+        <div class="q"><div class="grid">
+          <div class="field"><label for="c_business">Όνομα επιχείρησης <span class="req">*</span></label><input type="text" id="c_business" autocomplete="organization"></div>
+          <div class="field"><label for="c_website">Website <span class="req">*</span></label><input type="url" id="c_website" placeholder="https://..." autocomplete="url"></div>
+          <div class="field"><label for="c_name">Ονοματεπώνυμο <span class="req">*</span></label><input type="text" id="c_name" autocomplete="name"></div>
+          <div class="field"><label for="c_role">Ρόλος στην επιχείρηση</label><input type="text" id="c_role" placeholder="π.χ. ιδιοκτήτης, διευθυντής"></div>
+          <div class="field"><label for="c_email">Email <span class="req">*</span></label><input type="email" id="c_email" autocomplete="email"></div>
+          <div class="field"><label for="c_email_confirm">Επιβεβαίωση email <span class="req">*</span></label><input type="email" id="c_email_confirm" autocomplete="email"><span class="field-note">Το γράφετε δεύτερη φορά για να πιάσουμε λάθη πληκτρολόγησης.</span></div>
+          <div class="field"><label for="c_phone">Τηλέφωνο</label><input type="tel" id="c_phone" autocomplete="tel"></div>
+          <div class="field" style="grid-column:1/-1"><label for="c_industry">Κλάδος</label><input type="text" id="c_industry" placeholder="π.χ. συμβουλευτική, εστίαση, e-shop"></div>
+        </div></div>
+      </div>
+
+      <div id="sections"></div>
+
+      <label class="consent" id="consentbox">
+        <input type="checkbox" id="consent">
+        <span>Συναινώ στην επεξεργασία των στοιχείων μου από την AI Revenue αποκλειστικά για την προετοιμασία του διαγνωστικού/ελέγχου και τη σχετική επικοινωνία. Τα στοιχεία δεν κοινοποιούνται σε τρίτους και μπορώ να ζητήσω τη διαγραφή τους οποτεδήποτε. <span class="req">*</span></span>
+      </label>
+
+      <div class="submitrow">
+        <button type="submit" class="submit" id="submitbtn">Στείλτε το διαγνωστικό</button>
+        <div class="formerr" id="formerr"></div>
+        <div class="privacy-note">Θα λάβετε απάντηση εντός 1-2 εργάσιμων ημερών. Τα στοιχεία κρατούνται έως 24 μήνες ή διαγράφονται νωρίτερα αν το ζητήσετε.</div>
+      </div>
+    </form>
+
+    <div class="success" id="success">
+      <div class="check">✓</div>
+      <h2>Το λάβαμε - ευχαριστούμε!</h2>
+      <p class="muted">Θα δούμε το site σας με βάση τις απαντήσεις σας και θα σας απαντήσουμε εντός 1-2 εργάσιμων ημερών με τα πρώτα σημεία που ξεχωρίζουν.</p>
+      <div class="instant-score" id="instantScore" aria-live="polite"></div>
+      <div class="demo-dl" id="demodl"></div>
+    </div>
+  </div>
+
+  <section class="band soft">
+    <div class="narrow">
+      <h2>Συχνές ερωτήσεις</h2>
+      <div class="faq"><h3>Πόσο κοστίζει ο έλεγχος;</h3><p class="muted"><strong>Το διαγνωστικό που συμπληρώνετε εδώ είναι δωρεάν.</strong></p><p class="muted">Ο πλήρης έλεγχος κοστίζει <strong>349€ + ΦΠΑ</strong> — σταθερή τιμή, όχι «από». Περιλαμβάνει την αναφορά με όλα τα ευρήματα (στιγμιότυπα οθόνης από πραγματικές αναζητήσεις, βαθμολόγηση ανά περιοχή, τι αλλάζει πρώτο και γιατί) και μια <strong>ζωντανή συζήτηση 45 λεπτών</strong> όπου σας εξηγώ τα βασικά σημεία και απαντάω σε ό,τι ρωτήσετε.</p><p class="muted">Αν μετά θέλετε να υλοποιήσουμε εμείς τις διορθώσεις, αυτό είναι ξεχωριστό πακέτο με δική του τιμή — και θα την ξέρετε πριν πείτε ναι.</p><p class="muted">Και επειδή δεν έχετε λόγο να μας εμπιστευτείτε ακόμα, το λέμε απλά: <strong>αν το AI Visibility Audit δεν εντοπίσει τουλάχιστον 3 συγκεκριμένα, διορθώσιμα ευρήματα στο site σας — με αποδείξεις, όχι γενικές συμβουλές — επιστρέφουμε ολόκληρο το ποσό. Χωρίς ερωτήσεις.</strong></p></div>
+      <div class="faq"><h3>Τι σημαίνει «εγγύηση» στην πράξη;</h3><p class="muted">Κάθε AI Visibility Audit παραδίδεται με συγκεκριμένα ευρήματα: τι είδαμε, πού, με στιγμιότυπο οθόνης ή μέτρηση δίπλα σε κάθε ένα. Αν τα ευρήματα είναι λιγότερα από 3 ή δεν συνοδεύονται από αποδείξεις, στέλνετε ένα email και επιστρέφουμε το 100% του ποσού εντός 5 εργάσιμων ημερών. Δεν εγγυόμαστε θέσεις στην Google ή σε AI απαντήσεις — κανείς σοβαρός δεν μπορεί. Εγγυόμαστε ότι θα ξέρετε ακριβώς τι φταίει και τι να διορθώσετε.</p></div>
+      <div class="faq"><h3>Γιατί χρειάζεται η συζήτηση; Δεν αρκεί η αναφορά;</h3><p class="muted">Η αναφορά σας λέει τι βρήκαμε. Η συζήτηση εξασφαλίζει ότι φεύγετε ξέροντας <strong>τι θα κάνετε πρώτο και γιατί</strong> — χωρίς να χρειάζεται να ερμηνεύσετε μόνοι σας 25 σελίδες. Διαρκεί περίπου 45 λεπτά, γίνεται σε τηλέφωνο ή βιντεοκλήση όποτε σας βολεύει, και μπορεί να συμμετέχει και ο συνεργάτης που κάνει αλλαγές στο site σας, ώστε να πάρει τις οδηγίες από πρώτο χέρι.</p></div>
+      <div class="faq"><h3>Τι χρειάζεται από εμένα;</h3><p class="muted">Το site σας, τις απαντήσεις του διαγνωστικού και — μόνο αν υπάρχουν — πρόσβαση στα στατιστικά σας, π.χ. Google Analytics, το εργαλείο που μετράει τις επισκέψεις. Αν δεν έχετε τίποτα από αυτά, δεν πειράζει.</p></div>
+      <div class="faq"><h3>Πόσο διαρκεί;</h3><p class="muted">Το πρώτο διαγνωστικό θέλει 4-5 λεπτά. Η αρχική απάντηση έρχεται συνήθως σε 1-2 εργάσιμες.</p></div>
+      <div class="faq"><h3>Τι γίνεται μετά;</h3><p class="muted">Αν πιστεύουμε ότι μπορούμε πραγματικά να βοηθήσουμε, προτείνουμε τον πλήρη έλεγχο. Μετά τον έλεγχο, αν θέλετε, αναλαμβάνουμε και τις πρώτες διορθώσεις ως ξεχωριστό πακέτο. Αν δεν ταιριάζουμε, σας το λέμε ευθέως.</p></div>
+      <div class="faq"><h3>Ποιος το κάνει;</h3><p class="muted">Εγώ, ο David — ίσως με ξέρετε από το κανάλι Oksyderkeis στο YouTube. Ό,τι σας πω θα το δείτε και με τα μάτια σας: στιγμιότυπα οθόνης από πραγματικές αναζητήσεις και μετρήσεις από το δικό σας site.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    AI Revenue by Oksyderkeis · Έλεγχοι ορατότητας & μετατροπής επισκεπτών σε πελάτες · Οι απαντήσεις των AI αλλάζουν συνέχεια. Γι' αυτό μετράμε πριν και μετά από κάθε αλλαγή. Απόρρητο: τα στοιχεία χρησιμοποιούνται μόνο για την προετοιμασία του ελέγχου σας. <a href="/privacy" style="color:#c8d6e0;">Πλήρης ενημέρωση απορρήτου</a> · Επικοινωνία: <a href="mailto:oksyderkeisbydavid@gmail.com" style="color:#c8d6e0;">oksyderkeisbydavid@gmail.com</a>
+  </footer>
+
+  <script>
+    const CONFIG = {
+      endpoint: "/api/intake",
+      analyticsEndpoint: "/api/analytics",
+      source: "intake-landing-v2"
     };
 
-    try {
-      const res = await fetch("/api/intake", {
+    const QUESTION_SECTIONS = [
+      { key: "B", title: "Τι πουλάτε", why: "Γιατί: καθορίζει ποια υπηρεσία είναι το πρώτο εμπορικό μονοπάτι του ελέγχου.", questions: [
+        ["q1", "Ποια υπηρεσία ή προϊόν σας φέρνει τα περισσότερα χρήματα σήμερα;", "Τι πουλάει ήδη - ακόμα κι αν δεν φαίνεται στο site.", "single", 0, ["Μεγάλα έργα / συμβόλαια", "Σταθερή μηνιαία συνεργασία / συνδρομή", "Εκπαίδευση / σεμινάρια", "Προϊόντα / e-shop", "Δεν είμαι σίγουρος/η"], true],
+        ["q2", "Ποια υπηρεσία θέλετε να μεγαλώσει πρώτη στις επόμενες 30-60 μέρες;", "Μπορεί να είναι διαφορετική από την 1 - αυτό μας ενδιαφέρει.", "single", 0, ["Την ίδια με την ερώτηση 1", "Μια υπηρεσία που έχω αλλά δεν προβάλλεται", "Κάτι νέο που ετοιμάζω", "Δεν έχω αποφασίσει"], true],
+        ["q3", "Ποιον πελάτη θέλετε περισσότερο;", "Δεν γράφουμε το ίδιο μήνυμα για ιδιοκτήτη, στέλεχος ή ιδιώτη.", "single", 0, ["Ιδιοκτήτες μικρών επιχειρήσεων", "Στελέχη εταιρειών / υπεύθυνοι προσλήψεων", "Οικογενειακές επιχειρήσεις", "Επαγγελματίες / αυτοαπασχολούμενοι", "Ιδιώτες / καταναλωτές"], true]
+      ]},
+      { key: "Γ", title: "Μήνυμα & πρώτη κίνηση", why: "Γιατί: εδώ κλειδώνει το πρώτο μήνυμα της αρχικής σελίδας και το βασικό κουμπί ενέργειας, δηλαδή τι θα πατήσει ο επισκέπτης.", questions: [
+        ["q4", "Ποιο πρόβλημα πρέπει να καταλαβαίνει πρώτα ο επισκέπτης ότι λύνετε;", "", "single", 0, ["Δεν βρίσκω σωστό προσωπικό", "Η επιχείρηση δεν είναι οργανωμένη", "Θέλω περισσότερες πωλήσεις / πελάτες", "Η ομάδα δεν λειτουργεί όπως πρέπει", "Χάνω χρόνο σε λάθος διαδικασίες"], true],
+        ["q5", "Αν ο επισκέπτης κρατήσει ένα μόνο πράγμα για εσάς, ποιο πρέπει να είναι;", "", "single", 0, ["Λύνουμε συγκεκριμένο πρόβλημα, με πρακτικό τρόπο", "Έχουμε αποδεδειγμένη εμπειρία", "Έχουμε πρακτικά εργαλεία / μέθοδο", "Βοηθάμε συγκεκριμένο τύπο πελάτη", "Δεν το έχω αποφασίσει ακόμα"], true],
+        ["q6", "Τι θέλετε να κάνει ο επισκέπτης πρώτα;", "Όταν ο επισκέπτης έχει πέντε επιλογές, συνήθως δεν διαλέγει καμία. Ψάχνουμε ποια είναι η μία.", "single", 0, ["Να κλείσει τηλεφωνικό ραντεβού", "Να συμπληρώσει φόρμα", "Να κατεβάσει υλικό / οδηγό", "Να δει συγκεκριμένη υπηρεσία", "Να τηλεφωνήσει"], true]
+      ]},
+      { key: "Δ", title: "Πού βρίσκεστε σήμερα", why: "Γιατί: για να συγκρίνουμε αργότερα με το σήμερα. Αλλιώς δεν θα ξέρετε ποτέ αν άξιζε.", questions: [
+        ["q7", "Από πού έρχονται σήμερα οι καλύτεροι πελάτες σας;", "Επιλέξτε όσα ισχύουν", "multi", 0, ["Συστάσεις από ανθρώπους που σας ξέρουν", "Google αναζήτηση", "Social / LinkedIn", "Σεμινάρια / events", "Υπάρχοντες πελάτες που ξαναγοράζουν"], true],
+        ["q8", "Πόσοι νέοι ενδιαφερόμενοι πελάτες (κλήσεις, μηνύματα, φόρμες) σας έρχονται περίπου τον μήνα;", "Χονδρική εκτίμηση αρκεί - είναι το σημείο εκκίνησης της μέτρησης.", "single", 0, ["0-2", "3-10", "11-30", "Πάνω από 30", "Δεν το μετράμε ακόμα"], false],
+        ["q9", "Σε ποια από αυτά έχετε πρόσβαση;", "Επιλέξτε όσα ισχύουν", "multi", 0, ["Google Analytics (το εργαλείο που μετράει τις επισκέψεις στο site)", "Google Search Console (δείχνει με ποιες αναζητήσεις σας βρίσκουν στο Google)", "Google Business Profile (η καταχώρησή σας στον χάρτη της Google, με τις κριτικές)", "Στατιστικά από την πλατφόρμα του site σας (π.χ. WordPress, Wix, Shopify)", "Τίποτα από αυτά", "Δεν ξέρω"], false],
+        ["q10", "Τι έχετε δοκιμάσει μέχρι τώρα για να φέρετε πελάτες online;", "Επιλέξτε όσα ισχύουν", "multi", 0, ["Βελτιώσεις για να βγαίνετε πιο ψηλά στο Google (SEO ή εταιρεία προώθησης)", "Πληρωμένες διαφημίσεις Google (Google Ads)", "Αναρτήσεις σε social media χωρίς πληρωμένη διαφήμιση", "Ενημερωτικά email (newsletter)", "Τίποτα οργανωμένο μέχρι τώρα"], true],
+        ["q11", "Πού πιστεύετε ότι χάνεται ο επισκέπτης στο site σας;", "Αν δεν το ξέρετε, κανένα πρόβλημα - το εντοπίζει ο έλεγχος.", "single", 0, ["Η υπηρεσία αργεί να γίνει ξεκάθαρη", "Το επόμενο κουμπί δεν φαίνεται καθαρά", "Βλέπει πολλές επιλογές και μπερδεύεται", "Λείπει ένας δυνατός λόγος να επικοινωνήσει", "Δεν έχω δεδομένα / δεν ξέρω"], true]
+      ]},
+      { key: "Ε", title: "Αποδείξεις & ανταγωνισμός", why: "Γιατί: οι αποδείξεις εμπιστοσύνης καθορίζουν τι θα δείξουμε· ο ανταγωνισμός δείχνει με ποιους σας συγκρίνει ο πελάτης.", questions: [
+        ["q12", "Ποια είναι η πιο δυνατή σας απόδειξη ότι κάνετε καλή δουλειά;", "Επιλέξτε έως 2", "multi", 2, ["Κριτικές / Google reviews", "Παραδείγματα έργων με αποτελέσματα", "Χρόνια εμπειρίας", "Γνωστές συνεργασίες / πελάτες", "Πιστοποιήσεις / μέθοδος"], true],
+        ["q13", "Ποιον θεωρείτε άμεσο ανταγωνιστή ή εναλλακτική λύση;", "Αν δεν έχετε όνομα, γράψτε τι θα έψαχνε ο πελάτης αντί για εσάς.", "single", 0, ["Άλλη εταιρεία συμβούλων / γραφείο", "Εταιρεία εύρεσης προσωπικού", "Ανεξάρτητος επαγγελματίας / coach", "Το κάνουν μόνοι τους μέσα στην επιχείρηση", "Δεν γνωρίζω"], true],
+        ["q14", "Σε ποια αναζήτηση θα θέλατε να σας βρίσκει ο ιδανικός πελάτης;", "Παράδειγμα: αξιολόγηση προσωπικού Ελλάδα, λογιστής για e-shop Αθήνα.", "single", 0, ["Υπηρεσία + περιοχή", "Το πρόβλημα που έχει ο πελάτης", "Το όνομα της επιχείρησής μου", "Δεν είμαι σίγουρος/η"], true]
+      ]},
+      { key: "ΣΤ", title: "Στόχοι & υλοποίηση", why: "Γιατί: για να ξέρουμε πώς μετράμε την επιτυχία και ποιος μπορεί να εφαρμόσει τις αλλαγές.", questions: [
+        ["q15", "Τι θα θεωρούσατε επιτυχία σε 30-60 μέρες;", "", "single", 0, ["Περισσότερα τηλεφωνικά ραντεβού", "Περισσότερες φόρμες / ενδιαφερόμενοι πελάτες", "Πιο ξεκάθαρο site που εξηγεί τι κάνουμε", "Καλύτερη εμφάνιση σε Google / AI αναζητήσεις", "Καλύτερη σελίδα για μία συγκεκριμένη υπηρεσία"], true],
+        ["q16", "Ποιος κάνει σήμερα αλλαγές στο site σας;", "Καθορίζει πόσο γρήγορα μπορούν να εφαρμοστούν οι προτάσεις.", "single", 0, ["Εγώ ο ίδιος / η ίδια", "Συνεργάτης / τεχνικός (developer)", "Εξωτερική εταιρεία", "Κανείς αυτή τη στιγμή", "Δεν ξέρω"], true],
+        ["q17", "Πόσο άμεσα θέλετε την πρώτη βελτίωση;", "", "single", 0, ["Αυτή την εβδομάδα", "Μέσα στον μήνα", "Στο επόμενο δίμηνο", "Θέλω πρώτα να δω το πλάνο"], false],
+        ["q18", "Υπάρχει κάτι που δεν θέλετε να αλλάξει ή κάτι που πρέπει να ξέρουμε;", "Επιλέξτε όσα ισχύουν ή γράψτε ελεύθερα", "multi", 0, ["Το ύφος / τόνος επικοινωνίας", "Οι βασικές υπηρεσίες", "Τα χρώματα / brand", "Υπάρχει συγκεκριμένο διαθέσιμο budget", "Έχω ήδη συνεργάτη για κάποια κομμάτια", "Κανένας περιορισμός"], false]
+      ]}
+    ];
+
+    const TOTAL = 18;
+    const state = {};
+    const sessionId = getSessionId();
+    let quizStartTracked = false;
+    const sectionsRoot = document.getElementById("sections");
+
+    trackEvent("page_view");
+
+    QUESTION_SECTIONS.forEach((section) => {
+      const sectionEl = document.createElement("div");
+      sectionEl.className = "section";
+      sectionEl.innerHTML = `<div class="stag"><span class="snum">${section.key}</span><span class="stitle">${escapeHtml(section.title)}</span></div><div class="swhy">${escapeHtml(section.why)}</div>`;
+      section.questions.forEach((q, index) => sectionEl.appendChild(questionCard(q, index)));
+      sectionsRoot.appendChild(sectionEl);
+    });
+
+    function questionCard(q) {
+      const [id, title, hint, type, max, options, hasOther] = q;
+      state[id] = { choices: [], other: "" };
+      const card = document.createElement("div");
+      card.className = "q";
+      card.dataset.q = id;
+      card.innerHTML = `
+        <div class="qhead"><span class="qn">${id.replace("q", "")}.</span><span class="qt">${escapeHtml(title)}</span></div>
+        ${hint ? `<div class="${type === "multi" ? "multi-note" : "qhint"}">${escapeHtml(hint)}</div>` : ""}
+        <div class="opts" data-type="${type}" data-max="${max || 0}"></div>
+        <div class="otherwrap ${id === "q18" ? "show" : ""}">${id === "q18" ? '<textarea placeholder="Οτιδήποτε δεν χωρά στις επιλογές - περιορισμοί, ιδιαιτερότητες, στόχοι..."></textarea>' : '<input type="text" placeholder="Γράψτε τη δική σας απάντηση...">'}</div>
+      `;
+      const wrap = card.querySelector(".opts");
+      options.forEach((label) => wrap.appendChild(optionButton(id, card, label, type, max)));
+      if (hasOther) wrap.appendChild(optionButton(id, card, "Άλλο", type, max, true));
+      const otherInput = card.querySelector(".otherwrap input, .otherwrap textarea");
+      if (otherInput) otherInput.addEventListener("input", (event) => { state[id].other = event.target.value.trim(); progress(); });
+      return card;
+    }
+
+    function optionButton(qid, card, label, type, max, isOther) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "opt";
+      b.textContent = isOther ? "Άλλο..." : label;
+      b.addEventListener("click", () => toggle(qid, card, b, label, type, max, isOther));
+      return b;
+    }
+
+    function toggle(qid, card, btn, label, type, max, isOther) {
+      trackQuizStart();
+      const s = state[qid];
+      if (type === "single") {
+        card.querySelectorAll(".opt").forEach((o) => o.classList.remove("sel"));
+        btn.classList.add("sel");
+        s.choices = [label];
+        if (!isOther) card.querySelector(".otherwrap")?.classList.remove("show");
+      } else if (btn.classList.contains("sel")) {
+        btn.classList.remove("sel");
+        s.choices = s.choices.filter((c) => c !== label);
+      } else {
+        if (max && s.choices.length >= max) return;
+        btn.classList.add("sel");
+        s.choices.push(label);
+      }
+      if (isOther) {
+        const other = card.querySelector(".otherwrap");
+        other.classList.toggle("show", btn.classList.contains("sel"));
+        if (btn.classList.contains("sel")) other.querySelector("input, textarea")?.focus();
+      }
+      card.classList.toggle("answered", s.choices.length > 0 || !!s.other);
+      progress();
+    }
+
+    function progress() {
+      const done = Object.values(state).filter((s) => s.choices.length > 0 || s.other).length;
+      document.getElementById("pfill").style.width = (done / TOTAL * 100) + "%";
+      document.getElementById("plabel").textContent = done + " / " + TOTAL;
+    }
+
+    document.getElementById("quizForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const err = document.getElementById("formerr");
+      err.classList.remove("show");
+      if (document.querySelector(".honey").value) return;
+
+      const contact = {
+        business: v("c_business"),
+        website: v("c_website"),
+        name: v("c_name"),
+        role: v("c_role"),
+        email: v("c_email"),
+        emailConfirm: v("c_email_confirm"),
+        phone: v("c_phone"),
+        industry: v("c_industry")
+      };
+      let bad = false;
+      [["c_business", contact.business], ["c_website", contact.website], ["c_name", contact.name], ["c_email", contact.email], ["c_email_confirm", contact.emailConfirm]].forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        const ok = id.startsWith("c_email") ? /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val) : !!val;
+        el.classList.toggle("err", !ok);
+        if (!ok) bad = true;
+      });
+      const emailMismatch = normalizeEmail(contact.email) !== normalizeEmail(contact.emailConfirm);
+      document.getElementById("c_email").classList.toggle("err", bad || emailMismatch);
+      document.getElementById("c_email_confirm").classList.toggle("err", bad || emailMismatch);
+      const consent = document.getElementById("consent").checked;
+      document.getElementById("consentbox").classList.toggle("err", !consent);
+      const answered = Object.values(state).filter((s) => s.choices.length > 0 || s.other).length;
+      if (bad || emailMismatch || !consent || answered < 10) {
+        err.textContent = !consent ? "Χρειάζεται η συγκατάθεση για να προχωρήσουμε." : bad ? "Συμπληρώστε τα υποχρεωτικά στοιχεία (επιχείρηση, website, όνομα, email και επιβεβαίωση email)." : emailMismatch ? "Τα δύο email δεν ταιριάζουν. Ελέγξτε τα πριν στείλετε τη φόρμα." : "Απαντήστε τουλάχιστον 10 ερωτήσεις για να έχει αξία το διαγνωστικό (" + answered + "/10).";
+        err.classList.add("show");
+        err.scrollIntoView({ block: "center" });
+        return;
+      }
+      const visibilityScore = calculateVisibilityScore(contact);
+      delete contact.emailConfirm;
+
+      const payload = {
+        meta: {
+          source: CONFIG.source,
+          version: "v2",
+          visibility_score: visibilityScore.total,
+          visibility_score_label: visibilityScore.label,
+          submitted_at: new Date().toISOString(),
+          lang: "el",
+          session_id: sessionId,
+          path: location.pathname,
+          referrer: document.referrer || ""
+        },
+        contact,
+        consent: true,
+        answers: Object.fromEntries(Object.entries(state).map(([k, s]) => [k, { choices: s.choices, other: s.other }]))
+      };
+
+      const btn = document.getElementById("submitbtn");
+      btn.disabled = true;
+      btn.textContent = "Αποστολή...";
+      let sent = false;
+      if (CONFIG.endpoint) {
+        try {
+          const response = await fetch(CONFIG.endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+          if (!response.ok) {
+            let result = {};
+            try { result = await response.json(); } catch (_) {}
+            throw new Error(result.error || "submit_failed_" + response.status);
+          }
+          sent = true;
+          trackEvent("submit_success");
+        } catch (ex) {
+          console.error("submit failed", ex);
+          btn.disabled = false;
+          btn.textContent = "Στείλτε το διαγνωστικό";
+          err.textContent = ex.message === "email_domain_unverified" ? "Δεν μπορέσαμε να επιβεβαιώσουμε το domain του email. Ελέγξτε μήπως υπάρχει typo ή βάλτε άλλο email." : "Δεν στάλθηκε η φόρμα. Δοκιμάστε ξανά ή στείλτε μας email στο oksyderkeisbydavid@gmail.com.";
+          err.classList.add("show");
+          err.scrollIntoView({ block: "center" });
+          return;
+        }
+      }
+      document.getElementById("quizForm").style.display = "none";
+      document.querySelector(".progress").style.display = "none";
+      document.getElementById("success").classList.add("show");
+      showInstantScore(visibilityScore);
+      if (!CONFIG.endpoint) {
+        const json = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const flat = [["field", "value"], ...Object.entries(contact).map(([k, val]) => [k, val]), ...Object.entries(payload.answers).map(([k, a]) => [k, [...a.choices, a.other].filter(Boolean).join(" | ")])];
+        const csv = new Blob(["\uFEFF" + flat.map((r) => r.map((c) => '"' + String(c).replace(/"/g, '""') + '"').join(",")).join("\n")], { type: "text/csv" });
+        document.getElementById("demodl").innerHTML = 'Λειτουργία δοκιμής: <a download="intake.json" href="' + URL.createObjectURL(json) + '">JSON</a>·<a download="intake.csv" href="' + URL.createObjectURL(csv) + '">CSV</a>';
+      } else if (!sent) {
+        document.getElementById("demodl").textContent = "Σημείωση: το αίτημα καταγράφηκε τοπικά - αν δεν λάβετε email επιβεβαίωσης, στείλτε μας μήνυμα.";
+      }
+      window.scrollTo({ top: 0 });
+    });
+
+    function v(id) { return document.getElementById(id).value.trim(); }
+    function normalizeEmail(value) { return String(value || "").trim().toLowerCase(); }
+    function selected(qid) {
+      const answer = state[qid] || {};
+      return [...(answer.choices || []), answer.other || ""].filter(Boolean).join(" | ");
+    }
+    function includesAnswer(qid, terms) {
+      const text = selected(qid).toLowerCase();
+      return terms.some((term) => text.includes(term.toLowerCase()));
+    }
+    function calculateVisibilityScore(contact) {
+      let score = 35;
+      const checks = [];
+
+      const websiteLooksUsable = /^https?:\/\/[^.\s]+\.[^\s]+/.test(contact.website);
+      if (websiteLooksUsable) score += 8;
+      checks.push(websiteLooksUsable ? "Το website δόθηκε σε καθαρή μορφή." : "Το website θέλει επιβεβαίωση πριν τον έλεγχο.");
+
+      const hasDemandSignal = selected("q8").length > 0 && !includesAnswer("q8", ["0-2", "Δεν το μετράμε"]);
+      if (hasDemandSignal) score += 12;
+      checks.push(hasDemandSignal ? "Υπάρχει ήδη ζήτηση για να συγκριθεί μετά." : "Η ζήτηση ή η μέτρηση αιτημάτων επικοινωνίας φαίνεται αδύναμη.");
+
+      const hasMeasurementAccess = includesAnswer("q9", ["Analytics", "Search Console", "Business Profile", "Στατιστικά"]);
+      if (hasMeasurementAccess) score += 14;
+      checks.push(hasMeasurementAccess ? "Υπάρχουν στοιχεία μέτρησης για πιο καθαρή πρώτη εικόνα." : "Λείπουν βασικά στοιχεία μέτρησης για πριν/μετά.");
+
+      const hasTrustProof = selected("q12").length > 0;
+      if (hasTrustProof) score += 13;
+      checks.push(hasTrustProof ? "Υπάρχουν αποδείξεις εμπιστοσύνης για αξιοποίηση." : "Οι αποδείξεις εμπιστοσύνης θέλουν χτίσιμο.");
+
+      const hasSearchIntent = !includesAnswer("q14", ["Δεν είμαι σίγουρος"]) && selected("q14").length > 0;
+      if (hasSearchIntent) score += 10;
+      checks.push(hasSearchIntent ? "Υπάρχουν αρχικές ερωτήσεις πελατών για έλεγχο ορατότητας σε AI." : "Χρειάζεται να οριστεί τι ψάχνει ο πελάτης.");
+
+      const knowsConversionAction = selected("q6").length > 0;
+      if (knowsConversionAction) score += 8;
+      checks.push(knowsConversionAction ? "Η πρώτη ενέργεια του επισκέπτη είναι σχετικά καθαρή." : "Το βασικό επόμενο βήμα προς επικοινωνία θέλει απόφαση.");
+
+      score = Math.max(0, Math.min(100, score));
+      const label = score >= 76 ? "Καλή βάση για ανάπτυξη" : score >= 56 ? "Υπάρχει ορατή ευκαιρία" : "Χρειάζεται πρώτα καθαρή πρώτη μέτρηση";
+      return { total: score, label, checks };
+    }
+    function showInstantScore(result) {
+      const box = document.getElementById("instantScore");
+      if (!box) return;
+      box.innerHTML = `
+        <strong>Ενδεικτική βαθμολογία ορατότητας σε AI</strong>
+        <span class="score">${result.total} / 100</span>
+        <p class="muted">${escapeHtml(result.label)}. Αυτό δεν είναι τελικό AI Visibility Audit· είναι γρήγορη ένδειξη από τις απαντήσεις σας, πριν τρέξουμε πραγματικές αναζητήσεις και στιγμιότυπα οθόνης.</p>
+        <ul>${result.checks.slice(0, 4).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+      `;
+      box.classList.add("show");
+    }
+    function getSessionId() {
+      const key = "ai_revenue_intake_session_id";
+      const fallback = () => "s_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 10);
+      try {
+        let id = sessionStorage.getItem(key);
+        if (!id) {
+          id = fallback();
+          sessionStorage.setItem(key, id);
+        }
+        return id;
+      } catch (_) {
+        return fallback();
+      }
+    }
+    function trackQuizStart() {
+      if (quizStartTracked) return;
+      quizStartTracked = true;
+      trackEvent("quiz_start");
+    }
+    function trackEvent(eventName) {
+      if (!CONFIG.analyticsEndpoint) return;
+      const payload = {
+        event: eventName,
+        source: CONFIG.source,
+        sessionId,
+        path: location.pathname,
+        referrer: document.referrer || "",
+        pageVersion: "v2"
+      };
+      fetch(CONFIG.analyticsEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      });
-      if (res.ok) {
-        form.style.display = "none";
-        successPanel.style.display = "block";
-      } else {
-        const err = await res.json().catch(() => ({}));
-        statusMsg.innerHTML = `<span class="error">Κάτι πήγε στραβά (${err.error || res.status}). Δοκίμασε ξανά.</span>`;
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Καταχώρηση απαντήσεων";
-      }
-    } catch {
-      statusMsg.innerHTML = `<span class="error">Αποτυχία σύνδεσης. Έλεγξε το internet σου και δοκίμασε ξανά.</span>`;
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Καταχώρηση απαντήσεων";
+        keepalive: true
+      }).catch(() => {});
     }
-  });
-</script>
-
-<style>
-  .quiz-page {
-    --ai-bg: #f8fafc;
-    --ai-surface: #ffffff;
-    --ai-ink: #0f172a;
-    --ai-muted: #475569;
-    --ai-soft: #e2e8f0;
-    --ai-navy: #1e3a8a;
-    --ai-blue: #1e40af;
-    --ai-gold: #b45309;
-    --ai-gold-light: #fef3c7;
-    --ai-success: #059669;
-    --ai-error: #dc2626;
-    --ai-radius: 10px;
-    background:
-      linear-gradient(180deg, rgba(30, 58, 138, 0.08), rgba(248, 250, 252, 0) 400px),
-      var(--ai-bg);
-    color: var(--ai-ink);
-    font-family: var(--font-sans, system-ui, sans-serif);
-    min-height: 100vh;
-  }
-
-  .shell {
-    width: min(860px, calc(100% - 32px));
-    margin: 0 auto;
-  }
-
-  .hero {
-    padding: 64px 0 0;
-  }
-
-  .back-link {
-    display: inline-block;
-    color: var(--ai-navy);
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    margin-bottom: 28px;
-    opacity: 0.75;
-    transition: opacity 150ms;
-  }
-  .back-link:hover { opacity: 1; }
-
-  .eyebrow {
-    margin: 0 0 12px;
-    color: var(--ai-gold);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: clamp(2rem, 5vw, 3.4rem);
-    line-height: 1.05;
-    color: var(--ai-ink);
-    font-family: var(--font-display, Georgia, serif);
-  }
-
-  h2 {
-    margin: 0 0 20px;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--ai-ink);
-    font-family: var(--font-display, Georgia, serif);
-  }
-
-  h3 {
-    margin: 0 0 6px;
-    font-size: 0.97rem;
-    font-weight: 700;
-    color: var(--ai-ink);
-    line-height: 1.45;
-  }
-
-  .subtitle {
-    margin: 20px 0 0;
-    font-size: 1.05rem;
-    color: var(--ai-muted);
-    line-height: 1.65;
-    max-width: 680px;
-  }
-
-  .notice {
-    margin-top: 24px;
-    background: var(--ai-gold-light);
-    border: 1px solid #fde68a;
-    border-radius: var(--ai-radius);
-    padding: 14px 18px;
-    font-size: 0.9rem;
-    color: #78350f;
-    line-height: 1.55;
-  }
-
-  .form-section {
-    padding: 40px 0 80px;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .form-card {
-    background: var(--ai-surface);
-    border: 1px solid var(--ai-soft);
-    border-radius: var(--ai-radius);
-    padding: 28px 28px 32px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
-  }
-
-  .field-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--ai-ink);
-  }
-
-  .req { color: var(--ai-error); }
-
-  input[type="text"],
-  input[type="email"],
-  input[type="url"],
-  input[type="tel"],
-  textarea {
-    width: 100%;
-    border: 1px solid var(--ai-soft);
-    border-radius: 7px;
-    padding: 10px 12px;
-    font: inherit;
-    font-size: 0.925rem;
-    background: #fff;
-    color: var(--ai-ink);
-    box-sizing: border-box;
-    transition: border-color 150ms;
-  }
-  input:focus, textarea:focus {
-    outline: none;
-    border-color: var(--ai-navy);
-    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
-  }
-  textarea { min-height: 70px; resize: vertical; }
-
-  .question-block {
-    padding: 20px 0;
-    border-top: 1px solid var(--ai-soft);
-  }
-  .question-block:first-child { border-top: none; padding-top: 0; }
-
-  .help-text {
-    font-size: 0.82rem;
-    color: var(--ai-muted);
-    margin: 0 0 10px;
-    line-height: 1.5;
-  }
-
-  .choices-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .choice-label {
-    display: flex;
-    cursor: pointer;
-  }
-  .choice-label input { display: none; }
-  .choice-label span {
-    display: block;
-    width: 100%;
-    border: 1px solid var(--ai-soft);
-    border-radius: 7px;
-    padding: 9px 12px;
-    font-size: 0.875rem;
-    background: var(--ai-bg);
-    color: var(--ai-muted);
-    transition: border-color 150ms, background 150ms, color 150ms;
-    line-height: 1.4;
-  }
-  .choice-label input:checked + span {
-    border-color: var(--ai-navy);
-    background: rgba(30, 58, 138, 0.06);
-    color: var(--ai-navy);
-    font-weight: 600;
-    box-shadow: inset 3px 0 0 var(--ai-navy);
-  }
-  .choice-label:hover span { border-color: #94a3b8; }
-
-  .other-field {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .other-field label { font-size: 0.8rem; color: var(--ai-muted); font-weight: 500; }
-
-  .promise-card { background: rgba(30, 58, 138, 0.04); }
-  .promise-card p { color: var(--ai-muted); font-size: 0.95rem; line-height: 1.65; margin: 0; }
-
-  .submit-bar {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    background: var(--ai-surface);
-    border: 1px solid var(--ai-soft);
-    border-radius: var(--ai-radius);
-    padding: 18px 24px;
-    position: sticky;
-    bottom: 16px;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
-  }
-
-  .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: 0 22px;
-    background: var(--ai-gold);
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    font-size: 0.98rem;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    transition: opacity 160ms;
-    white-space: nowrap;
-  }
-  .cta-btn:hover { opacity: 0.88; }
-  .cta-btn:disabled { opacity: 0.55; cursor: not-allowed; }
-
-  .status { font-size: 0.875rem; color: var(--ai-muted); }
-  .error { color: var(--ai-error); font-weight: 600; }
-
-  .success-panel {
-    background: var(--ai-surface);
-    border: 1px solid var(--ai-soft);
-    border-radius: var(--ai-radius);
-    padding: 48px 40px;
-    text-align: center;
-  }
-  .success-inner h2 { font-size: 1.8rem; margin-bottom: 12px; }
-  .success-inner p { color: var(--ai-muted); margin: 0; }
-
-  @media (max-width: 640px) {
-    .field-grid, .choices-grid { grid-template-columns: 1fr; }
-    .form-card { padding: 20px; }
-    .submit-bar { position: static; }
-    h1 { font-size: 1.85rem; }
-  }
-</style>
+    function escapeHtml(text) {
+      return String(text).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+    }
+  </script>
+</body>
+</html>
