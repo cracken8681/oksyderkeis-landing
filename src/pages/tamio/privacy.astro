@@ -1,0 +1,77 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Tamio Privacy Policy — Oksyderkeis" description="Privacy policy for the Tamio personal finance app.">
+  <main class="px-5 py-16 max-w-3xl mx-auto prose prose-invert">
+    <h1>Privacy Policy</h1>
+    <p><strong>Last updated:</strong> August 8, 2026</p>
+
+    <p>
+      Tamio is a personal finance app designed to help you organize your money with more clarity.
+      This policy explains what data Tamio uses, why it uses it, and how you can control or delete it.
+    </p>
+
+    <h2>1. Data We Process</h2>
+    <ul>
+      <li>Email address for account creation and sign-in.</li>
+      <li>Finance entries you add inside the app, such as expenses, budgets, investments, shopping items, and coupons.</li>
+      <li>Optional notification preferences.</li>
+      <li>Optional location access only for nearby coupon alerts when you enable it.</li>
+    </ul>
+
+    <h2>2. What We Do With That Data</h2>
+    <ul>
+      <li>Show your financial data back to you inside the app.</li>
+      <li>Generate reminders and coupon notifications when you enable them.</li>
+      <li>Let you export your own data.</li>
+      <li>Protect account access and keep your app experience working correctly.</li>
+    </ul>
+
+    <h2>3. What We Do Not Do</h2>
+    <ul>
+      <li>We do not sell your personal data.</li>
+      <li>We do not share your finance entries with advertisers.</li>
+      <li>We do not use your data to give financial advice.</li>
+    </ul>
+
+    <h2>4. Storage and Security</h2>
+    <p>
+      Tamio stores account and app data through Supabase infrastructure hosted in the EU.
+      Access is protected with authenticated access controls and row-level security so each user can only access their own data.
+    </p>
+
+    <h2>5. Location and Notifications</h2>
+    <p>
+      Location access is optional. If you enable it, Tamio uses it only to detect when you are near stores that match your saved coupons or deals.
+      Notifications are also optional and can be turned off from the Profile section at any time.
+    </p>
+
+    <h2>6. Your Rights</h2>
+    <p>
+      If you are in the EU, you can request access, correction, export, or deletion of your data.
+      You can also delete your account directly from the Tamio profile screen.
+    </p>
+
+    <h2>7. Contact</h2>
+    <p>
+      For privacy questions or data requests, contact:<br />
+      <strong>david@oksyderkeis.net</strong>
+    </p>
+
+    <h2>8. Changes</h2>
+    <p>
+      This policy may be updated when the app changes. The latest published version on this page is the version that applies.
+    </p>
+  </main>
+</Base>
+
+<style is:global>
+  .prose {
+    --tw-prose-body: var(--color-ink-100);
+    --tw-prose-headings: var(--color-gold-400);
+    --tw-prose-links: var(--color-gold-400);
+    --tw-prose-bold: var(--color-ink-100);
+    --tw-prose-code: var(--color-gold-400);
+  }
+</style>
