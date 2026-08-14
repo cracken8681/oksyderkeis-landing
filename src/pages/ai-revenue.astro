@@ -309,6 +309,20 @@
     .faq:first-of-type { border-top: 0; }
     footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; padding: 26px 20px 46px; text-align: center; }
     .honey { left: -6000px; opacity: 0; position: absolute; }
+    /* Step-by-step quiz */
+    .step-card { display: none; }
+    .step-card.active { display: block; animation: stepIn .22s ease; }
+    @keyframes stepIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .hook-card { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--teal); border-radius: var(--radius); padding: 26px 22px 22px; }
+    .hook-label { color: var(--teal); font-family: Commissioner, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .13em; margin-bottom: 12px; text-transform: uppercase; }
+    .hook-stat { color: var(--navy); font-family: Commissioner, sans-serif; font-size: clamp(18px, 3.5vw, 26px); font-weight: 800; line-height: 1.25; margin-bottom: 10px; }
+    .hook-sub { color: var(--muted); font-size: 14px; }
+    .step-nav { align-items: center; display: flex; gap: 12px; justify-content: space-between; margin-top: 26px; }
+    .step-btn { background: var(--navy); border: none; border-radius: var(--radius); color: #fff; cursor: pointer; font-family: Commissioner, sans-serif; font-size: 15px; font-weight: 700; padding: 13px 28px; transition: background .15s; }
+    .step-btn:hover { background: var(--navy-deep); }
+    .step-btn.back { background: transparent; border: 1.5px solid var(--line); color: var(--muted); }
+    .step-btn.back:hover { border-color: var(--navy); color: var(--navy); }
+    .step-err { color: var(--danger); font-size: 13px; min-height: 18px; text-align: right; }
     @media (max-width: 780px) {
       .hero { min-height: auto; padding-top: 44px; }
       .hero-grid, .three { grid-template-columns: 1fr; }
@@ -409,49 +423,21 @@
 
   <section class="band" id="quiz">
     <div class="narrow">
-      <div class="eyebrow" style="color:var(--teal)">Το quiz είναι μόνο για τον δικό σας έλεγχο - οι απαντήσεις δεν κοινοποιούνται πουθενά, δεσμευόμαστε γι’ αυτό</div>
+      <div class="eyebrow" style="color:var(--teal)">Δωρεάν — οι απαντήσεις δεν κοινοποιούνται πουθενά</div>
       <h2>Σύντομο διαγνωστικό πριν τον έλεγχο</h2>
-      <p class="muted"><strong>Το διαγνωστικό είναι δωρεάν και δεν σας δεσμεύει σε τίποτα.</strong> Ο πληρωμένος έλεγχος είναι ξεχωριστό, επόμενο βήμα — και θα το ξέρετε πριν αποφασίσετε.</p>
-      <p class="muted">Οι απαντήσεις σας βοηθούν τον έλεγχο να ξεκινήσει από τα σημεία που μετράνε για τη δική σας περίπτωση. Χρειαζόμαστε τουλάχιστον 10 απαντήσεις για να βγει ουσία.</p>
+      <p class="muted"><strong>Δεν σας δεσμεύει σε τίποτα.</strong> Ο πληρωμένος έλεγχος είναι ξεχωριστό, επόμενο βήμα — και θα το ξέρετε πριν αποφασίσετε.</p>
     </div>
   </section>
 
   <div class="progress"><div class="pwrap">
     <div class="pbar"><div class="pfill" id="pfill"></div></div>
-    <div class="plabel" id="plabel">0 / 18</div>
+    <div class="plabel" id="plabel">Ερώτηση 1 / 18</div>
   </div></div>
 
   <div class="narrow" style="padding:0 20px 80px">
     <form id="quizForm" novalidate>
       <input type="text" name="company_url_hp" class="honey" tabindex="-1" autocomplete="off">
-
-      <div class="section">
-        <div class="stag"><span class="snum">Α</span><span class="stitle">Στοιχεία επιχείρησης</span></div>
-        <div class="swhy">Γιατί: για να δούμε το site σας πριν μιλήσουμε και να σας απαντήσουμε προσωπικά.</div>
-        <div class="q"><div class="grid">
-          <div class="field"><label for="c_business">Όνομα επιχείρησης <span class="req">*</span></label><input type="text" id="c_business" autocomplete="organization"></div>
-          <div class="field"><label for="c_website">Website <span class="req">*</span></label><input type="url" id="c_website" placeholder="https://..." autocomplete="url"></div>
-          <div class="field"><label for="c_name">Ονοματεπώνυμο <span class="req">*</span></label><input type="text" id="c_name" autocomplete="name"></div>
-          <div class="field"><label for="c_role">Ρόλος στην επιχείρηση</label><input type="text" id="c_role" placeholder="π.χ. ιδιοκτήτης, διευθυντής"></div>
-          <div class="field"><label for="c_email">Email <span class="req">*</span></label><input type="email" id="c_email" autocomplete="email"></div>
-          <div class="field"><label for="c_email_confirm">Επιβεβαίωση email <span class="req">*</span></label><input type="email" id="c_email_confirm" autocomplete="email"><span class="field-note">Το γράφετε δεύτερη φορά για να πιάσουμε λάθη πληκτρολόγησης.</span></div>
-          <div class="field"><label for="c_phone">Τηλέφωνο</label><input type="tel" id="c_phone" autocomplete="tel"></div>
-          <div class="field" style="grid-column:1/-1"><label for="c_industry">Κλάδος</label><input type="text" id="c_industry" placeholder="π.χ. συμβουλευτική, εστίαση, e-shop"></div>
-        </div></div>
-      </div>
-
-      <div id="sections"></div>
-
-      <label class="consent" id="consentbox">
-        <input type="checkbox" id="consent">
-        <span>Συναινώ στην επεξεργασία των στοιχείων μου από την AI Revenue αποκλειστικά για την προετοιμασία του διαγνωστικού/ελέγχου και τη σχετική επικοινωνία. Τα στοιχεία δεν κοινοποιούνται σε τρίτους και μπορώ να ζητήσω τη διαγραφή τους οποτεδήποτε. <span class="req">*</span></span>
-      </label>
-
-      <div class="submitrow">
-        <button type="submit" class="submit" id="submitbtn">Στείλτε το διαγνωστικό</button>
-        <div class="formerr" id="formerr"></div>
-        <div class="privacy-note">Θα λάβετε απάντηση εντός 1-2 εργάσιμων ημερών. Τα στοιχεία κρατούνται έως 24 μήνες ή διαγράφονται νωρίτερα αν το ζητήσετε.</div>
-      </div>
+      <div id="stepContainer"></div>
     </form>
 
     <div class="success" id="success">
@@ -481,11 +467,13 @@
   </footer>
 
   <script>
-    const CONFIG = {
-      endpoint: "/api/intake",
-      analyticsEndpoint: "/api/analytics",
-      source: "intake-landing-v2"
-    };
+    const CONFIG = { endpoint: "/api/intake", analyticsEndpoint: "/api/analytics", source: "intake-landing-v2" };
+
+    const STAT_HOOKS = [
+      { afterQ: "q2",  label: "ΉΞΕΡΕΣ;", stat: "8 στις 10 ελληνικές επιχειρήσεις δεν εμφανίζονται όταν κάποιος ρωτάει το ChatGPT για την υπηρεσία τους.", sub: "Η ορατότητα σε AI search είναι ο νέος πρώτος εντυπωσιασμός — και δεν τη μετράει σχεδόν κανείς." },
+      { afterQ: "q8",  label: "ΉΞΕΡΕΣ;", stat: "Το 40% των αναζητήσεων απαντιέται πλέον από AI χωρίς ο χρήστης να κάνει κλικ σε κανένα site.", sub: "Αν δεν εμφανίζεστε στις AI απαντήσεις, χάνεστε πριν καν σας βρουν." },
+      { afterQ: "q11", label: "ΉΞΕΡΕΣ;", stat: "Οι επιχειρήσεις που εμφανίζονται στο AI search κλείνουν leads χωρίς να πληρώνουν για ads.", sub: "Ξέρετε αν η δική σας εμφανίζεται;" }
+    ];
 
     const QUESTION_SECTIONS = [
       { key: "B", title: "Τι πουλάτε", why: "Γιατί: καθορίζει ποια υπηρεσία είναι το πρώτο εμπορικό μονοπάτι του ελέγχου.", questions: [
@@ -522,21 +510,166 @@
     const state = {};
     const sessionId = getSessionId();
     let quizStartTracked = false;
-    const sectionsRoot = document.getElementById("sections");
+    let currentStep = 0;
 
     trackEvent("page_view");
 
-    QUESTION_SECTIONS.forEach((section) => {
-      const sectionEl = document.createElement("div");
-      sectionEl.className = "section";
-      sectionEl.innerHTML = `<div class="stag"><span class="snum">${section.key}</span><span class="stitle">${escapeHtml(section.title)}</span></div><div class="swhy">${escapeHtml(section.why)}</div>`;
-      section.questions.forEach((q, index) => sectionEl.appendChild(questionCard(q, index)));
-      sectionsRoot.appendChild(sectionEl);
+    // Build flat steps: questions + stat-hooks interleaved + contact at end
+    const hookMap = Object.fromEntries(STAT_HOOKS.map(h => [h.afterQ, h]));
+    const STEPS = [];
+    QUESTION_SECTIONS.forEach(section => {
+      section.questions.forEach(q => {
+        state[q[0]] = { choices: [], other: "" };
+        STEPS.push({ type: "question", q, section });
+        if (hookMap[q[0]]) STEPS.push({ type: "hook", ...hookMap[q[0]] });
+      });
     });
+    STEPS.push({ type: "contact" });
+
+    const container = document.getElementById("stepContainer");
+
+    STEPS.forEach((step, index) => {
+      const card = document.createElement("div");
+      card.className = "step-card" + (index === 0 ? " active" : "");
+      card.dataset.step = String(index);
+
+      if (step.type === "question") {
+        card.appendChild(questionCard(step.q));
+        card.appendChild(buildNav(index));
+      } else if (step.type === "hook") {
+        card.classList.add("hook-card");
+        const inner = document.createElement("div");
+        inner.innerHTML = `<div class="hook-label">${escapeHtml(step.label)}</div><div class="hook-stat">${escapeHtml(step.stat)}</div><div class="hook-sub">${escapeHtml(step.sub)}</div>`;
+        card.appendChild(inner);
+        card.appendChild(buildNav(index));
+      } else {
+        card.appendChild(buildContactSection());
+        card.appendChild(buildConsentBox());
+        card.appendChild(buildSubmitRow(index));
+      }
+
+      container.appendChild(card);
+    });
+
+    updateProgress();
+
+    function buildNav(index) {
+      const isFirst = index === 0;
+      const nav = document.createElement("div");
+      nav.className = "step-nav";
+      nav.innerHTML = `
+        <button type="button" class="step-btn back" data-back="${index}"${isFirst ? ' style="visibility:hidden"' : ''}>← Πίσω</button>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+          <span class="step-err" id="step-err-${index}"></span>
+          <button type="button" class="step-btn next" data-next="${index}">Επόμενο →</button>
+        </div>
+      `;
+      return nav;
+    }
+
+    function buildContactSection() {
+      const div = document.createElement("div");
+      div.className = "section";
+      div.innerHTML = `
+        <div class="stag"><span class="snum">Α</span><span class="stitle">Στοιχεία επιχείρησης</span></div>
+        <div class="swhy">Γιατί: για να δούμε το site σας πριν μιλήσουμε και να σας απαντήσουμε προσωπικά.</div>
+        <div class="q"><div class="grid">
+          <div class="field"><label for="c_business">Όνομα επιχείρησης <span class="req">*</span></label><input type="text" id="c_business" autocomplete="organization"></div>
+          <div class="field"><label for="c_website">Website <span class="req">*</span></label><input type="url" id="c_website" placeholder="https://..." autocomplete="url"></div>
+          <div class="field"><label for="c_name">Ονοματεπώνυμο <span class="req">*</span></label><input type="text" id="c_name" autocomplete="name"></div>
+          <div class="field"><label for="c_role">Ρόλος στην επιχείρηση</label><input type="text" id="c_role" placeholder="π.χ. ιδιοκτήτης, διευθυντής"></div>
+          <div class="field"><label for="c_email">Email <span class="req">*</span></label><input type="email" id="c_email" autocomplete="email"></div>
+          <div class="field"><label for="c_email_confirm">Επιβεβαίωση email <span class="req">*</span></label><input type="email" id="c_email_confirm" autocomplete="email"><span class="field-note">Το γράφετε δεύτερη φορά για να πιάσουμε λάθη πληκτρολόγησης.</span></div>
+          <div class="field"><label for="c_phone">Τηλέφωνο</label><input type="tel" id="c_phone" autocomplete="tel"></div>
+          <div class="field" style="grid-column:1/-1"><label for="c_industry">Κλάδος</label><input type="text" id="c_industry" placeholder="π.χ. συμβουλευτική, εστίαση, e-shop"></div>
+        </div></div>
+      `;
+      return div;
+    }
+
+    function buildConsentBox() {
+      const label = document.createElement("label");
+      label.className = "consent";
+      label.id = "consentbox";
+      label.innerHTML = `<input type="checkbox" id="consent"><span>Συναινώ στην επεξεργασία των στοιχείων μου από την AI Revenue αποκλειστικά για την προετοιμασία του διαγνωστικού/ελέγχου και τη σχετική επικοινωνία. Τα στοιχεία δεν κοινοποιούνται σε τρίτους και μπορώ να ζητήσω τη διαγραφή τους οποτεδήποτε. <span class="req">*</span></span>`;
+      return label;
+    }
+
+    function buildSubmitRow(index) {
+      const div = document.createElement("div");
+      div.className = "submitrow";
+      div.innerHTML = `
+        <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:22px">
+          <button type="button" class="step-btn back" data-back="${index}">← Πίσω</button>
+          <button type="submit" class="submit" id="submitbtn">Στείλτε το διαγνωστικό</button>
+        </div>
+        <div class="formerr" id="formerr"></div>
+        <div class="privacy-note" style="margin-top:12px">Θα λάβετε απάντηση εντός 1-2 εργάσιμων ημερών. Τα στοιχεία κρατούνται έως 24 μήνες ή διαγράφονται νωρίτερα αν το ζητήσετε.</div>
+      `;
+      return div;
+    }
+
+    // Event delegation for Next/Back
+    container.addEventListener("click", (e) => {
+      const nextBtn = e.target.closest("[data-next]");
+      const backBtn = e.target.closest("[data-back]");
+      if (nextBtn) goNext(parseInt(nextBtn.dataset.next, 10));
+      else if (backBtn) goStep(parseInt(backBtn.dataset.back, 10) - 1);
+    });
+
+    function goNext(index) {
+      const step = STEPS[index];
+      if (step.type === "question") {
+        const qid = step.q[0];
+        if (state[qid].choices.length === 0 && !state[qid].other) {
+          const err = document.getElementById("step-err-" + index);
+          if (err) err.textContent = "Επιλέξτε μία απάντηση για να συνεχίσετε.";
+          return;
+        }
+      }
+      const err = document.getElementById("step-err-" + index);
+      if (err) err.textContent = "";
+      goStep(index + 1);
+    }
+
+    function goStep(index) {
+      if (index < 0 || index >= STEPS.length) return;
+      document.querySelector(`.step-card[data-step="${currentStep}"]`)?.classList.remove("active");
+      currentStep = index;
+      const next = document.querySelector(`.step-card[data-step="${currentStep}"]`);
+      if (next) next.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      updateProgress();
+      trackQuizStart();
+    }
+
+    function updateProgress() {
+      const questionSteps = STEPS.filter(s => s.type === "question");
+      const answeredCount = questionSteps.filter(s => {
+        const d = state[s.q[0]];
+        return d && (d.choices.length > 0 || d.other);
+      }).length;
+      const cur = STEPS[currentStep];
+      let label = "Τελευταίο βήμα";
+      if (cur.type === "question") {
+        const qNum = questionSteps.findIndex(s => s.q[0] === cur.q[0]) + 1;
+        label = `Ερώτηση ${qNum} / ${TOTAL}`;
+      } else if (cur.type === "hook") {
+        for (let i = currentStep - 1; i >= 0; i--) {
+          if (STEPS[i].type === "question") {
+            const qNum = questionSteps.findIndex(s => s.q[0] === STEPS[i].q[0]) + 1;
+            label = `Ερώτηση ${qNum} / ${TOTAL}`;
+            break;
+          }
+        }
+      }
+      document.getElementById("pfill").style.width = (answeredCount / TOTAL * 100) + "%";
+      document.getElementById("plabel").textContent = label;
+    }
 
     function questionCard(q) {
       const [id, title, hint, type, max, options, hasOther] = q;
-      state[id] = { choices: [], other: "" };
+      // state already initialized during STEPS construction
       const card = document.createElement("div");
       card.className = "q";
       card.dataset.q = id;
@@ -550,7 +683,7 @@
       options.forEach((label) => wrap.appendChild(optionButton(id, card, label, type, max)));
       if (hasOther) wrap.appendChild(optionButton(id, card, "Άλλο", type, max, true));
       const otherInput = card.querySelector(".otherwrap input, .otherwrap textarea");
-      if (otherInput) otherInput.addEventListener("input", (event) => { state[id].other = event.target.value.trim(); progress(); });
+      if (otherInput) otherInput.addEventListener("input", (event) => { state[id].other = event.target.value.trim(); updateProgress(); });
       return card;
     }
 
@@ -585,13 +718,7 @@
         if (btn.classList.contains("sel")) other.querySelector("input, textarea")?.focus();
       }
       card.classList.toggle("answered", s.choices.length > 0 || !!s.other);
-      progress();
-    }
-
-    function progress() {
-      const done = Object.values(state).filter((s) => s.choices.length > 0 || s.other).length;
-      document.getElementById("pfill").style.width = (done / TOTAL * 100) + "%";
-      document.getElementById("plabel").textContent = done + " / " + TOTAL;
+      updateProgress();
     }
 
     document.getElementById("quizForm").addEventListener("submit", async (event) => {
@@ -622,9 +749,8 @@
       document.getElementById("c_email_confirm").classList.toggle("err", bad || emailMismatch);
       const consent = document.getElementById("consent").checked;
       document.getElementById("consentbox").classList.toggle("err", !consent);
-      const answered = Object.values(state).filter((s) => s.choices.length > 0 || s.other).length;
-      if (bad || emailMismatch || !consent || answered < 10) {
-        err.textContent = !consent ? "Χρειάζεται η συγκατάθεση για να προχωρήσουμε." : bad ? "Συμπληρώστε τα υποχρεωτικά στοιχεία (επιχείρηση, website, όνομα, email και επιβεβαίωση email)." : emailMismatch ? "Τα δύο email δεν ταιριάζουν. Ελέγξτε τα πριν στείλετε τη φόρμα." : "Απαντήστε τουλάχιστον 10 ερωτήσεις για να έχει αξία το διαγνωστικό (" + answered + "/10).";
+      if (bad || emailMismatch || !consent) {
+        err.textContent = !consent ? "Χρειάζεται η συγκατάθεση για να προχωρήσουμε." : bad ? "Συμπληρώστε τα υποχρεωτικά στοιχεία (επιχείρηση, website, όνομα, email και επιβεβαίωση email)." : "Τα δύο email δεν ταιριάζουν. Ελέγξτε τα πριν στείλετε τη φόρμα.";
         err.classList.add("show");
         err.scrollIntoView({ block: "center" });
         return;
@@ -673,7 +799,7 @@
           return;
         }
       }
-      document.getElementById("quizForm").style.display = "none";
+      document.getElementById("stepContainer").style.display = "none";
       document.querySelector(".progress").style.display = "none";
       document.getElementById("success").classList.add("show");
       showInstantScore(visibilityScore);
