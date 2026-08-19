@@ -5,8 +5,8 @@
 
 export const SITE = {
   name: "Oksyderkeis",
-  domain: process.env.SITE_DOMAIN || "oksyderkeis.vercel.app",
-  url: process.env.SITE_URL || "https://oksyderkeis.vercel.app",
+  domain: process.env.SITE_DOMAIN || "oksyderkeis.com",
+  url: process.env.SITE_URL || "https://oksyderkeis.com",
   defaultOgImage: "/og-image.png", // TODO: ανέβασε 1200x630 στο /public
   locale: "el_GR",
 };
@@ -49,7 +49,6 @@ export const MONEY_OS = {
     ["📕", "PDF workbook", "Βήμα-βήμα οδηγός για να στήσεις το σύστημα από το μηδέν."],
     ["🗓️", "7ήμερο πλάνο setup", "Ένα μικρό βήμα τη μέρα — σε μία εβδομάδα είσαι έτοιμος."],
     ["✅", "Investing readiness checklist", "Δες αν είσαι πραγματικά έτοιμος να επενδύσεις — πριν βάλεις ευρώ."],
-    ["🎬", "Mini video walkthroughs", "Σύντομα βίντεο που σε καθοδηγούν σε κάθε κομμάτι."],
   ],
 } as const;
 
@@ -73,7 +72,7 @@ export const SOCIAL = {
 };
 
 export const ANALYTICS = {
-  plausibleDomain: "", // βάλε domain όταν υπάρχει (Φάση 2)
+  plausibleDomain: "", // βάλε domain όταν ενεργοποιηθεί Plausible
   ga4Id: "",
 };
 
@@ -81,25 +80,30 @@ export const LEGAL = {
   privacyUrl: "/privacy", // ✓ σελίδα privacy (παραδίδω εγώ)
 };
 
+export const GUIDES = {
+  freedom24Pdf: "/freedom24-odigos-oksyderkeis.pdf",
+};
+
 /**
  * Affiliate offers — ✓ links από την περιγραφή YouTube.
  * ΣΗΜΕΙΩΣΗ COMPLIANCE:
- *  - eToro: approval Lucia ΠΡΙΝ live (pending).
+ *  - eToro: approval Lucia confirmed 2026-07-15. Greek disclaimer is enough.
  *  - Scramble: approval Κασσιανή ΠΡΙΝ live (pending).
- *  - Freedom24: διατύπωση «έως 20 δωρεάν μετοχές, κλιμακωτά».
+ *  - Freedom24: welcome bonus wording only. No "δώρο"/"δωρεάν μετοχές" framing.
  */
 export const AFFILIATES = [
   {
     name: "Freedom24",
     blurb: "Επενδύσεις σε ETFs, μετοχές & ομόλογα.",
-    offer: "Έως 20 δωρεάν μετοχές, κλιμακωτά ανάλογα με την κατάθεση (έως 30.06.2026, μόνο ΕΕ). Υπόκειται σε όρους· κεφάλαιο σε κίνδυνο.",
+    offer: "Welcome bonus: έως 20 μετοχές αξίας έως $800 η καθεμία με την πρώτη σου κατάθεση — μόνο μέσω του link. Ισχύει για περιορισμένο διάστημα· δες τους όρους στο link. Κεφάλαιο σε κίνδυνο.",
     url: "https://tinyurl.com/3khcendc",
   },
   {
     name: "eToro",
-    blurb: "Μετοχές, ETFs & crypto με copy trading.",
-    offer: "Δωρεάν trading course αξίας $2,000 για νέους χρήστες. Κεφάλαιο σε κίνδυνο.",
+    blurb: "Μετοχές, ETFs, crypto και copy trading σε μία πλατφόρμα.",
+    offer: "Δωρεάν trading course αξίας $2,000 για νέους χρήστες μέσα από το link μου.",
     url: "https://med.etoro.com/B22184_A128888_TClick.aspx",
+    disclaimer: "Το eToro είναι μια επενδυτική πλατφόρμα πολλαπλών πόρων. Η αξία των επενδύσεών σας μπορεί να αυξηθεί ή να μειωθεί. Το κεφάλαιό σας διατρέχει κίνδυνο.",
   },
   {
     name: "Scramble",

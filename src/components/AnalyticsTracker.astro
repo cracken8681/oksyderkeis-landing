@@ -1,0 +1,118 @@
+---
+---
+
+<script>
+  import { track as vercelTrack } from "@vercel/analytics";
+
+  window.oksyderkeisVercelTrack = function (name, data) {
+    vercelTrack(name, data);
+  };
+</script>
+
+<script is:inline>
+  (function () {
+    var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+    var STORAGE_KEY = "oksyderkeis_attribution";
+
+    function readAttribution() {
+      try {
+        return JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "{}") || {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function writeAttribution(value) {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+      } catch (_) {}
+    }
+
+    function captureLandingAttribution() {
+      var params = new URLSearchParams(window.location.search);
+      var current = readAttribution();
+      var next = Object.assign({}, current);
+      var hasUtm = false;
+
+      UTM_KEYS.forEach(function (key) {
+        var value = params.get(key);
+        if (value) {
+          next[key] = value;
+          hasUtm = true;
+        }
+      });
+
+      if (!next.first_referrer && document.referrer) next.first_referrer = document.referrer;
+      if (!next.first_path) next.first_path = window.location.pathname;
+      if (hasUtm || !current.first_path) {
+        next.last_seen_at = new Date().toISOString();
+        writeAttribution(next);
+      }
+    }
+
+    function textOf(el) {
+      return (el.getAttribute("aria-label") || el.innerText || el.textContent || "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 120);
+    }
+
+    function eventProps(extra) {
+      var attribution = readAttribution();
+      var props = {
+        page: window.location.pathname,
+        url: window.location.href,
+      };
+      UTM_KEYS.forEach(function (key) {
+        if (attribution[key]) props[key] = attribution[key];
+      });
+      if (attribution.first_referrer) props.first_referrer = attribution.first_referrer;
+      return Object.assign(props, extra || {});
+    }
+
+    function track(name, props) {
+      var payload = eventProps(props);
+
+      if (typeof window.plausible === "function") {
+        window.plausible(name, { props: payload });
+      }
+
+      if (typeof window.gtag === "function") {
+        window.gtag("event", name.toLowerCase().replace(/\s+/g, "_"), payload);
+      }
+
+      if (typeof window.oksyderkeisVercelTrack === "function") {
+        window.oksyderkeisVercelTrack(name, {
+          cta: payload.cta || payload.form || "unknown",
+          page: payload.page || "/",
+        });
+      }
+    }
+
+    captureLandingAttribution();
+
+    document.addEventListener("click", function (event) {
+      var link = event.target && event.target.closest ? event.target.closest("a, button, [data-cta]") : null;
+      if (!link) return;
+
+      var href = link.href || link.getAttribute("href") || "";
+      var cta = link.getAttribute("data-cta") || textOf(link) || "unnamed";
+      var isOutbound = href && /^https?:\/\//.test(href) && !href.includes(window.location.host);
+
+      track("CTA Click", {
+        cta: cta,
+        text: textOf(link),
+        href: href,
+        outbound: isOutbound ? "true" : "false",
+      });
+    }, { capture: true });
+
+    document.addEventListener("submit", function (event) {
+      var form = event.target;
+      var inMailerLite = form && form.closest && form.closest(".ml-embedded");
+      track(inMailerLite ? "Email Signup Attempt" : "Form Submit", {
+        form: inMailerLite ? "mailerlite" : (form && (form.id || form.name)) || "unknown",
+      });
+    }, { capture: true });
+  })();
+</script>

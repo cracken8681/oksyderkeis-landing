@@ -1,6 +1,38 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "alias": ["oksyderkeis.vercel.app"],
+  "alias": [
+    "oksyderkeis.vercel.app",
+    "oksyderkeis.com",
+    "www.oksyderkeis.com",
+    "oksyderkeis.net",
+    "www.oksyderkeis.net"
+  ],
+  "redirects": [
+    {
+      "source": "/ai-revenue",
+      "has": [{ "type": "host", "value": "oksyderkeis.net" }],
+      "destination": "https://ai-revenue-intake.vercel.app",
+      "permanent": false
+    },
+    {
+      "source": "/ai-revenue",
+      "has": [{ "type": "host", "value": "www.oksyderkeis.net" }],
+      "destination": "https://ai-revenue-intake.vercel.app",
+      "permanent": false
+    },
+    {
+      "source": "/ai-revenue/:path*",
+      "has": [{ "type": "host", "value": "oksyderkeis.net" }],
+      "destination": "https://ai-revenue-intake.vercel.app",
+      "permanent": false
+    },
+    {
+      "source": "/ai-revenue/:path*",
+      "has": [{ "type": "host", "value": "www.oksyderkeis.net" }],
+      "destination": "https://ai-revenue-intake.vercel.app",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -4,10 +4,10 @@ import Hero from "../components/Hero.astro";
 import TrustStrip from "../components/TrustStrip.astro";
 import ForWhom from "../components/ForWhom.astro";
 import Problem from "../components/Problem.astro";
+import Calculator from "../components/Calculator.astro";
 import MiniAgent from "../components/MiniAgent.astro";
 import EmailSignup from "../components/EmailSignup.astro";
 import MoneyOS from "../components/MoneyOS.astro";
-import AiFollowUp from "../components/AiFollowUp.astro";
 import Lumi from "../components/Lumi.astro";
 import ChannelTopics from "../components/ChannelTopics.astro";
 import LatestVideo from "../components/LatestVideo.astro";
@@ -18,26 +18,63 @@ import Community from "../components/Community.astro";
 import Footer from "../components/Footer.astro";
 import StickyCTA from "../components/StickyCTA.astro";
 import AiAuditBanner from "../components/AiAuditBanner.astro";
+import { AFFILIATES } from "../config";
+const freedom24 = AFFILIATES.find(a => a.name === "Freedom24")!;
 ---
 <Base>
+  <!-- Sticky Freedom24 CTA -->
+  <div id="sticky-f24" class="hidden" aria-label="Άνοιξε λογαριασμό Freedom24">
+    <a
+      href={freedom24.url}
+      target="_blank"
+      rel="noopener sponsored"
+      data-cta="home-sticky-desktop"
+      class="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-center gap-1 rounded-2xl border border-gold-600 bg-navy-900/95 backdrop-blur px-4 py-5 shadow-xl hover:border-gold-400 transition-colors text-center max-w-[120px]"
+    >
+      <span class="text-xl">📈</span>
+      <span class="text-xs font-semibold text-gold-400 leading-tight">Άνοιξε λογαριασμό</span>
+      <span class="text-[10px] text-ink-300 leading-tight">Welcome bonus</span>
+    </a>
+    <a
+      href={freedom24.url}
+      target="_blank"
+      rel="noopener sponsored"
+      data-cta="home-sticky-mobile"
+      class="fixed bottom-0 inset-x-0 z-50 flex lg:hidden items-center justify-center gap-2 bg-gold-500 text-navy-950 font-semibold py-3.5 shadow-lg"
+    >
+      📈 Freedom24 welcome bonus — δες όρους
+    </a>
+  </div>
+
   <main>
     <Hero />
     <TrustStrip />
-    <EmailSignup />
     <Problem />
+    <Calculator />
     <ForWhom />
     <MiniAgent />
-    <AiAuditBanner />
     <MoneyOS />
-    <AiFollowUp />
+    <EmailSignup />
     <Lumi />
     <Faq />
     <ChannelTopics />
     <LatestVideo />
     <AffiliateCard />
     <Community />
+    <AiAuditBanner />
     <FinalCta />
   </main>
   <Footer />
   <StickyCTA />
+  <script is:inline>
+    (function () {
+      const el = document.getElementById("sticky-f24");
+      if (!el) return;
+      function check() {
+        if (window.scrollY > 400) el.classList.remove("hidden");
+        else el.classList.add("hidden");
+      }
+      window.addEventListener("scroll", check, { passive: true });
+    })();
+  </script>
 </Base>

@@ -1,22 +1,25 @@
 ---
 import "../styles/global.css";
 import { SITE, ANALYTICS, MAILERLITE } from "../config";
+import AnalyticsTracker from "../components/AnalyticsTracker.astro";
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  jsonLd?: unknown[];
 }
 const {
   title = "Oksyderkeis — Δες τα χρήματά σου πιο καθαρά",
-  description = "Οικονομική παιδεία χωρίς θόρυβο, χωρίς υπερβολές. Επενδύσεις, προσωπικά οικονομικά και χρήσιμα δωρεάν εργαλεία — σε απλά ελληνικά.",
+  description = "Οικονομική παιδεία με πρακτικά εργαλεία. Επενδύσεις, προσωπικά οικονομικά και δωρεάν βοηθοί — σε απλά ελληνικά.",
   ogImage = SITE.defaultOgImage,
+  jsonLd: pageJsonLd = [],
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
 const ogImageAbs = new URL(ogImage, SITE.url).toString();
 const isHome = Astro.url.pathname === "/";
-const jsonLd = isHome
+const baseJsonLd = isHome
   ? [
       {
         "@context": "https://schema.org",
@@ -67,6 +70,7 @@ const jsonLd = isHome
       },
     ]
   : [];
+const jsonLd = [...baseJsonLd, ...pageJsonLd];
 ---
 
 <!doctype html>
@@ -77,11 +81,10 @@ const jsonLd = isHome
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" />
     {jsonLd.length > 0 && (
-      <script type="application/ld+json" is:inline>
-        {JSON.stringify(jsonLd)}
-      </script>
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
 
     <!-- Open Graph (preview σε Telegram / social) -->
@@ -106,8 +109,8 @@ const jsonLd = isHome
     />
 
     <!-- Analytics: Plausible (cookieless, χωρίς GDPR banner)
-         Ενεργοποίηση: plausible.io → New Site → domain: oksyderkeis.vercel.app
-         Μετά βάλε στο config.ts: plausibleDomain: "oksyderkeis.vercel.app"
+         Ενεργοποίηση: plausible.io → New Site → domain: oksyderkeis.com
+         Μετά βάλε στο config.ts: plausibleDomain: "oksyderkeis.com"
     -->
     {ANALYTICS.plausibleDomain && (
       <script
@@ -143,6 +146,7 @@ const jsonLd = isHome
   </head>
   <body>
     <slot />
+    <AnalyticsTracker />
     <script is:inline>
       // Ελαφρύ scroll-reveal — χωρίς βιβλιοθήκες. Αν το JS αποτύχει, όλα φαίνονται.
       (function () {

@@ -8,7 +8,7 @@ const pageUrl = `${SITE.url}/ai-audit`;
 
 const faqItems = [
   {
-    question: "Τι είναι AI Visibility Audit;",
+    question: "Τι είναι AI Visibility Diagnostic;",
     answer:
       "Είναι έλεγχος του πώς εμφανίζεται και πώς καταλαβαίνεται η επιχείρησή σου από ανθρώπους, Google και εργαλεία AI όπως ChatGPT ή Perplexity.",
   },
@@ -43,8 +43,8 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "AI Visibility Audit για επιχειρήσεις στην Ελλάδα",
-    serviceType: "AI Visibility Audit",
+    name: "AI Visibility Diagnostic για επιχειρήσεις στην Ελλάδα",
+    serviceType: "AI Visibility Diagnostic",
     provider: {
       "@type": "Organization",
       name: "Oksyderkeis",
@@ -57,22 +57,32 @@ const jsonLd = [
     offers: [
       {
         "@type": "Offer",
-        name: "AI Visibility Audit",
+        name: "AI Visibility Diagnostic",
         price: "349",
         priceCurrency: "EUR",
+        description: "Πρώτη μέτρηση ορατότητας με τουλάχιστον 3 ευρήματα ή επιστροφή χρημάτων.",
         url: quizUrl,
       },
       {
         "@type": "Offer",
-        name: "Implementation Sprint",
-        price: "1290",
+        name: "AI Visibility Deep Audit",
+        price: "790",
         priceCurrency: "EUR",
+        description: "Βαθύς έλεγχος με χάρτη ερωτημάτων αγοραστή, ανάλυση ανταγωνιστών, citations και roadmap 30/60/90 ημερών.",
+        url: quizUrl,
+      },
+      {
+        "@type": "Offer",
+        name: "AI Visibility Implementation Sprint",
+        price: "1790",
+        priceCurrency: "EUR",
+        description: "Πλήρης υλοποίηση αλλαγών με σειρά προτεραιότητας.",
         url: quizUrl,
       },
       {
         "@type": "Offer",
         name: "AI Visibility Monitoring",
-        price: "250",
+        price: "290",
         priceCurrency: "EUR",
         description: "Μηνιαία παρακολούθηση ορατότητας, αναφορά και προτεραιότητες.",
         url: quizUrl,
@@ -95,7 +105,7 @@ const jsonLd = [
 ---
 
 <Base
-  title="AI Visibility Audit για επιχειρήσεις στην Ελλάδα | Oksyderkeis"
+  title="AI Visibility Diagnostic για επιχειρήσεις στην Ελλάδα | Oksyderkeis"
   description="Έλεγχος ορατότητας σε Google και AI για επιχειρήσεις στην Ελλάδα που θέλουν καθαρό site, εμπιστοσύνη και περισσότερα σωστά αιτήματα."
   jsonLd={jsonLd}
 >
@@ -104,7 +114,7 @@ const jsonLd = [
       <div class="shell hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">AI Revenue by Oksyderkeis</p>
-          <h1>AI Visibility Audit για ελληνικές επιχειρήσεις που θέλουν να εμφανίζονται σωστά σε Google και AI απαντήσεις</h1>
+          <h1>AI Visibility Diagnostic για ελληνικές επιχειρήσεις που θέλουν να εμφανίζονται σωστά σε Google και AI απαντήσεις</h1>
           <p class="subtitle">
             Ελέγχουμε τι βλέπει ο πελάτης, τι διαβάζουν τα εργαλεία AI από πίσω και πού χάνεται η διαδρομή προς την επικοινωνία.
           </p>
@@ -114,7 +124,7 @@ const jsonLd = [
           </div>
           <dl class="hero-facts" aria-label="Βασικά στοιχεία υπηρεσίας">
             <div>
-              <dt>Audit</dt>
+              <dt>Diagnostic</dt>
               <dd>349€ + ΦΠΑ</dd>
             </div>
             <div>
@@ -251,26 +261,40 @@ const jsonLd = [
         <div class="section-heading">
           <p class="eyebrow">Πακέτα</p>
           <h2>Ξεκινάμε με διάγνωση, όχι με τυφλή υλοποίηση</h2>
-          <p>Το ερωτηματολόγιο δείχνει αν υπάρχει πραγματικός λόγος να προχωρήσουμε. Ο πληρωμένος έλεγχος δίνει την πρώτη μέτρηση. Η υλοποίηση έρχεται μόνο όταν έχει νόημα.</p>
+          <p>Από πρώτη μέτρηση ορατότητας ως βαθύ έλεγχο, υλοποίηση και συνεχή παρακολούθηση — κάθε βήμα ανοίγει μόνο όταν έχει νόημα.</p>
         </div>
         <div class="pricing-grid">
           <article class="pricing-card featured">
             <p class="pricing-label">Πρώτη μέτρηση</p>
-            <h3>AI Visibility Audit</h3>
+            <h3>AI Visibility Diagnostic</h3>
             <p class="price">349€ <span>+ ΦΠΑ</span></p>
             <ul>
-              <li>Έλεγχος site και πρότασης</li>
-              <li>Έλεγχοι ορατότητας σε Google και AI</li>
+              <li>Έλεγχος site, πρότασης και ορατότητας σε Google και AI</li>
               <li>Ευρήματα για τη διαδρομή προς την επικοινωνία</li>
+              <li>Πού χάνεις σε σχέση με ανταγωνιστές</li>
               <li>3+ χρήσιμα ευρήματα ή επιστροφή χρημάτων</li>
             </ul>
-            <a href={quizUrl} class="cta-btn" data-cta="ai-audit-pricing-audit">Ξεκίνα με το ερωτηματολόγιο</a>
+            <a href={quizUrl} class="cta-btn" data-cta="ai-audit-pricing-diagnostic">Ξεκίνα με το ερωτηματολόγιο</a>
+          </article>
+          <article class="pricing-card">
+            <p class="pricing-label">Βαθύς έλεγχος</p>
+            <h3>AI Visibility Deep Audit</h3>
+            <p class="price">790€ <span>+ ΦΠΑ</span></p>
+            <ul>
+              <li>Χάρτης ερωτημάτων αγοραστή (buyer-intent queries)</li>
+              <li>Baseline σε ChatGPT, Google AI, Perplexity</li>
+              <li>Ανάλυση share-of-voice ανταγωνιστών</li>
+              <li>Έλεγχος citations, entity, τεχνικής αναγνωσιμότητας</li>
+              <li>Roadmap προτεραιοτήτων 30/60/90 ημερών</li>
+            </ul>
+            <p class="card-note">Για επιχειρήσεις που χρειάζονται αξιόπιστη βάση πριν υλοποιήσουν.</p>
           </article>
           <article class="pricing-card">
             <p class="pricing-label">Υλοποίηση</p>
-            <h3>Visibility Sprint</h3>
-            <p class="price">1.290€</p>
+            <h3>AI Visibility Implementation Sprint</h3>
+            <p class="price">από 1.790€ <span>+ ΦΠΑ</span></p>
             <ul>
+              <li>Αναλαμβάνουμε την πλήρη υλοποίηση των αλλαγών</li>
               <li>Διορθώσεις με σειρά προτεραιότητας</li>
               <li>Αναδιάρθρωση σελίδων και κειμένων</li>
               <li>Δομημένα δεδομένα, ερωτήσεις-απαντήσεις, κείμενα</li>
@@ -281,9 +305,9 @@ const jsonLd = [
           <article class="pricing-card">
             <p class="pricing-label">Συνεχής παρακολούθηση</p>
             <h3>AI Visibility Monitoring</h3>
-            <p class="price">250€ <span>+ ΦΠΑ / μήνα</span></p>
+            <p class="price">290€ <span>+ ΦΠΑ / μήνα</span></p>
             <ul>
-              <li>Μηνιαίος έλεγχος ορατότητας</li>
+              <li>Μηνιαίος έλεγχος ορατότητας σε Google και AI</li>
               <li>Νέες ερωτήσεις που αξίζει να καλυφθούν</li>
               <li>Προτεραιότητες σε κείμενα και επικοινωνία</li>
               <li>Μηνιαία αναφορά</li>
@@ -693,7 +717,7 @@ const jsonLd = [
 
   .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
   }
 
@@ -796,9 +820,12 @@ const jsonLd = [
   @media (max-width: 900px) {
     .hero-grid,
     .answer-grid,
-    .boundary-grid,
-    .pricing-grid {
+    .boundary-grid {
       grid-template-columns: 1fr;
+    }
+
+    .pricing-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .report-grid,
@@ -818,7 +845,8 @@ const jsonLd = [
 
     .hero-facts,
     .report-grid,
-    .steps {
+    .steps,
+    .pricing-grid {
       grid-template-columns: 1fr;
     }
 

@@ -1,5 +1,7 @@
 ---
-import { AFFILIATES } from "../config";
+import { AFFILIATES, GUIDES } from "../config";
+const freedom24 = AFFILIATES.find((a) => a.name === "Freedom24");
+const freedom24Pdf = GUIDES.freedom24Pdf;
 ---
 <section id="affiliates" class="section-shell">
   <div class="max-w-4xl mx-auto">
@@ -30,9 +32,44 @@ import { AFFILIATES } from "../config";
               </div>
               <p class="mt-1 text-sm text-ink-300">{a.blurb}</p>
               <p class="mt-1 text-sm text-gold-400/90">{a.offer}</p>
+              {"disclaimer" in a && a.disclaimer && (
+                <p class="mt-2 text-xs text-ink-500 leading-relaxed">{a.disclaimer}</p>
+              )}
             </div>
           ))}
         </div>
+
+        {freedom24 && freedom24Pdf && (
+          <div class="mt-6 rounded-[1.5rem] border border-gold-500/20 bg-gold-500/8 p-5">
+            <p class="font-display text-xl text-ink-100">Θες τον οδηγό Freedom24 βήμα-βήμα;</p>
+            <p class="mt-2 text-sm leading-relaxed text-ink-300">
+              Κράτα το βασικό CTA για εγγραφή. Αν πρώτα θες να δεις τη διαδικασία, κατέβασε τον σύντομο οδηγό.
+            </p>
+            <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
+              <a
+                href={freedom24.url}
+                target="_blank"
+                rel="noopener sponsored"
+                data-cta="home-freedom24-main"
+                class="inline-flex items-center justify-center rounded-full bg-gold-500 px-6 py-3 font-semibold text-navy-950 transition-colors hover:bg-gold-400"
+              >
+                Άνοιξε λογαριασμό →
+              </a>
+              <div class="flex flex-col items-start">
+                <a
+                  href={freedom24Pdf}
+                  target="_blank"
+                  rel="noopener"
+                  data-cta="freedom24-pdf"
+                  class="inline-flex items-center justify-center rounded-full border border-gold-600 px-6 py-3 font-semibold text-gold-300 transition-colors hover:border-gold-400 hover:text-gold-400"
+                >
+                  📄 Κατέβασε τον οδηγό
+                </a>
+                <p class="mt-2 text-xs text-ink-500">PDF · 6 σελίδες · βήμα-βήμα, χωρίς email</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         <p class="mt-6 text-xs text-ink-500 leading-relaxed border-t border-navy-800 pt-4">
           Τα παραπάνω είναι affiliate links — μπορεί να λάβω προμήθεια χωρίς κόστος για σένα.
