@@ -4,7 +4,7 @@ import { YOUTUBE } from "../config";
 // Build-time fetch του τελευταίου βίντεο μέσω YouTube RSS.
 // Ανανεώνεται σε κάθε build/deploy (βλ. README: Vercel deploy hook / cron για auto-update).
 // Fallback: latest known video (updated on each deploy via vidIQ)
-const FALLBACK_VIDEO = { id: "5noSfte3AUo", title: "Η Διαφορά που Δεν Βλέπεις: 0,03% vs 14,49%" };
+const FALLBACK_VIDEO = { id: "Me3GgrGA1sI", title: "Ο Warren Buffett Αποκαλύπτει τα Μυστικά του για την Επιτυχία!" };
 
 let video: { id: string; title: string } | null = null;
 
