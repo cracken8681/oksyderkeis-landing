@@ -4,7 +4,7 @@ import { YOUTUBE } from "../config";
 // Build-time fetch του τελευταίου βίντεο μέσω YouTube RSS.
 // Ανανεώνεται σε κάθε build/deploy (βλ. README: Vercel deploy hook / cron για auto-update).
 // Fallback: latest known video (updated on each deploy via vidIQ)
-const FALLBACK_VIDEO = { id: "VpTx_GKqU68", title: "Η γενιά που κάηκε το '99 | Γιατί οι γονείς μας φοβούνται τις μετοχές?!" };
+const FALLBACK_VIDEO = { id: "NbDdd9e2WYo", title: "Τρικούπης | Τι γράφουν στ' αλήθεια τα πρακτικά της Βουλής για την πτώχευση?!" };
 
 let video: { id: string; title: string } | null = null;
 
